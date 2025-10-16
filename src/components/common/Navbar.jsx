@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import { Link, useLocation } from "react-router-dom";
+import PsychoTalkLogo from "/psychotalk_logo.webp";
 
 const Navbar = ({ hideStartCoding }) => {
   const [open, setOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const location = useLocation(); // Get current route
 
@@ -10,9 +12,26 @@ const Navbar = ({ hideStartCoding }) => {
   const isLoginPage = location.pathname === "/login";
   const isSignUpPage = location.pathname === "/signup";
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <header
-      className={`flex w-full items-center bg-[#21232F] justify-center sticky top-0 z-40 shadow-sm`}
+      className={`flex w-full items-center justify-center sticky top-0 z-40 transition-all duration-300 ${
+        isScrolled
+          ? "bg-white/20 backdrop-blur-md shadow-sm"
+          : "bg-white shadow-none"
+      }`}
     >
       <div className="container px-4">
         <div className="relative flex items-center justify-end">
@@ -20,20 +39,20 @@ const Navbar = ({ hideStartCoding }) => {
             <div className="flex items-center space-x-4">
               <Link to={"/"} aria-label="Go to homepage">
                 <img
-                  src="/SynCodex icon.png"
+                  src={PsychoTalkLogo}
                   alt="icon"
-                  className="w-17 md:hidden"
+                  className="w-24 pointer-events-none"
                 />
               </Link>
               <Link
                 to="/"
-                className="max-md:hidden font-Chakra text-[48px] font-semibold font-gradient"
+                className={"max-md:hidden kanit text-4xl font-gradient"}
               >
-                SynCodex
+                PsychoTalk
               </Link>
             </div>
           </div>
-          <div className="flex w-full items-center justify-around">
+          <div className="flex w-full items-center justify-evenly">
             <div>
               <button
                 type="button"
@@ -53,22 +72,34 @@ const Navbar = ({ hideStartCoding }) => {
               <nav
                 // :className="!navbarOpen && 'hidden' "
                 id="navbarCollapse"
-                className={`absolute right-4 top-full w-full max-w-[250px] rounded-lg py-7 shadow bg-[#21232F] lg:static lg:block lg:w-full lg:max-w-full lg:shadow-none ${
+                className={`absolute right-4 top-full w-full max-w-[250px] bg-transparent py-8 shadow lg:static lg:block lg:w-full lg:max-w-full lg:shadow-none ${
                   !open && "hidden"
                 } `}
               >
-                <div className="flex justify-evenly max-lg:flex-col space-x-8 px-5">
+                <div className="flex justify-evenly max-lg:flex-col space-x-10 px-5">
                   <Link
                     to="/about"
-                    className="text-white text-center text-2xl font-normal font-open-sans"
+                    className="text-black text-center text-xl font-normal font-Roboto"
                   >
                     About Us
                   </Link>
                   <Link
                     to="/contact"
-                    className="text-white text-center text-2xl font-normal font-open-sans"
+                    className="text-black text-center text-xl font-normal font-Roboto"
                   >
                     Contact Us
+                  </Link>
+                  <Link
+                    // to="/contact"
+                    className="text-black text-center text-xl font-normal font-Roboto"
+                  >
+                    Experts
+                  </Link>
+                  <Link
+                    // to="/contact"
+                    className="text-black text-center text-xl font-normal font-Roboto"
+                  >
+                    Options
                   </Link>
                 </div>
               </nav>
@@ -77,10 +108,10 @@ const Navbar = ({ hideStartCoding }) => {
               {!hideStartCoding && (
                 <Link
                   to="/signup"
-                  className="p-[2.5px] min-w-45 text-center text-white text-xl font-bold font-open-sans bg-gradient-to-b from-[#94FFF2] to-[#506DFF] rounded-2xl transition hover:from-[#506DFF] hover:to-[#94fff2] "
+                  className="p-[2.5px] min-w-40 text-center text-white text-lg font-bold font-roboto bg-gradient-to-b from-[#3C9BF9] to-[#9100BD] rounded-full transition hover:from-[#9100BD] hover:to-[#3C9BF9]"
                 >
-                  <div className="bg-[#21232F] max-w-45 py-3 rounded-[calc(16px-2.5px)] xl:py-3 ">
-                    Sign UP
+                  <div className="max-w-45 py-3 rounded-full xl:py-3 ">
+                    Sign Up
                   </div>
                 </Link>
               )}
@@ -88,27 +119,27 @@ const Navbar = ({ hideStartCoding }) => {
               {isLoginPage ? (
                 <Link
                   to="/signup"
-                  className="p-[2.5px] min-w-45 text-center text-white text-xl font-bold font-open-sans bg-gradient-to-b from-[#94FFF2] to-[#506DFF] rounded-2xl transition hover:from-[#506DFF] hover:to-[#94fff2]"
+                  className="p-[2.5px] min-w-40 text-center text-white text-lg font-bold font-roboto bg-gradient-to-b from-[#3C9BF9] to-[#9100BD] rounded-full transition hover:from-[#9100BD] hover:to-[#3C9BF9]"
                 >
-                  <div className="bg-[#21232F] max-w-45 py-3 rounded-[calc(16px-2.5px)] xl:py-3 ">
+                  <div className="max-w-45 py-3 rounded-full xl:py-3 ">
                     Sign Up
                   </div>
                 </Link>
               ) : isSignUpPage ? (
                 <Link
                   to="/login"
-                  className="p-[2.5px] min-w-45 text-center text-white text-xl font-bold font-open-sans bg-gradient-to-b from-[#94FFF2] to-[#506DFF] rounded-2xl transition hover:from-[#506DFF] hover:to-[#94fff2]"
+                  className="p-[2.5px] min-w-40 text-center text-black text-lg font-bold font-roboto bg-gradient-to-b from-[#3C9BF9] to-[#9100BD] rounded-full transition hover:from-[#9100BD] hover:to-[#3C9BF9]"
                 >
-                  <div className="bg-[#21232F] max-w-45 py-3 rounded-[calc(16px-2.5px)] xl:py-3 ">
+                  <div className="bg-[#FFFFFF] max-w-45 py-3 rounded-full xl:py-3 ">
                     Login
                   </div>
                 </Link>
               ) : (
                 <Link
                   to="/login"
-                  className="p-[2.5px] min-w-45 text-center text-white text-xl font-bold font-open-sans bg-gradient-to-b from-[#94FFF2] to-[#506DFF] rounded-2xl transition hover:from-[#506DFF] hover:to-[#94fff2]"
+                  className="p-[2.5px] min-w-40 text-center text-black text-lg font-bold font-roboto bg-gradient-to-b from-[#3C9BF9] to-[#9100BD] rounded-full transition hover:from-[#9100BD] hover:to-[#3C9BF9]"
                 >
-                  <div className="bg-[#21232F] max-w-45 py-3 rounded-[calc(16px-2.5px)] xl:py-3 ">
+                  <div className="bg-[#FFFFFF] max-w-45 py-3 rounded-full xl:py-3 ">
                     Login
                   </div>
                 </Link>
@@ -122,18 +153,3 @@ const Navbar = ({ hideStartCoding }) => {
 };
 
 export default Navbar;
-
-const ListItem = ({ children, NavLink }) => {
-  return (
-    <>
-      <li>
-        <a
-          href={NavLink}
-          className="flex py-2 text-base font-medium text-body-color hover:text-dark dark:text-dark-6 dark:hover:text-white lg:ml-12 lg:inline-flex"
-        >
-          {children}
-        </a>
-      </li>
-    </>
-  );
-};

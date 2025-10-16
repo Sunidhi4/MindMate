@@ -18,10 +18,10 @@ const Scroll = () => {
         top: 0,
         left: 0,
         right: 0,
-        height: 2,
+        height: 5,
         originX: 0,
       }}
-      className="z-50 bg-gradient-to-r from-[#94FFF2] to-[#506DFF]"
+      className="z-50 bg-gradient-to-r from-[#3C9BF9] to-[#9100BD]"
     />
   );
 };

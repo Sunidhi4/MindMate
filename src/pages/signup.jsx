@@ -1,0 +1,174 @@
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import API from "../services/api";;
+import Navbar from "../components/common/Navbar";
+import Footer from "../components/common/Footer";
+import { easeInOut, motion } from "motion/react";
+import Scroll from "../components/scroll";
+import { toast } from "react-toastify";
+
+const SignUP = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+  });
+
+  const navigate = useNavigate();
+
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+  const validateEmail = (email) => emailRegex.test(email);
+  const validatePassword = (password) => passwordRegex.test(password);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!validateEmail(formData.email)) {
+      toast.error("Invalid Email!");
+      return;
+    }
+
+    if (!validatePassword(formData.password)) {
+      toast.error(
+        "Password must be at least 8 characters, with one uppercase, one number, and one special character!"
+      );
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const res = await API.post("/api/auth/register", formData);
+      console.log("User registered:", res.data);
+      toast.success("User registered successfully! Please login.");
+      navigate("/login");
+    } catch (error) {
+      console.error("Registration failed:", error.response?.data || error);
+      toast.error(error.response?.data.message || error);
+    }finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <>
+      <Scroll />
+      <Navbar hideStartCoding={true} />
+
+      <div className="flex items-center justify-center p-10 bg-white text-black">
+        <motion.div
+          initial={{ opacity: 0.4, scale: 0.7 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            duration: 0.5,
+            ease: easeInOut,
+          }}
+        >
+          <div className="w-full max-w-3xl bg-white p-6 rounded-4xl border-2 border-gray-300 shadow-4xl flex flex-col md:flex-row items-center animate-glow transition-all duration-500 hover:border-black">
+            <div className="flex flex-col items-center text-center md:w-1/2 p-6">
+              {/* <img  alt="Secure Sign UP" className="w-50 mb-4" /> */}
+              <h2 className="text-xl font-medium">
+                Join{" "}
+                <span className="font-gradient font-semibold">
+                  PsychoTalk
+                </span>{" "}
+                now.
+              </h2>
+              <p className="text-gray-400 w-78">
+                code smarter, collaborate faster, and innovate together
+                seamlessly
+              </p>
+            </div>
+
+            <div className="md:w-1/2 w-full p-6">
+              <h2 className="text-2xl font-bold mb-4">Sign UP</h2>
+              <form onSubmit={handleSubmit}>
+                <label className="block text-gray-400 text-sm mb-1">
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  name="fullName"
+                  onChange={handleChange}
+                  className={`w-full p-2 rounded-full text-black ring-1 ring-[#3C9BF9] focus:outline-none focus:ring-1 focus:ring-[#9100BD]`}
+                  required
+                />
+
+                <label className="block text-gray-400 text-sm mt-3 mb-1">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  onChange={handleChange}
+                  className={`w-full p-2 rounded-full text-black ring-1 ring-[#3C9BF9] focus:outline-none focus:ring-1 focus:ring-[#9100BD]`}
+                  required
+                />
+
+                <label className="block text-gray-400 text-sm mt-3 mb-1">
+                  Password
+                </label>
+                <div className="relative w-full">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    onChange={handleChange}
+                    className={`w-full p-2 rounded-full text-black ring-1 ring-[#3C9BF9] focus:outline-none focus:ring-1 focus:ring-[#9100BD]`}
+                    required
+                  />
+
+                  <button
+                    type="button"
+                    className="absolute right-3 top-3 text-gray-400 hover:text-gray-600 transition cursor-pointer"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? "show" : "hide"}
+                  </button>
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full mt-6 mb-4 bg-gradient-to-r from-[#3C9BF9] to-[#9100BD] text-white py-2 rounded-full hover:from-[#9100BD] hover:to-[#3C9BF9] cursor-pointer font-bold flex items-center justify-center gap-2 relative"
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <div className="w-5 h-5 border-2 my-0.5 border-white border-t-transparent rounded-full animate-spin"></div>
+                  ) : (
+                    "Register"
+                  )}
+                </button>
+
+                <hr className="mt-3 border-gray-500" />
+              </form>
+
+              <div className="bg-gradient-to-r from-[#3C9BF9] to-[#9100BD] p-[1px] rounded-lg mt-3"></div>
+              <p className="text-sm text-gray-400 mt-4">
+                Already have an account?{" "}
+                <Link
+                  to="/login"
+                  className="font-gradient font-medium"
+                >
+                  Login
+                </Link>
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      <Footer />
+    </>
+  );
+};
+
+export default SignUP;
