@@ -6,6 +6,7 @@ import Footer from "../components/common/Footer";
 import { easeInOut, motion } from "motion/react";
 import Scroll from "../components/scroll";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -28,16 +29,16 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const res = await API.post("/api/auth/login", formData);
+      const res = await axios.post("http://localhost:8080/User/login", formData);
 
       console.log("User logged in:", res.data);
-
+      navigate("/user/dashboard");
       if (res.data.token) {
         localStorage.setItem("token", res.data.token); // Store token
         localStorage.setItem("name", res.data.user.fullName);
         localStorage.setItem("email", res.data.user.email);
         toast.success("Login successful!");
-        navigate("/dashboard");
+        
       }
     } catch (error) {
       console.error("Login failed:", error.response?.data || error);

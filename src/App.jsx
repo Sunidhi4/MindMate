@@ -3,7 +3,7 @@ import HomePage from "./pages/home";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
 import { ToastContainer } from "react-toastify";
-
+import Dashboard from './pages/dashboard';
 const App = () => {
   return (
     <>
@@ -24,7 +24,8 @@ const App = () => {
           {/* <Route path="/about" element={<About />} /> */}
           {/* <Route path="/contact" element={<Contact />} /> */}
           {/* <Route path="/faq" element={<FAQs />} /> */}
-          {/* <Route path="/dashboard" element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>}/> */}
+          {/* <Route path="user/dashboard" element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>}/> */}
+           
         </Routes>
       </Router>
     </>
