@@ -4,6 +4,7 @@ import API from "../services/api";
 import Navbar from "../components/common/Navbar";
 import Footer from "../components/common/Footer";
 import { easeInOut, motion } from "motion/react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Scroll from "../components/scroll";
 import { toast } from "react-toastify";
 
@@ -28,17 +29,17 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const res = await API.post("/api/auth/login", formData);
+      // const res = await API.post("/api/auth/login", formData);
 
-      console.log("User logged in:", res.data);
+      // console.log("User logged in:", res.data);
 
-      if (res.data.token) {
-        localStorage.setItem("token", res.data.token); // Store token
-        localStorage.setItem("name", res.data.user.fullName);
-        localStorage.setItem("email", res.data.user.email);
-        toast.success("Login successful!");
-        navigate("/dashboard");
-      }
+      // if (res.data.token) {
+      //   localStorage.setItem("token", res.data.token); // Store token
+      //   localStorage.setItem("name", res.data.user.fullName);
+      //   localStorage.setItem("email", res.data.user.email);
+      //   toast.success("Login successful!");
+        navigate("/user/dashboard");
+      // }
     } catch (error) {
       console.error("Login failed:", error.response?.data || error);
       toast.error(error.response?.data?.message || "Login failed");
@@ -48,10 +49,6 @@ const Login = () => {
   };
 
   return (
-    <>
-      <Scroll />
-      <Navbar hideStartCoding={true} />
-
       <div className="flex items-center justify-center p-10 bg-white text-black">
         <motion.div
           initial={{ opacity: 0.4, scale: 0.7 }}
@@ -85,7 +82,7 @@ const Login = () => {
                   type="email"
                   name="email"
                   onChange={handleChange}
-                  className={`w-full p-2 rounded-full text-black ring-1 ring-[#3C9BF9] focus:outline-none focus:ring-1 focus:ring-[#9100BD]`}
+                  className={`w-full py-2 px-4 rounded-full ring-1 ring-[#3C9BF9] focus:outline-none focus:ring-1 focus:ring-[#9100BD]`}
                   required
                 />
 
@@ -97,7 +94,7 @@ const Login = () => {
                     type={showPassword ? "text" : "password"}
                     name="password"
                     onChange={handleChange}
-                    className={`w-full p-2 rounded-full text-black ring-1 ring-[#3C9BF9] focus:outline-none focus:ring-1 focus:ring-[#9100BD]`}
+                    className={`w-full py-2 px-4 rounded-full text-black ring-1 ring-[#3C9BF9] focus:outline-none focus:ring-1 focus:ring-[#9100BD]`}
                     required
                   />
 
@@ -106,7 +103,7 @@ const Login = () => {
                     className="absolute right-3 top-3 text-gray-400 hover:text-gray-600 transition cursor-pointer"
                     onClick={() => setShowPassword(!showPassword)}
                   >
-                    {showPassword ? "show" : "hide"}
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
                   </button>
                 </div>
 
@@ -140,8 +137,6 @@ const Login = () => {
           </div>
         </motion.div>
       </div>
-      <Footer />
-    </>
   );
 };
 

@@ -1,8 +1,8 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import PsychoTalkLogo from "/psychotalk_logo.webp";
 
-const Navbar = ({ hideStartCoding }) => {
+const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -79,25 +79,25 @@ const Navbar = ({ hideStartCoding }) => {
                 <div className="flex justify-evenly max-lg:flex-col space-x-10 px-5">
                   <Link
                     to="/about"
-                    className="text-black text-center text-xl font-normal font-Roboto"
+                    className="text-black text-center text-xl font-normal font-['Roboto']"
                   >
                     About Us
                   </Link>
                   <Link
                     to="/contact"
-                    className="text-black text-center text-xl font-normal font-Roboto"
+                    className="text-black text-center text-xl font-normal font-['Roboto']"
                   >
                     Contact Us
                   </Link>
                   <Link
                     // to="/contact"
-                    className="text-black text-center text-xl font-normal font-Roboto"
+                    className="text-black text-center text-xl font-normal font-['Roboto']"
                   >
                     Experts
                   </Link>
                   <Link
                     // to="/contact"
-                    className="text-black text-center text-xl font-normal font-Roboto"
+                    className="text-black text-center text-xl font-normal font-['Roboto']"
                   >
                     Options
                   </Link>
@@ -105,21 +105,10 @@ const Navbar = ({ hideStartCoding }) => {
               </nav>
             </div>
             <div className="hidden justify-end pr-16 sm:flex lg:pr-0 space-x-4">
-              {!hideStartCoding && (
-                <Link
-                  to="/signup"
-                  className="p-[2.5px] min-w-40 text-center text-white text-lg font-bold font-roboto bg-gradient-to-b from-[#3C9BF9] to-[#9100BD] rounded-full transition hover:from-[#9100BD] hover:to-[#3C9BF9]"
-                >
-                  <div className="max-w-45 py-3 rounded-full xl:py-3 ">
-                    Sign Up
-                  </div>
-                </Link>
-              )}
-
               {isLoginPage ? (
                 <Link
                   to="/signup"
-                  className="p-[2.5px] min-w-40 text-center text-white text-lg font-bold font-roboto bg-gradient-to-b from-[#3C9BF9] to-[#9100BD] rounded-full transition hover:from-[#9100BD] hover:to-[#3C9BF9]"
+                  className="p-[2.5px] min-w-40 text-center text-white text-lg font-bold font-['Roboto'] bg-gradient-to-b from-[#3C9BF9] to-[#9100BD] rounded-full transition hover:from-[#9100BD] hover:to-[#3C9BF9]"
                 >
                   <div className="max-w-45 py-3 rounded-full xl:py-3 ">
                     Sign Up
@@ -128,21 +117,30 @@ const Navbar = ({ hideStartCoding }) => {
               ) : isSignUpPage ? (
                 <Link
                   to="/login"
-                  className="p-[2.5px] min-w-40 text-center text-black text-lg font-bold font-roboto bg-gradient-to-b from-[#3C9BF9] to-[#9100BD] rounded-full transition hover:from-[#9100BD] hover:to-[#3C9BF9]"
+                  className="p-[2.5px] min-w-40 text-center text-black text-lg font-bold font-['Roboto'] bg-gradient-to-b from-[#3C9BF9] to-[#9100BD] rounded-full transition hover:from-[#9100BD] hover:to-[#3C9BF9]"
                 >
                   <div className="bg-[#FFFFFF] max-w-45 py-3 rounded-full xl:py-3 ">
                     Login
                   </div>
                 </Link>
               ) : (
-                <Link
-                  to="/login"
-                  className="p-[2.5px] min-w-40 text-center text-black text-lg font-bold font-roboto bg-gradient-to-b from-[#3C9BF9] to-[#9100BD] rounded-full transition hover:from-[#9100BD] hover:to-[#3C9BF9]"
-                >
-                  <div className="bg-[#FFFFFF] max-w-45 py-3 rounded-full xl:py-3 ">
-                    Login
-                  </div>
-                </Link>
+                // On any other page → show both Login + Sign Up
+                <>
+                  <Link
+                    to="/login"
+                    className="p-[2.5px] min-w-40 text-center text-black text-lg font-bold font-roboto bg-gradient-to-b from-[#3C9BF9] to-[#9100BD] rounded-full transition hover:from-[#9100BD] hover:to-[#3C9BF9]"
+                  >
+                    <div className="bg-white py-3 rounded-full xl:py-3">
+                      Login
+                    </div>
+                  </Link>
+                  <Link
+                    to="/signup"
+                    className="p-[2.5px] min-w-40 text-center text-white text-lg font-bold font-roboto bg-gradient-to-b from-[#3C9BF9] to-[#9100BD] rounded-full transition hover:from-[#9100BD] hover:to-[#3C9BF9]"
+                  >
+                    <div className="py-3 rounded-full xl:py-3">Sign Up</div>
+                  </Link>
+                </>
               )}
             </div>
           </div>

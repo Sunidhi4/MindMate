@@ -1,8 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import HomePage from "./pages/home";
-import Login from "./pages/login";
-import Signup from "./pages/signup";
 import { ToastContainer } from "react-toastify";
+import { AppRoutes } from "./pageRoutes/AppRoutes";
 
 const App = () => {
   return (
@@ -17,15 +15,7 @@ const App = () => {
         draggable
       />
       <Router>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          {/* <Route path="/about" element={<About />} /> */}
-          {/* <Route path="/contact" element={<Contact />} /> */}
-          {/* <Route path="/faq" element={<FAQs />} /> */}
-          {/* <Route path="/dashboard" element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>}/> */}
-        </Routes>
+        <AppRoutes/>
       </Router>
     </>
   );

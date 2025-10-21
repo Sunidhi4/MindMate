@@ -1,15 +1,15 @@
-import Navbar from "../components/common/Navbar";
+// import Navbar from "../components/common/Navbar";
 import Footer from "../components/common/Footer";
-import Scroll from "../components/scroll";
+// import Scroll from "../components/scroll";
 import Welcome from "../components/sections/welcome";
 
 function HomePage() {
     return (
         <>
-        <Scroll/>
-        <Navbar/>
+        {/* <Scroll/> */}
+        {/* <Navbar/> */}
         <Welcome/>
-        <Footer/>
+        {/* <Footer/> */}
         </>
     );
 }

@@ -4,6 +4,7 @@ import API from "../services/api";;
 import Navbar from "../components/common/Navbar";
 import Footer from "../components/common/Footer";
 import { easeInOut, motion } from "motion/react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Scroll from "../components/scroll";
 import { toast } from "react-toastify";
 
@@ -61,10 +62,6 @@ const SignUP = () => {
   };
 
   return (
-    <>
-      <Scroll />
-      <Navbar hideStartCoding={true} />
-
       <div className="flex items-center justify-center p-10 bg-white text-black">
         <motion.div
           initial={{ opacity: 0.4, scale: 0.7 }}
@@ -100,7 +97,7 @@ const SignUP = () => {
                   type="text"
                   name="fullName"
                   onChange={handleChange}
-                  className={`w-full p-2 rounded-full text-black ring-1 ring-[#3C9BF9] focus:outline-none focus:ring-1 focus:ring-[#9100BD]`}
+                  className={`w-full py-2 px-4 rounded-full text-black ring-1 ring-[#3C9BF9] focus:outline-none focus:ring-1 focus:ring-[#9100BD]`}
                   required
                 />
 
@@ -111,7 +108,7 @@ const SignUP = () => {
                   type="email"
                   name="email"
                   onChange={handleChange}
-                  className={`w-full p-2 rounded-full text-black ring-1 ring-[#3C9BF9] focus:outline-none focus:ring-1 focus:ring-[#9100BD]`}
+                  className={`w-full py-2 px-4 rounded-full text-black ring-1 ring-[#3C9BF9] focus:outline-none focus:ring-1 focus:ring-[#9100BD]`}
                   required
                 />
 
@@ -123,7 +120,7 @@ const SignUP = () => {
                     type={showPassword ? "text" : "password"}
                     name="password"
                     onChange={handleChange}
-                    className={`w-full p-2 rounded-full text-black ring-1 ring-[#3C9BF9] focus:outline-none focus:ring-1 focus:ring-[#9100BD]`}
+                    className={`w-full py-2 px-4 rounded-full text-black ring-1 ring-[#3C9BF9] focus:outline-none focus:ring-1 focus:ring-[#9100BD]`}
                     required
                   />
 
@@ -132,7 +129,7 @@ const SignUP = () => {
                     className="absolute right-3 top-3 text-gray-400 hover:text-gray-600 transition cursor-pointer"
                     onClick={() => setShowPassword(!showPassword)}
                   >
-                    {showPassword ? "show" : "hide"}
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
                   </button>
                 </div>
 
@@ -165,9 +162,6 @@ const SignUP = () => {
           </div>
         </motion.div>
       </div>
-
-      <Footer />
-    </>
   );
 };
 
