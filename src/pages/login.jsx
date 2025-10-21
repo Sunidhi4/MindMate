@@ -7,6 +7,7 @@ import { easeInOut, motion } from "motion/react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Scroll from "../components/scroll";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
