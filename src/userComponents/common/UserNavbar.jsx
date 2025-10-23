@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Bell, ChevronDown, Menu } from "lucide-react";
 import NotificationDropdown from "../../userNavPages/NotificationDropdown";
 import ProfileDropdown from "../../userNavPages/ProfileDropdown";
-
+import { Link } from "react-router-dom";
 export const UserNavbar = ({ setSidebarOpen }) => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -35,6 +35,23 @@ export const UserNavbar = ({ setSidebarOpen }) => {
         </button>
         <h1 className="text-2xl font-semibold text-gray-800 kanit">User Panel</h1>
       </div>
+
+
+{/* middle Action */}
+<div className="flex items-center gap-7 text-gray-600 font-medium text-xl">
+  <Link to="/user/share" className="hover:text-[#9100BD]">
+    Share
+  </Link>
+  <Link to="/user/support" className="hover:text-[#9100BD]">
+    Support
+  </Link>
+  <Link to="/user/experts" className="hover:text-[#9100BD]">
+    Experts
+  </Link>
+  <Link to="/user/routine" className="hover:text-[#9100BD]">
+    Routine
+  </Link>
+</div>
 
       {/* Right Actions */}
       <div className="flex items-center space-x-6">

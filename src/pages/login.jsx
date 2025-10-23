@@ -30,17 +30,23 @@ const Login = () => {
     setLoading(true);
 
     try {
-      // const res = await API.post("/api/auth/login", formData);
+      const res = await API.post("http://localhost:8080/User/login", formData);
 
-      // console.log("User logged in:", res.data);
+      console.log("User logged in:", res.data);
 
-      // if (res.data.token) {
-      //   localStorage.setItem("token", res.data.token); // Store token
-      //   localStorage.setItem("name", res.data.user.fullName);
-      //   localStorage.setItem("email", res.data.user.email);
-      //   toast.success("Login successful!");
+      if (res.data.token) {
+        sessionStorage.setItem("token", res.data.token); // Store token
+        sessionStorage.setItem("id" ,res.data.user.id);
+        sessionStorage.setItem("name" ,res.data.user.username);
+        sessionStorage.setItem("email" ,res.data.user.email);
+        sessionStorage.setItem("age" ,res.data.user.age);
+        sessionStorage.setItem("phone" ,res.data.user.phone);
+        sessionStorage.setItem("gender" ,res.data.user.gender);
+        sessionStorage.setItem("answersCount" , res.data.user.answersCount);
+        sessionStorage.setItem("questionsCount" , res.data.user.questionsCount);
+        toast.success("Login successful!");
         navigate("/user/dashboard");
-      // }
+      }
     } catch (error) {
       console.error("Login failed:", error.response?.data || error);
       toast.error(error.response?.data?.message || "Login failed");

@@ -17,6 +17,8 @@ import Share from "../userPages/Share";
 import Support from "../userPages/Support";
 import Experts from "../userPages/Experts";
 import Routine from "../userPages/Routine";
+import Discussion from "../userComponents/Discussion";
+import ExpertDetails from "../userPages/ExpertDetails";
 
 export const AppRoutes = () => (
   <Routes>
@@ -42,6 +44,8 @@ export const AppRoutes = () => (
       <Route path="/user/share" element={<Share/>} />
       <Route path="/user/support" element={<Support/>} />
       <Route path="/user/experts" element={<Experts/>} />
+      <Route path="//user/expertDetails" element={<ExpertDetails/>} />
+      <Route path="/user/discussion" element={<Discussion/>} />
       <Route path="/user/routine" element={<Routine/>} />
     </Route>
   </Routes>
