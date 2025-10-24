@@ -9,7 +9,7 @@ export const UserPost = ({ question, onDelete }) => {
     userImage: "https://i.pravatar.cc/60?u=techlearner",
     question: question.question,
     createdTime: question.createdTime,
-    initialLikes: question.rating,
+    initialLikes: question.likes,
     answerCount : question.answerList.length
   };
 

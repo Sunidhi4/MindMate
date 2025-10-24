@@ -76,10 +76,10 @@ const Navbar = () => {
                   !open && "hidden"
                 } `}
               >
-                <div className="flex justify-evenly max-lg:flex-col space-x-10 px-5">
+                <div className="flex justify-evenly max-lg:flex-col space-x-10 px-5 border-b-1 border-gray-400 pb-2">
                   <Link
                     to="/about"
-                    className="text-black text-center text-xl font-normal font-['Roboto']"
+                    className="text-black text-center text-xl font-normal font-['Roboto'] "
                   >
                     About Us
                   </Link>
@@ -90,7 +90,7 @@ const Navbar = () => {
                     Contact Us
                   </Link>
                   <Link
-                    // to="/contact"
+                     to="/user/experts"
                     className="text-black text-center text-xl font-normal font-['Roboto']"
                   >
                     Experts

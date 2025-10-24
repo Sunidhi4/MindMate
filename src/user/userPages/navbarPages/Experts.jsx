@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { ExpertCard } from "../userComponents/ExpertCard";
+import { ExpertCard } from "../../userComponents/ExpertCard";
 const Experts = () => {
   const [experts , setExperts] = useState([]);
     const [loading, setLoading] = useState(true);

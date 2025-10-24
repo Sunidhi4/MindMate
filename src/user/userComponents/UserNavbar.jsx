@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Bell, ChevronDown, Menu } from "lucide-react";
-import NotificationDropdown from "../../userNavPages/NotificationDropdown";
-import ProfileDropdown from "../../userNavPages/ProfileDropdown";
+import NotificationDropdown from "../../user/userPages/navbarPages/NotificationDropdown"
+import ProfileDropdown from "../../user/userPages/navbarPages/ProfileDropdown";
 import { Link } from "react-router-dom";
 export const UserNavbar = ({ setSidebarOpen }) => {
   const [showNotifications, setShowNotifications] = useState(false);

@@ -24,6 +24,7 @@ const Discussion = () => {
           `http://localhost:8080/question/getQuestionById?id=${questionId}`
         );
         setQuestion(res.data);
+        console.log(res.data);
       } catch (error) {
         console.error("Failed to fetch question details:", error);
       } finally {
@@ -85,16 +86,29 @@ const Discussion = () => {
     <div className=" bg-white shadow-lg rounded-lg border border-[#b1d0f0] p-10">
       {/* Question Header */}
       <div className="mb-4">
-        <h1 className="text-3xl font-semibold text-[#000000] mb-2">{question.question}</h1>
-        <p className="text-gray-600 text-sm">
-          Asked by{" "}
-          <span className="font-semibold text-purple-800">{question.username}</span> on{" "}
-          {readableTime}
-        </p>
-      </div>
+  <h1 className="text-3xl font-semibold text-[#000000] mb-2">
+    {question.question}
+  </h1>
+  <p className="text-gray-600 text-sm">
+    Asked by{" "}
+    {question.username !== sessionStorage.getItem("name") ? (
+      <span className="font-semibold text-purple-800">
+        {question.username}
+      </span>
+    ) : (
+      <span className="font-semibold text-purple-800">you</span>
+    )}{" "}
+    on
+   {`  ${readableTime}`}
+     
+  </p>
+</div>
 
       {/* Answer Box directly below question */}
-      <form onSubmit={handleSubmitAnswer} className="mb-6">
+      { question.username !== sessionStorage.getItem("name")
+      ?
+
+       <form onSubmit={handleSubmitAnswer} className="mb-6">
         <h3 className="text-lg font-semibold text-[#3C9BF9] mb-2">Your Answer</h3>
         <textarea
           value={answerInput}
@@ -117,6 +131,10 @@ const Discussion = () => {
         </button>
         </div>
       </form>
+       : ""
+      
+     
+      }
 
       <hr className="mb-4 border-[#b1d0f0]" />
 

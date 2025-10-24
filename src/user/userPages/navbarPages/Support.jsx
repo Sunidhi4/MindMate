@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
-import { UserPost } from "../userComponents/userPost";
+import { UserPost } from "../../userComponents/userPost";
 const Support = () => {
 
   const [questions, setQuestions] = useState([]);

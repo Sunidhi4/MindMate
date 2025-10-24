@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import HomePage from "../pages/Home";
-import Login from "../pages/Login";
+import Login from "../pages/login";
 // import { Welcome } from '../userPages/Welcome';
 import { PublicLayout } from "./PublicLayout";
 import { UserLayout } from "./UserLayout";
@@ -8,17 +8,17 @@ import SignUP from "../pages/signup";
 import About from "../pages/about";
 import Contact from "../pages/contactUs";
 import FAQs from "../pages/faq";
-import Dashboard from "../userPages/dashboard";
-import Profile from "../userPages/Profile";
-import Settings from "../userPages/Settings";
-import Notifications from "../userPages/Notifications";
-import Help from "../userPages/Help";
-import Share from "../userPages/Share";
-import Support from "../userPages/Support";
-import Experts from "../userPages/Experts";
-import Routine from "../userPages/Routine";
-import Discussion from "../userComponents/Discussion";
-import ExpertDetails from "../userPages/ExpertDetails";
+import Dashboard from "../user/userPages/sidebarPages/Dashboard";
+import Profile from "../user/userPages/sidebarPages/Profile";
+import Settings from "../user/userPages/sidebarPages/Settings";
+import Notifications from "../user/userPages/sidebarPages/Notifications";
+import Help from "../user/userPages/sidebarPages/Help";
+import Share from "../user/userPages/navbarPages/Share";
+import Support from "../user/userPages/navbarPages/Support";
+import Experts from "../user/userPages/navbarPages/Experts";
+import Routine from "../user/userPages/navbarPages/Routine";
+import Discussion from "../user/userPages/otherPages/Discussion";
+import ExpertDetails from "../user/userPages/otherPages/ExpertDetails";
 
 export const AppRoutes = () => (
   <Routes>

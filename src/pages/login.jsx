@@ -13,6 +13,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [Gloading, GsetLoading] = useState(false);
+  const [loginType , setLoginType] = useState("user");
 
   const [formData, setFormData] = useState({
     email: "",
@@ -30,7 +31,8 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const res = await API.post("http://localhost:8080/User/login", formData);
+      if(loginType === "user"){
+        const res = await API.post("http://localhost:8080/User/login", formData);
 
       console.log("User logged in:", res.data);
 
@@ -46,6 +48,20 @@ const Login = () => {
         sessionStorage.setItem("questionsCount" , res.data.user.questionsCount);
         toast.success("Login successful!");
         navigate("/user/dashboard");
+      }
+      }else{
+        const res = await API.post("http://localhost:8080/User/login", formData);
+        console.log("Expert logged in:", res.data);
+        if (res.data.token) {
+        sessionStorage.setItem("token", res.data.token); // Store token
+        sessionStorage.setItem("id" ,res.data.expert.id);
+        sessionStorage.setItem("name" ,res.data.expert.fullName);
+        sessionStorage.setItem("email" ,res.data.expert.email);
+        sessionStorage.setItem("age" ,res.data.expert.age);
+        sessionStorage.setItem("gender" ,res.data.user.gender);
+        toast.success("Login successful!");
+        navigate("/expert/dashboard");
+      }
       }
     } catch (error) {
       console.error("Login failed:", error.response?.data || error);
@@ -70,11 +86,12 @@ const Login = () => {
               {/* <img src={lockIcon} alt="Secure Login" className="w-50 mb-4" /> */}
               <h2 className="text-xl font-medium">
                 Welcome back to{" "}
-                <span className="font-gradient font-semibold">PsychoTalk</span>.
+                <span className="font-gradient font-semibold">PsychoTalk</span>
               </h2>
               <p className="text-gray-400 w-78">
-                Code, collaborate, and conquer in real-time.
+                Share, Support, live a Stree free life.
               </p>
+              
             </div>
 
             {/* Right Side - Login Form */}

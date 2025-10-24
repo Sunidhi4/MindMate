@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { UserPost } from "../userComponents/userPost";
+import { UserPost } from "../../userComponents/userPost";
 
 const Share = () => {
   const [inputValue, setInputValue] = useState("");
