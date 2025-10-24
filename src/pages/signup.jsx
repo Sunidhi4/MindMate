@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import UserSignup from "./signup/UserSignup";
 import ExpertSignup from "./signup/ExpertSignup";
+import { Navigate } from "react-router-dom";
 const SignUP = () => {
   
   const [signupType , setSignupType] = useState("user");
@@ -19,6 +20,7 @@ const SignUP = () => {
   }
   return (
       <div className="flex items-center justify-center p-10 bg-white text-black">
+        <Scroll/>
         <motion.div
           initial={{ opacity: 0.4, scale: 0.7 }}
           animate={{ opacity: 1, scale: 1 }}

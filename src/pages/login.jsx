@@ -1,8 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import API from "../services/api";
-import Navbar from "../components/common/Navbar";
-import Footer from "../components/common/Footer";
 import { easeInOut, motion } from "motion/react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Scroll from "../components/scroll";
@@ -12,8 +10,11 @@ import axios from "axios";
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [Gloading, GsetLoading] = useState(false);
-  const [loginType , setLoginType] = useState("user");
+  const [loginType , setLoginType] = useState("User");
+  
+  const toggleLoginType  = (e)=>{
+    (loginType === "User") ? setLoginType("Expert") : setLoginType("User");
+  }
 
   const [formData, setFormData] = useState({
     email: "",
@@ -31,12 +32,10 @@ const Login = () => {
     setLoading(true);
 
     try {
-      if(loginType === "user"){
-        const res = await API.post("http://localhost:8080/User/login", formData);
-
-      console.log("User logged in:", res.data);
-
-      if (res.data.token) {
+      if(loginType === "User"){
+        const res = await axios.post("http://localhost:8080/User/login", formData);
+        if (res.data.token) {
+        console.log("User logged in:", res.data);
         sessionStorage.setItem("token", res.data.token); // Store token
         sessionStorage.setItem("id" ,res.data.user.id);
         sessionStorage.setItem("name" ,res.data.user.username);
@@ -48,20 +47,26 @@ const Login = () => {
         sessionStorage.setItem("questionsCount" , res.data.user.questionsCount);
         toast.success("Login successful!");
         navigate("/user/dashboard");
-      }
+        }else{
+          toast.error(res.data.errorMsg);
+        }
       }else{
-        const res = await API.post("http://localhost:8080/User/login", formData);
-        console.log("Expert logged in:", res.data);
+        console.log(formData);
+        const res = await axios.post("http://localhost:8080/Expert/login", formData);
+        console.log( res.data);
         if (res.data.token) {
+          console.log("expert logged in ")
         sessionStorage.setItem("token", res.data.token); // Store token
         sessionStorage.setItem("id" ,res.data.expert.id);
         sessionStorage.setItem("name" ,res.data.expert.fullName);
         sessionStorage.setItem("email" ,res.data.expert.email);
         sessionStorage.setItem("age" ,res.data.expert.age);
-        sessionStorage.setItem("gender" ,res.data.user.gender);
+        sessionStorage.setItem("gender" ,res.data.expert.gender);
         toast.success("Login successful!");
         navigate("/expert/dashboard");
-      }
+        }else{
+          toast.error(res.data.errorMsg);
+        }
       }
     } catch (error) {
       console.error("Login failed:", error.response?.data || error);
@@ -91,12 +96,18 @@ const Login = () => {
               <p className="text-gray-400 w-78">
                 Share, Support, live a Stree free life.
               </p>
-              
-            </div>
+              {loginType === "User"
+               ?
+               <p onClick={toggleLoginType} className="text-[#9100BD] text-blue-500 underline mt-1 text-xs cursor-pointer hover:text-blue-700">Login as Expert?</p>
+              :
+              <p onClick={toggleLoginType} className="text-[#9100BD] text-blue-500 underline mt-1 text-xs cursor-pointer hover:text-blue-700">Login as User?</p>
+        
+              }
+                   </div>
 
             {/* Right Side - Login Form */}
             <div className="md:w-1/2 w-full p-6">
-              <h2 className="text-2xl font-bold mb-4">Login</h2>
+              <h2 className="text-2xl font-bold mb-4">Login | <span className="text-[#9100BD]">{loginType}</span></h2>
 
               <form onSubmit={handleLogin}>
                 <label className="block text-gray-400 text-sm mb-1">

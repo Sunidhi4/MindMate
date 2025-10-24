@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+import axios from 'axios';
 const ExpertSignup = () => {
 
     const [showPassword, setShowPassword] = useState(false);
@@ -19,16 +22,84 @@ const ExpertSignup = () => {
     });
 
     const handleSubmit = async (e) => {
-       e.preventDefault;
-        
+        e.preventDefault();
+        setLoading(true);
+        // Define regex validators
+
+        const validators = {
+            email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            password: /^(?=.*\d).{3,}$/,
+            fullName: /^[A-Za-z.\s]+$/,
+            phoneNo: /^[6-9]\d{9}$/,
+            age: /^\d{1,2}$/,
+            fees: /^\d+$/,
+            qualification: /^[A-Za-z0-9 ,.-]+$/,
+            experience: /^[A-Za-z0-9+ ]+$/,
+            address: /^[A-Za-z0-9 ,.-]+$/,
+        };
+
+        // Validate each field
+        if (!validators.email.test(formData.email)) {
+            toast.error("Invalid email format");
+            return;
+        }
+
+        if (!validators.password.test(formData.password)) {
+            toast.error("Password must be at least 3 characters long and contain a number");
+            return;
+        }
+
+        if (!validators.fullName.test(formData.fullName)) {
+            toast.error("Full name should contain only letters and spaces");
+            return;
+        }
+
+        if (!validators.phoneNo.test(formData.phoneNo)) {
+            toast.error("Invalid phone number");
+            return;
+        }
+
+        if (!validators.age.test(formData.age)) {
+            toast.error("Age must be a valid number");
+            return;
+        }
+
+        if (!validators.fees.test(formData.fees)) {
+            toast.error("Fees must be a valid number");
+            return;
+        }
+
+        if (!validators.address.test(formData.address)) {
+            toast.error("Invalid address format");
+            return;
+        }
+
+        if (!validators.qualification.test(formData.qualification)) {
+            toast.error("Qualification must contain only letters, commas, or numbers");
+            return;
+        }
+
+        if (!validators.experience.test(formData.experience)) {
+            toast.error("Experience field contains invalid characters");
+            return;
+        }
+
+        const formattedData = {
+            ...formData,
+            qualification: formData.qualification
+                ? formData.qualification.split(",").map(q => q.trim())
+                : [],
+        };
+
         try {
-            console.log(formData)
-            const res = await axios.post("http://localhost:8080/Expert/register", formData);
+            console.log(formattedData)
+            const res = await axios.post("http://localhost:8080/Expert/register", formattedData);
 
             if (res.data.status === "success") {
                 console.log("User registered:", res.data);
                 toast.success("User registered successfully! Please login.");
                 navigate("/login");
+                return;
             } else {
                 toast.success("Username or Email already exist.");
             }
@@ -44,7 +115,8 @@ const ExpertSignup = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     }
     return (
-        <form action={handleSubmit} className="flex flex-col items-center">
+        
+        <form onSubmit={handleSubmit} className="flex flex-col items-center">
             <div className="flex justify-center gap-8 ">
 
                 <div>
@@ -71,7 +143,7 @@ const ExpertSignup = () => {
                     />
 
 
-<label className="block text-gray-400 text-sm mt-3 mb-1">
+                    <label className="block text-gray-400 text-sm mt-3 mb-1">
                         Password
                     </label>
                     <div className="relative w-full">
@@ -107,7 +179,7 @@ const ExpertSignup = () => {
                 </div>
                 <div>
 
-<label htmlFor="age" className="block text-gray-400 text-sm mt-3 mb-1">Age</label>
+                    <label htmlFor="age" className="block text-gray-400 text-sm mt-3 mb-1">Age</label>
                     <input
                         type="number"
                         id="age"
@@ -119,7 +191,7 @@ const ExpertSignup = () => {
                     />
 
 
- <label className="block text-gray-400 text-sm mt-3 mb-1">
+                    <label className="block text-gray-400 text-sm mt-3 mb-1">
                         Phone
                     </label>
                     <input
@@ -129,7 +201,7 @@ const ExpertSignup = () => {
                         className={`w-full p-2 rounded-full text-black ring-1 ring-[#3C9BF9] focus:outline-none focus:ring-1 focus:ring-[#9100BD]`}
                         required
                     />
-                    
+
 
                     <label className="block text-gray-400 text-sm mt-3 mb-1">Fees (₹)</label>
                     <input
@@ -152,12 +224,12 @@ const ExpertSignup = () => {
                         />
                     </div>
 
-                    </div>
+                </div>
 
                 <div>
 
 
-                    
+
                     <label className="block text-gray-400 text-sm mt-3 mb-1">Sex</label>
 
                     <div className="w-full flex gap-6 justify-start">

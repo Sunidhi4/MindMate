@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 const UserSignup = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -31,6 +32,7 @@ const UserSignup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
 
         if (!validateEmail(formData.email)) {
             toast.error("Invalid Email!");
@@ -59,7 +61,7 @@ const UserSignup = () => {
                 toast.success("User registered successfully! Please login.");
                 navigate("/login");
             } else {
-                toast.success("Username or Email already exist.");
+                toast.error("Username or Email already exist.");
             }
 
         } catch (error) {
