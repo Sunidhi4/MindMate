@@ -8,7 +8,6 @@ const Experts = () => {
       async function getAllExperts() {
         try{
         const res = await axios.get("http://localhost:8080/Expert/getAllExperts");
-        console.log(res.data);
         setExperts(res.data);
       }catch{
         console.log(e);
@@ -27,7 +26,7 @@ const Experts = () => {
             <div className="flex flex-col gap-6">
               {experts!=null && experts.length>0 ? 
               experts.map((expert)=>(
-                <ExpertCard expert={expert}/>
+                <ExpertCard key={expert.id} expert={expert}/>
               ))
               : (<p className="text-gray-500 text-center">No Expert found.</p>)}
               

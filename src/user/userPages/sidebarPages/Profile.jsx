@@ -1,10 +1,7 @@
-import axios from "axios";
+
 
 
 const Profile = () => {
-
- 
-  
   const name = sessionStorage.getItem("name");
   const email = sessionStorage.getItem("email");
   const age = sessionStorage.getItem("age");
@@ -14,13 +11,13 @@ const Profile = () => {
   const sharedReflections = sessionStorage.getItem("answersCount");
 
   return (
-    <>
-      <div className="flex items-center gap-4">
-        <div className="w-20 h-20 rounded-full bg-[#0C4663] flex items-center justify-center text-white text-3xl font-bold">
+    <div className="p-8 bg-white">
+      <div className="flex items-center gap-4 ">
+        <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#a1d9f2] via-[#d1f8fc] to-[#d9abed] flex items-center justify-center text-black text-4xl font-bold border-1 border-black">
           {name?.charAt(0).toUpperCase()}
         </div>
         <div>
-          <h2 className="text-3xl font-semibold text-[#0C4663] capitalize">{name}</h2>
+          <h2 className="text-3xl font-semibold text-[#52287a] capitalize">{name}</h2>
           <p className="text-gray-500 text-sm">{email}</p>
         </div>
       </div>
@@ -68,7 +65,7 @@ const Profile = () => {
         </div>
 
       </div>
-    </>
+    </div>
   );
 };
 

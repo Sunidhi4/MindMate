@@ -90,7 +90,7 @@ const Navbar = () => {
                     Contact Us
                   </Link>
                   <Link
-                     to="/user/experts"
+                     to=""
                     className="text-black text-center text-xl font-normal font-['Roboto']"
                   >
                     Experts
@@ -149,5 +149,4 @@ const Navbar = () => {
     </header>
   );
 };
-
 export default Navbar;

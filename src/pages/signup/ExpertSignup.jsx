@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -21,6 +21,17 @@ const ExpertSignup = () => {
         phoneNo: "",
     });
 
+    const [qualifications, setQualifications] = useState([""]);
+
+    const handleQualificationChange = (index, value) => {
+        const updated = [...qualifications];
+        updated[index] = value;
+        setQualifications(updated);
+        setFormData({ ...formData, qualification: updated });
+    };
+
+    const addQualification = () => setQualifications([...qualifications, ""]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -33,7 +44,7 @@ const ExpertSignup = () => {
             phoneNo: /^[6-9]\d{9}$/,
             age: /^\d{1,2}$/,
             fees: /^\d+$/,
-            qualification: /^[A-Za-z0-9 ,.-]+$/,
+            qualification: /^[A-Za-z0-9,.\- ]+$/,
             experience: /^[A-Za-z0-9+ ]+$/,
             address: /^[A-Za-z0-9 ,.-]+$/,
         };
@@ -41,54 +52,64 @@ const ExpertSignup = () => {
         // Validate each field
         if (!validators.email.test(formData.email)) {
             toast.error("Invalid email format");
+            setLoading(false);
             return;
         }
 
         if (!validators.password.test(formData.password)) {
             toast.error("Password must be at least 3 characters long and contain a number");
+            setLoading(false);
             return;
         }
 
         if (!validators.fullName.test(formData.fullName)) {
             toast.error("Full name should contain only letters and spaces");
+            setLoading(false);
             return;
         }
 
         if (!validators.phoneNo.test(formData.phoneNo)) {
             toast.error("Invalid phone number");
+            setLoading(false);
             return;
         }
 
         if (!validators.age.test(formData.age)) {
             toast.error("Age must be a valid number");
+            setLoading(false);
             return;
         }
 
         if (!validators.fees.test(formData.fees)) {
             toast.error("Fees must be a valid number");
+            setLoading(false);
             return;
         }
 
         if (!validators.address.test(formData.address)) {
             toast.error("Invalid address format");
+            setLoading(false);
             return;
         }
 
-        if (!validators.qualification.test(formData.qualification)) {
-            toast.error("Qualification must contain only letters, commas, or numbers");
+        if (!Array.isArray(formData.qualification) || formData.qualification.length === 0) {
+            toast.error("Please add at least one qualification");
+            setLoading(false);
             return;
         }
+
+        
+
 
         if (!validators.experience.test(formData.experience)) {
             toast.error("Experience field contains invalid characters");
+            setLoading(false);
             return;
         }
 
         const formattedData = {
             ...formData,
-            qualification: formData.qualification
-                ? formData.qualification.split(",").map(q => q.trim())
-                : [],
+            
         };
 
         try {
@@ -99,14 +120,15 @@ const ExpertSignup = () => {
                 console.log("User registered:", res.data);
                 toast.success("User registered successfully! Please login.");
                 navigate("/login");
-                return;
             } else {
                 toast.success("Username or Email already exist.");
+                setLoading(false);
             }
 
         } catch (error) {
             console.error("Registration failed:", error.response?.data || error);
             toast.error(error.response?.data.message || error);
+            setLoading(false);
         } finally {
             setLoading(false);
         }
@@ -115,7 +137,7 @@ const ExpertSignup = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     }
     return (
-        
+
         <form onSubmit={handleSubmit} className="flex flex-col items-center">
             <div className="flex justify-center gap-8 ">
 
@@ -166,16 +188,30 @@ const ExpertSignup = () => {
 
 
 
-                    <label className="block text-gray-400 text-sm mt-3 mb-1">
-                        Qualification (comma separated)
-                    </label>
-                    <input
-                        type="text"
-                        name="qualification"
-                        onChange={handleChange}
-                        required
-                        className="w-full p-2 rounded-full text-black ring-1 ring-[#3C9BF9] focus:outline-none focus:ring-1 focus:ring-[#9100BD] placeholder:text-gray-400"
-                    />
+                    <div className='flex flex-col items-start'>
+                        <label className="block text-gray-400 text-sm mt-3 mb-1">
+                            Qualifications
+                        </label>
+                        {qualifications.map((q, index) => (
+                            <input
+                                key={index}
+                                type="text"
+                                value={q}
+                                onChange={(e) => handleQualificationChange(index, e.target.value)}
+                                className="w-2xs p-2 mt-1 rounded-full text-black ring-1 ring-[#3C9BF9] focus:ring-[#9100BD] placeholder:text-gray-400"
+                                placeholder={`Qualification ${index + 1}`}
+                                required
+                            />
+                        ))}
+
+                        <button
+                            type="button"
+                            onClick={addQualification}
+                            className="mt-2 text-blue-500 text-sm hover:underline"
+                        >
+                            + Add another qualification
+                        </button>
+                    </div>
                 </div>
                 <div>
 
@@ -283,7 +319,7 @@ const ExpertSignup = () => {
                         onChange={handleChange}
                         rows="4"
                         required
-                        className="w-full p-2 rounded-xl text-black ring-1 ring-[#3C9BF9] focus:outline-none focus:ring-1 focus:ring-[#9100BD]"
+                        className="w-full p-2 rounded-xl text-black ring-1 ring-[#3C9BF9] focus:outline-none focus:ring-1 focus:ring-[#9100BD] h-auto"
                     />
 
                 </div>

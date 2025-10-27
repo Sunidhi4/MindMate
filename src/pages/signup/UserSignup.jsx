@@ -177,8 +177,6 @@ const UserSignup = () => {
 
                         />
 
-
-
                         <button
                             type="button"
                             className="absolute right-3 top-2 text-gray-400 hover:text-gray-600 transition cursor-pointer"

@@ -1,16 +1,18 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from 'react-router-dom'
-export const UserPost = ({ question, onDelete }) => {
+import { Link } from "react-router-dom";
+import { Heart, MessageCircle, Trash2 } from "lucide-react";
+
+export const UserPost = ({ question }) => {
   const questionData = {
     id: question.id,
     username: question.username || "Anonymous",
     userId: question.userId,
-    userImage: "https://i.pravatar.cc/60?u=techlearner",
+    userImage: "https://i.pravatar.cc/80?u=" + question.username,
     question: question.question,
     createdTime: question.createdTime,
     initialLikes: question.likes,
-    answerCount : question.answerList.length
+    answerCount: question.answerList.length,
   };
 
   const [likes, setLikes] = useState(questionData.initialLikes);
@@ -23,7 +25,7 @@ export const UserPost = ({ question, onDelete }) => {
   };
 
   const handleDelete = async () => {
-    if (!window.confirm("Are you sure you want to delete this question?")) return;
+    if (!window.confirm("Delete this post?")) return;
     try {
       setIsDeleting(true);
       const res = await axios.delete(
@@ -43,78 +45,92 @@ export const UserPost = ({ question, onDelete }) => {
   };
 
   const readableTime = new Date(questionData.createdTime).toLocaleString("en-US", {
-    weekday: "short",
+    month: "short",
+    day: "numeric",
     hour: "2-digit",
     minute: "2-digit",
   });
 
   return (
-    <div className="relative w-full bg-gradient-to-b from-[#ebf0f1] to-[#d6e4f2] shadow-lg rounded-lg border border-[#3C9BF9] p-4 mb-4 transition hover:shadow-xl">
-      {/* User info */}
-      <Link to="/user/discussion"
-        state={{questionId : question.id}}
-      >
-        <div className="flex items-center mb-2">
+    <div
+      className="relative border-1 border-purple-600 group bg-white rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] border border-gray-200 
+      p-5 mb-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(145,0,189,0.2)]"
+    >
+      {/* Header */}
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-3">
           <img
             src={questionData.userImage}
-            alt="User Avatar"
-            className="w-8 h-8 rounded-full border border-[#9100BD] mr-3"
+            alt="User"
+            className="w-11 h-11 rounded-full border-2 border-purple-500 ring-2 ring-purple-300 ring-offset-2 transition-all group-hover:ring-purple-500"
           />
           <div>
-            <div className="font-semibold text-purple-800">{questionData.username}</div>
-            <div className="text-xs text-gray-500">{readableTime}</div>
+            <h3 className="font-semibold text-gray-900 text-sm">
+              {questionData.username}
+            </h3>
+            <p className="text-xs text-gray-500">{readableTime}</p>
           </div>
         </div>
 
-        {/* Question text */}
-        <div className="text-gray-800 mb-6">{questionData.question}</div>
-      </Link>
-      <div className="flex justify-between">
-        {/* Like button */}
-        <button
-          onClick={handleLikeToggle}
-          aria-pressed={hasLiked}
-          className={`flex items-center gap-1 text-sm px-2 py-1 rounded transition
-          ${hasLiked
-              ? "bg-gradient-to-r from-[#3C9BF9] to-[#9100BD] text-white"
-              : "text-purple-700 hover:bg-gray-200"}
-        `}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill={hasLiked ? "currentColor" : "none"}
-            viewBox="0 0 24 24"
-            stroke={hasLiked ? "none" : "#9100BD"}
-            strokeWidth="1.5"
-            className="w-4 h-4"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M21.8 7.3c-.8-3-4.1-4.2-6.5-2.2L12 8.1l-3.3-3c-2.4-2-5.7-.9-6.5 2.2-.9 3.3 1.1 6.1 3.7 8.3L12 21l6.1-5.3c2.6-2.2 4.6-5 3.7-8.4z"
-            />
-          </svg>
-          <span>{likes}</span>
-        </button>
-
-        <div className="flex gap-3">
-          <span className="text-green-700 text-xs border border-gray-300 rounded-full py-1 px-3 bg-purple-100/50 font-medium tracking-wide shadow-inner">
-    Supports: <span className="text-indigo-800 font-extrabold">{questionData.answerCount}</span>
-</span>
-           {/* ✅ Delete Button (Bottom-right corner) */}
         {String(sessionStorage.getItem("id")) === String(questionData.userId) && (
           <button
             onClick={handleDelete}
             disabled={isDeleting}
-            className=" text-xs bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md shadow-md transition disabled:opacity-50"
+            className="p-2 rounded-full hover:bg-red-50 text-red-500 transition-all duration-200"
           >
-            {isDeleting ? "Deleting..." : "Delete"}
+            {isDeleting ? (
+              <span className="text-xs text-gray-400">Deleting...</span>
+            ) : (
+              <Trash2 size={18} />
+            )}
           </button>
         )}
-
-        </div>
-
       </div>
+
+      {/* Question Content */}
+      <Link
+        to="/user/discussion"
+        state={{ questionId: questionData.id }}
+        className="block"
+      >
+        <p className="text-gray-800 leading-relaxed mb-5 text-[15.5px] tracking-wide hover:text-purple-700 transition-colors">
+          {questionData.question}
+        </p>
+      </Link>
+
+      {/* Footer */}
+      <div className="flex items-center justify-between">
+        {/* Like Button */}
+        <button
+          onClick={handleLikeToggle}
+          className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium shadow-inner 
+          transition-all duration-200 
+          ${
+            hasLiked
+              ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg"
+              : "bg-gray-50 text-gray-700 border border-gray-200 hover:bg-purple-50"
+          }`}
+        >
+          <Heart
+            size={16}
+            fill={hasLiked ? "white" : "none"}
+            stroke={hasLiked ? "white" : "#9333ea"}
+          />
+          {likes}
+        </button>
+
+        {/* Answers Count */}
+        <span
+          className="flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full 
+          bg-purple-50 border border-purple-200 text-purple-700"
+        >
+          <MessageCircle size={14} />
+          {questionData.answerCount} Answers
+        </span>
+      </div>
+
+      {/* Animated Gradient Line */}
+      <div className="absolute bottom-0 left-0 w-full h-[3px] bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-b-2xl opacity-0 group-hover:opacity-100 transition-all duration-500" />
     </div>
   );
 };

@@ -24,7 +24,7 @@ export const UserNavbar = ({ setSidebarOpen }) => {
   }, []);
 
   return (
-    <header className="flex justify-between items-center bg-white shadow px-6 py-3 border-b border-gray-200 sticky top-0 z-30">
+    <header className="flex justify-between items-center bg-gradient-to-br from-[#f6e6f7] via-[#ede9f9] to-[#ffffff] shadow px-6 py-3 border-b border-gray-200 sticky top-0 z-30">
       {/* Left - Hamburger */}
       <div className="flex items-center gap-4">
         <button
@@ -38,8 +38,8 @@ export const UserNavbar = ({ setSidebarOpen }) => {
 
 
 {/* middle Action */}
-<div className="flex items-center gap-7 text-gray-600 font-medium text-xl">
-  <Link to="/user/share" className="hover:text-[#9100BD]">
+<div className="flex items-center gap-7 text-gray-600 font-medium text-xl ">
+  <Link to="/user/share" className="hover:text-[#9100BD]" >
     Share
   </Link>
   <Link to="/user/support" className="hover:text-[#9100BD]">
