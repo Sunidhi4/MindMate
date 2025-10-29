@@ -1,15 +1,71 @@
+import { Link } from 'react-router-dom'
 const Dashboard = () => {
   return (
-    <div className="p-8">
-      <h2 className="text-3xl font-semibold text-[#0C4663]">Dashboard</h2>
-      <p className="mt-2 text-gray-600">
-        This is the dashboard content area.
+    <div className="p-8 ">
+      <h2 className="text-3xl font-semibold text-[#011621] dark:text-white ">Welcome to PsychoTalk, {sessionStorage.getItem("name")} 👋</h2>
+      <p className="mt-2 text-gray-600 dark:text-white">
+        How are you feeling today?
       </p>
-    </div>
-  );
+      <div className="flex flex-col mt-8 gap-4">
+        <p className="text-2xl text-[#058eb8]  font-bold">Quick Actions</p>
+        
+
+        <div className="flex flex-wrap gap-4">
+          <Link to="/user/share"
+            className="flex  items-center bg-indigo-600 text-white  px-4 py-2 h-14 self-center rounded-xl shadow-md shadow-gray-500 hover:bg-indigo-700">
+            Ask a Question
+
+          </Link>
+          <Link to="/user/support"
+            className="flex  items-center bg-blue-500 text-white px-4 py-2 h-14 self-center rounded-xl shadow-md shadow-gray-500 hover:bg-indigo-700">
+            View My Questions
+
+          </Link>
+          <Link to="/user/appointments"
+            className="flex  items-center bg-green-500 text-white px-4 py-2 h-14 self-center rounded-xl shadow-md shadow-gray-500 hover:bg-indigo-700">
+            My Appointments
+
+          </Link>
+
+        </div>
+      </div>
+
+
+
+      {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="bg-white shadow-md p-4 rounded-xl text-center">
+          <h2 className="text-lg font-semibold">Questions Posted</h2>
+          <p className="text-2xl font-bold text-indigo-600">6</p>
+        </div>
+        <div className="bg-white shadow-md p-4 rounded-xl text-center">
+          <h2 className="text-lg font-semibold">Answers Received</h2>
+          <p className="text-2xl font-bold text-indigo-600">10</p>
+        </div>
+        <div className="bg-white shadow-md p-4 rounded-xl text-center">
+          <h2 className="text-lg font-semibold">Appointments</h2>
+          <p className="text-2xl font-bold text-indigo-600">2</p>
+        </div>
+        <div className="bg-white shadow-md p-4 rounded-xl text-center">
+          <h2 className="text-lg font-semibold">Active Consultations</h2>
+          <p className="text-2xl font-bold text-indigo-600">1</p>
+        </div>
+        </div> */}
+
+{/* 
+        <div className="bg-white shadow-md p-4 rounded-xl">
+        <h2 className="text-lg font-semibold mb-4">Recent Activity</h2>
+        <ul className="text-gray-600 space-y-2">
+          <li>🗓️ Appointment with Dr. Patel confirmed for 29 Oct 2025.</li>
+          <li>💬 You received an answer from Dr. Sharma.</li>
+          <li>📄 Your question “How to manage anxiety?” got 3 replies.</li>
+        </ul>
+      </div> */}
+
+      </div>
+      );
 };
 
-export default Dashboard;
+      export default Dashboard;
 
 
 // import { useState, useEffect } from "react";

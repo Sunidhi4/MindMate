@@ -73,7 +73,7 @@ const Share = () => {
   };
 
   return (
-    <div className="flex flex-col gap-10 ">
+    <div className="flex flex-col gap-10">
       {/* Section 1: Share Your Mind */}
       <section className="bg-white shadow-lg rounded-lg p-6 border border-[#b1d0f0] ">
         <h2 className="text-2xl font-semibold text-[#9100BD] mb-6 px-4">Share Your Mind</h2>

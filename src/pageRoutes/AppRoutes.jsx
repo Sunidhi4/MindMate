@@ -5,9 +5,12 @@ import Login from "../pages/login";
 import { PublicLayout } from "./PublicLayout";
 import { UserLayout } from "./UserLayout";
 import SignUP from "../pages/signup";
+import PublicExperts from "../pages/publicExperts";
 import About from "../pages/about";
 import Contact from "../pages/contactUs";
 import FAQs from "../pages/faq";
+
+
 import Dashboard from "../user/userPages/sidebarPages/Dashboard";
 import UserAppointments from "../user/userPages/sidebarPages/UserAppointments";
 import Profile from "../user/userPages/sidebarPages/Profile";
@@ -30,11 +33,13 @@ import ExpertNotification from '../expert/expertPages/sidebarPages/ExpertNotific
 import Motivations from "../expert/expertPages/navbarPages/Motivations";
 import Appointments from "../expert/expertPages/navbarPages/Appointments";
 
+
 export const AppRoutes = () => (
   <Routes>
     {/* Public layout routes */}
     <Route element={<PublicLayout />}>
       <Route path="/" element={<HomePage />} />
+      <Route path="/experts" element={<PublicExperts/>} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<SignUP />} />
       <Route path="/about" element={<About />} />

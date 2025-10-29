@@ -20,10 +20,10 @@ export const ExpertLayout = () => {
         <ExpertNavbar setSidebarOpen={setSidebarOpen} />
 
         {/* Main content area */}
-        <main className="flex-1 p-6 mt-2">
+      <main className="flex-1 pt-10 p-6  bg-linear-to-br from-[#e2c8f0] to-[#c9e7f7]  ">
           <Outlet />
         </main>
-      </div>
+      </div>    
     </div>
   )
 }

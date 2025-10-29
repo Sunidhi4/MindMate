@@ -2,12 +2,33 @@ import { useEffect, useRef, useState } from "react";
 import { Bell, ChevronDown, Menu } from "lucide-react";
 import NotificationDropdown from "../../user/userPages/navbarPages/NotificationDropdown"
 import ProfileDropdown from "../../user/userPages/navbarPages/ProfileDropdown";
+
 import { Link } from "react-router-dom";
 export const UserNavbar = ({ setSidebarOpen }) => {
+  const [darkMode, setDarkMode] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const notificationRef = useRef(null);
   const profileRef = useRef(null);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("theme") || "light";
+    if (stored === "dark") {
+      document.documentElement.classList.add("dark");
+      setDarkMode(true);
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    setDarkMode(!darkMode);
+    if (!darkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -24,9 +45,10 @@ export const UserNavbar = ({ setSidebarOpen }) => {
   }, []);
 
   return (
-    <header className="flex justify-between items-center bg-gradient-to-br from-[#f6e6f7] via-[#ede9f9] to-[#ffffff] shadow px-6 py-3 border-b border-gray-200 sticky top-0 z-30">
+    <header className="flex justify-between items-center bg-linear-to-r from-[#e4f8fc] via-[#f6f3f3] to-[#def8f9] dark:bg-black shadow px-6 py-3 border-b border-gray-200 sticky top-0 z-30 ">
       {/* Left - Hamburger */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 ">
+
         <button
           onClick={() => setSidebarOpen(true)}
           className="lg:hidden text-gray-700 hover:text-[#9100BD]"
@@ -37,24 +59,58 @@ export const UserNavbar = ({ setSidebarOpen }) => {
       </div>
 
 
-{/* middle Action */}
-<div className="flex items-center gap-7 text-gray-600 font-medium text-xl ">
-  <Link to="/user/share" className="hover:text-[#9100BD]" >
-    Share
-  </Link>
-  <Link to="/user/support" className="hover:text-[#9100BD]">
-    Support
-  </Link>
-  <Link to="/user/experts" className="hover:text-[#9100BD]">
-    Experts
-  </Link>
-  <Link to="/user/routine" className="hover:text-[#9100BD]">
-    Routine
-  </Link>
-</div>
+      {/* middle Action */}
+      <div className="flex items-center gap-7 text-gray-600 font-medium text-xl ">
+        <Link to="/user/share" className="hover:text-[#9100BD]" >
+          Share
+        </Link>
+        <Link to="/user/support" className="hover:text-[#9100BD]">
+          Support
+        </Link>
+        <Link to="/user/experts" className="hover:text-[#9100BD]">
+          Experts
+        </Link>
+        <Link to="/user/routine" className="hover:text-[#9100BD]">
+          Routine
+        </Link>
+      </div>
 
       {/* Right Actions */}
       <div className="flex items-center space-x-6">
+
+
+        {/* theme button */}
+        <button onClick={toggleTheme}>
+          {darkMode ? (<svg width="20" height="20" viewBox="0 0 30 30">
+            <circle cx="15" cy="15" r="7" fill="currentColor" />
+            <line
+              id="ray"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              x1="10"
+              y1="1"
+              x2="10"
+              y2="4"
+            ></line>
+            <use href="#ray" transform="rotate(45 15 15)" />
+            <use href="#ray" transform="rotate(90 15 15)" />
+            <use href="#ray" transform="rotate(135 15 15)" />
+            <use href="#ray" transform="rotate(180 15 15)" />
+            <use href="#ray" transform="rotate(225 15 15)" />
+            <use href="#ray" transform="rotate(270 15 15)" />
+            <use href="#ray" transform="rotate(315 15 15)" />
+          </svg>) : (
+            <svg width="20" height="20" viewBox="0 0 30 30">
+              <path
+                fill="currentColor"
+                d="
+      M 23, 5
+      A 12 12 0 1 0 23, 25
+      A 12 12 0 0 1 23, 5"
+              />
+            </svg>)}
+        </button>
         {/* 🔔 Notification */}
         <div className="relative" ref={notificationRef}>
           <button
@@ -86,9 +142,8 @@ export const UserNavbar = ({ setSidebarOpen }) => {
             />
             <ChevronDown
               size={18}
-              className={`text-gray-600 transition-transform ${
-                showProfileMenu ? "rotate-180" : "rotate-0"
-              }`}
+              className={`text-gray-600 transition-transform ${showProfileMenu ? "rotate-180" : "rotate-0"
+                }`}
             />
           </button>
           {showProfileMenu && <ProfileDropdown />}

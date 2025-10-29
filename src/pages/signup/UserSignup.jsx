@@ -79,14 +79,14 @@ const UserSignup = () => {
                 <div className="">
 
                     <label className="block text-gray-400 text-sm mt-3 mb-1">
-                        Full Name
+                       Username
                     </label>
                     <input
                         type="text"
                         name="username"
                         onChange={handleChange}
-
-                        className={`w-2xs p-2 rounded-full text-black ring-1 ring-[#3C9BF9] focus:outline-none focus:ring-1 focus:ring-[#9100BD]`}
+                        p
+                        className={`w-2xs p-2 rounded-full text-black ring-1 ring-[#3C9BF9] focus:outline-none focus:ring-1 focus:ring-[#9100BD] placeholder:text-gray-400 placeholder:pl-1`}
                         required
                     />
 

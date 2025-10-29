@@ -7,7 +7,7 @@ export const UserLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex bg-gray-100 min-h-screen">
+    <div className="flex bg-gray-100  min-h-screen">
       {/* Sidebar */}
       <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
 
@@ -22,7 +22,7 @@ export const UserLayout = () => {
         <UserNavbar setSidebarOpen={setSidebarOpen} />
 
         {/* Main content area */}
-        <main className="flex-1 p-6 mt-2">
+        <main className="flex-1 pt-10 p-6 bg-gradient  dark:from-[#030e1f] dark:to-[#100114]  ">
           <Outlet />
         </main>
       </div>

@@ -52,7 +52,7 @@ const UserAppointments = () => {
                 key={index}
                 className={`border-black  border-2 relative rounded-3xl p-6 flex flex-col justify-between gap-4 transition-shadow duration-300 ${
                   scheduled
-                    ? "bg-gradient-to-br bg-gradient-to-br from-[#88caeb] to-[#d393fb] text-white shadow-xl hover:shadow-2xl"
+                    ? " bg-linear-to-br from-[#88caeb] to-[#d393fb] text-white shadow-xl hover:shadow-2xl"
                     : "bg-gray-200 text-gray-700 opacity-70 pointer-events-none shadow-md"
                 }`}
               >

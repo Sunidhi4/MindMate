@@ -90,7 +90,7 @@ const Navbar = () => {
                     Contact Us
                   </Link>
                   <Link
-                     to=""
+                     to="/experts"
                     className="text-black text-center text-xl font-normal font-['Roboto']"
                   >
                     Experts

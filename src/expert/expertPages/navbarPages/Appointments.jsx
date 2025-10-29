@@ -33,7 +33,7 @@ const Appointments = () => {
   };
 
   return (
-    <div className="-mt-10 p-10 pt-20 bg-gradient-to-b from-[#f0e1fc] to-[#f5f2f2] ">
+    <div className="-mt-10 p-10 pt-20 bg-linear-to-b from-[#f0e1fc] to-[#f5f2f2] ">
       <h1 className="text-4xl font-extrabold text-gray-800 text-center mb-12 tracking-wide">
         Your Bookings
       </h1>
@@ -51,15 +51,15 @@ const Appointments = () => {
               <div
                 key={index}
                 className={`border-black w-120 border-2 relative rounded-3xl p-6 flex flex-col  justify-between gap-4 transition-shadow duration-300 ${scheduled
-                    ? "bg-gradient-to-br from-[#b4dce9] to-[#d689f7] text-white shadow-xl hover:shadow-2xl"
-                    : "bg-gray-200 text-gray-700 opacity-70 pointer-events-none shadow-md"
+                  ? "bg-linear-to-br from-[#88caeb] to-[#d393fb] text-white shadow-xl hover:shadow-2xl"
+                  : "bg-gray-200 text-gray-700 opacity-70 pointer-events-none shadow-md"
                   }`}
               >
                 {/* Status Badge */}
                 <span
                   className={` absolute top-4 right-4 px-3 py-1 rounded-full text-sm font-semibold ${scheduled
-                      ? "bg-teal-300 text-gray-900"
-                      : "bg-gray-400 text-white"
+                    ? "bg-teal-300 text-gray-900"
+                    : "bg-gray-400 text-white"
                     }`}
                 >
                   {scheduled ? "Scheduled" : "Held"}
@@ -94,7 +94,6 @@ const Appointments = () => {
     </div>
   )
 }
-
 export default Appointments
 
 

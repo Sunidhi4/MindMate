@@ -20,7 +20,7 @@ const navItems = [
   { name: "Help", path: "/user/help", icon: HelpCircle },
 ];
 
-const Sidebar = ({ open, setOpen }) => {
+const  Sidebar = ({ open, setOpen }) => {
   return (
     <div className="">
       {/* Overlay for mobile */}
@@ -36,7 +36,7 @@ const Sidebar = ({ open, setOpen }) => {
           }`}
       >
 
-        <div className="h-full bg-gradient-to-b from-[#e6f6f9] via-[#fff] to-[#e5f9fa]">
+        <div className="h-full bg-linear-to-b from-[#e6f6f9] via-[#f6f3f3] to-[#e5f9fa]">
           {/* Header */}
           <div className="flex justify-between items-center p-5 border-b border-gray-200 ">
             <div className="flex items-center gap-3"> 

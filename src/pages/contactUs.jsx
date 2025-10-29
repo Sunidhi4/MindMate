@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import API from "../services/api";
+import axios from "axios";
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
-    fullName: "",
+    name: "",
     email: "",
     message: "",
-  });
+    subject : ""
+});
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false); // New state for loading
 
@@ -23,8 +25,8 @@ const ContactUs = () => {
     e.preventDefault();
     let newErrors = {};
 
-    if (!formData.fullName.trim()) {
-      newErrors.fullName = "Full Name is required";
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required";
     }
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
@@ -33,6 +35,9 @@ const ContactUs = () => {
     }
     if (!formData.message.trim()) {
       newErrors.message = "Message is required";
+    }
+    if (!formData.subject.trim()) {
+      newErrors.subject = "Subject is required";
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -43,13 +48,14 @@ const ContactUs = () => {
     setLoading(true); // Start loading
 
     try {
-      const response = await API.post("/api/contact", formData, {
-        headers: { "Content-Type": "application/json" },
-      });
-
+      const res = await axios.post("http://localhost:8080/contact/sendMailtoPsychoTalk" , formData);
+      if(res.data.status === "success"){
       toast.success("Message sent successfully!");
-      setFormData({ fullName: "", email: "", message: "" });
+      setFormData({ name: "", email: "", message: "" , subject:"" });
       setErrors({});
+      }else{
+        toast.error("Email not Sent! Try again")
+      }
     } catch (error) {
       console.error("Error sending message:", error);
       toast.error(error.response?.data?.error || "Failed to send message.");
@@ -59,31 +65,32 @@ const ContactUs = () => {
   };
 
   return (
-      <div className="flex justify-center items-center p-10 bg-[#21232f]">
-        <div className="bg-[#3d415a] p-10 rounded-2xl shadow-lg w-[600px] text-white border-3 border-blue-400 flex flex-col items-center">
+      <div className="flex justify-center items-center p-10 bg-gradient">
+        <div className="bg-[#52b7e9]/25  p-10 rounded-2xl shadow-lg w-[600px] text-black border-3 border-black-400 flex flex-col items-center">
           <h2 className="text-2xl font-semibold text-center mb-6">
             Contact Us
           </h2>
           <div className="w-full flex flex-col items-center">
-            <img alt="Contact Us" className="w-32 mb-6" />
+            
             <div className="w-full text-center">
-              <p className="text-lg font-semibold text-gray-300">
-                Let's Connect & Code!
+              <p className="text-lg font-semibold text-gray-800">
+                Let's Connect with us!
               </p>
-              <p className="text-gray-400 mb-6">
-                Got questions or need support? We're here to help! Reach out for
-                inquiries, feedback, or assistance.
+              <p className="text-gray-700 mb-6">
+                Got trouble or need support? We're here to help! Reach out for
+                support, feedback, or assistance.
               </p>
             </div>
           </div>
           <form onSubmit={handleSubmit} className="space-y-4 w-full">
             <input
               type="text"
-              name="fullName"
+              name="name"
               placeholder="Full Name"
-              value={formData.fullName}
+              value={formData.name}
               onChange={handleChange}
-              className={`w-full p-3 rounded-lg focus:outline-none`}
+              className={`w-full p-3 rounded-lg focus:outline-none border border-black`}
+        
             />
             {errors.fullName && (
               <p className="text-red-500 text-sm">{errors.fullName}</p>
@@ -95,10 +102,24 @@ const ContactUs = () => {
               placeholder="Email"
               value={formData.email}
               onChange={handleChange}
-              className={`w-full p-3 rounded-lg focus:outline-none`}
+              className={`w-full p-3 rounded-lg focus:outline-none border border-black`}
+             
             />
             {errors.email && (
               <p className="text-red-500 text-sm">{errors.email}</p>
+            )}
+
+            <input
+              type="text"
+              name="subject"
+              placeholder="Subject"
+              value={formData.subject}
+              onChange={handleChange}
+              className={`w-full p-3 rounded-lg focus:outline-none border border-black`}
+              
+            />
+            {errors.subject && (
+              <p className="text-red-500 text-sm">{errors.subject}</p>
             )}
 
             <textarea
@@ -107,7 +128,8 @@ const ContactUs = () => {
               rows="4"
               value={formData.message}
               onChange={handleChange}
-              className={`w-full p-3 rounded-lg  focus:outline-none`}
+              className={`w-full p-3 rounded-lg  focus:outline-none border border-black`}
+              
             ></textarea>
             {errors.message && (
               <p className="text-red-500 text-sm">{errors.message}</p>
@@ -116,7 +138,7 @@ const ContactUs = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full p-3 cursor-pointer rounded-lg bg-gradient-to-r from-blue-400 to-purple-500 hover:opacity-90 transition duration-300"
+              className="w-full p-3 cursor-pointer rounded-lg bg-linear-to-r from-blue-400 to-purple-500 hover:from-blue-700 transition duration-300 border-2 border-blue-600"
             >
               {loading ? "Sending..." : "Submit"}
             </button>
