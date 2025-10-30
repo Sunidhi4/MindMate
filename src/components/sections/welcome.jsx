@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 
 const Welcome = () => {
   return (
-    <section className="bg-white bg1 text-white min-h-screen flex items-center justify-center pl-15 pr-15">
-      <div className="container mx-auto flex flex-col md:flex-row items-center  mt-8">
+    <section className="bg-gradient text-white min-h-screen flex items-center justify-center -mt-6">
+      <div className="container  flex flex-col md:flex-row items-center ">
         {/* Left Content */}
         <div className="md:w-1/2 text-center md:text-left">
-          <h1 className="text-3xl md:text-5xl font-bold font-Roboto text-black">
+          <h1 className="text-2xl md:text-4xl font-bold font-Roboto text-black">
             Welcome to PsychoTalk!
           </h1>
-          <p className="text-gray-400 mt-15 text-xl font-Roboto">
+          <p className="text-gray-700 mt-10 text-lg font-Roboto">
             At PsychoTalk, you can share your thoughts and feelings safely, talk
             with people who understand, and get help from certified experts —
             all anonymously and without judgment.
@@ -34,7 +34,7 @@ const Welcome = () => {
             {/* ---- Button Section ---- */}
             <Link
               to="/signup"
-              className="mt-8 md:mt-0 bg-gradient-to-r from-[#3C9BF9] to-[#9100BD] text-white text-lg font-bold px-8 py-3 rounded-full shadow-lg transition-all duration-300"
+              className="mt-8 md:mt-0 bg-linear-to-r from-[#3C9BF9] to-[#9100BD] text-white text-lg font-bold px-8 py-3 rounded-full shadow-lg transition-all duration-300"
             >
               Get Started
             </Link>
@@ -42,7 +42,7 @@ const Welcome = () => {
         </div>
 
         {/* Right Image */}
-        <div className="md:w-1/2 mt-8 md:mt-0 flex justify-end max-md:hidden">
+        <div className="md:w-1/2 flex justify-end max-md:hidden">
           <img
             src={PsychoTalkLogo}
             alt="Laptop with Code"

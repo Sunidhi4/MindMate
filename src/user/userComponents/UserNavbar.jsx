@@ -2,9 +2,19 @@ import { useEffect, useRef, useState } from "react";
 import { Bell, ChevronDown, Menu } from "lucide-react";
 import NotificationDropdown from "../../user/userPages/navbarPages/NotificationDropdown"
 import ProfileDropdown from "../../user/userPages/navbarPages/ProfileDropdown";
+import { Link, NavLink } from "react-router-dom";
 
-import { Link } from "react-router-dom";
-export const UserNavbar = ({ setSidebarOpen }) => {
+
+
+
+export const UserNavbar = () => {
+  const navItems = [
+  { name: "Share", path: "/user/share"},
+  { name: "Support", path: "/user/support" },
+  { name: "Experts", path: "/user/experts"},
+  { name: "motivations", path: "/user/motivations" },
+];
+
   const [darkMode, setDarkMode] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -60,20 +70,19 @@ export const UserNavbar = ({ setSidebarOpen }) => {
 
 
       {/* middle Action */}
-      <div className="flex items-center gap-7 text-gray-600 font-medium text-xl ">
-        <Link to="/user/share" className="hover:text-[#9100BD]" >
-          Share
-        </Link>
-        <Link to="/user/support" className="hover:text-[#9100BD]">
-          Support
-        </Link>
-        <Link to="/user/experts" className="hover:text-[#9100BD]">
-          Experts
-        </Link>
-        <Link to="/user/routine" className="hover:text-[#9100BD]">
-          Routine
-        </Link>
-      </div>
+      <nav className="flex items-center gap-7 text-gray-600 font-medium text-xl ">
+        {navItems.map(({name , path})=>(
+          <NavLink
+            key={path}
+            to={path}
+            className={({isActive})=>
+              `hover:text-[#9100BD] 
+            ${isActive ? "text-[#ae10b3] border-b-2 border-blue-500 duration-300 " : ""}`}
+          >
+            {name}
+          </NavLink>
+        ))}
+      </nav>
 
       {/* Right Actions */}
       <div className="flex items-center space-x-6">

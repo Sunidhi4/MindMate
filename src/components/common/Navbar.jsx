@@ -1,152 +1,187 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation , NavLink} from "react-router-dom";
 import PsychoTalkLogo from "/psychotalk_logo.webp";
 
 const Navbar = () => {
+
+    const navItems = [
+        {name : "Home" , path : "/"},
+        {name : "About Us" , path : "/about"},
+        {name : "Contact" , path : "/contact"},
+        {name : "Experts" , path : "/experts"},
+
+    ]
+
   const [open, setOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
 
-  const location = useLocation(); // Get current route
-
-  // Check if the current page is Login or Sign Up
   const isLoginPage = location.pathname === "/login";
   const isSignUpPage = location.pathname === "/signup";
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 50);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <header
-      className={`flex w-full items-center justify-center sticky top-0 z-40 transition-all duration-300 ${
+      className={`sticky top-0 z-50 w-full transition-all duration-300 bg-[#fcf5f5] border-b-2 border-gray-500 ${
         isScrolled
-          ? "bg-white/20 backdrop-blur-md shadow-sm"
-          : "bg-white shadow-none"
+          ? "bg-white/30 backdrop-blur-lg shadow-sm  "
+          : " shadow-none"
       }`}
     >
-      <div className="container px-4">
-        <div className="relative flex items-center justify-end">
-          <div className="w-auto max-w-full flex">
-            <div className="flex items-center space-x-4">
-              <Link to={"/"} aria-label="Go to homepage">
-                <img
-                  src={PsychoTalkLogo}
-                  alt="icon"
-                  className="w-24 pointer-events-none"
-                />
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 ">
+
+        {/* === Left: Logo === */}
+        <Link to="/" className="flex items-center space-x-3">
+          <img
+            src={PsychoTalkLogo}
+            alt="PsychoTalk Logo"
+            className="w-12 h-12"
+          />
+          <span className="hidden md:inline-block text-2xl font-bold font-gradient">
+            PsychoTalk
+          </span>
+        </Link>
+
+        {/* === Center: Nav Links (Desktop) === */}
+        <nav className="hidden lg:flex items-center space-x-10  lg:gap-2 font-medium text-xl text-gray-800 ">
+
+            {navItems.map(({name , path})=>(
+                <NavLink
+                    key={path}
+                    to={path}
+                    className={({isActive})=>
+                        ` hover:text-[#9100BD]  transition duration-100 ease-linear
+                        ${isActive ? "text-[#9100BD] border-b-2 border-black" : ""}`
+                    }
+                >
+                    {name}
+                </NavLink>
+            ))}
+            
+          
+        </nav>
+
+        {/* === Right: Auth Buttons (Desktop) === */}
+        <div className="hidden lg:flex items-center space-x-4">
+          {isLoginPage ? (
+            <Link
+              to="/signup"
+              className="px-6 py-2 text-white text-lg font-semibold rounded-full bg-linear-to-r from-[#3C9BF9] to-[#9100BD] hover:from-[#9100BD] hover:to-[#3C9BF9] transition"
+            >
+              Sign Up
+            </Link>
+          ) : isSignUpPage ? (
+            <Link
+              to="/login"
+              className="px-6 py-2 text-black text-lg font-semibold rounded-full bg-white border-2 border-[#9100BD] hover:bg-[#9100BD] hover:text-white transition"
+            >
+              Login
+            </Link>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="px-6 py-2 text-black text-lg font-semibold rounded-full bg-white border-2 border-[#9100BD] hover:bg-[#9100BD] hover:text-white transition"
+              >
+                Login
               </Link>
               <Link
-                to="/"
-                className={"max-md:hidden kanit text-4xl font-gradient"}
+                to="/signup"
+                className="px-6 py-2 text-white text-lg font-semibold rounded-full bg-linear-to-r from-[#3C9BF9] to-[#9100BD] hover:from-[#9100BD] hover:to-[#3C9BF9] transition"
               >
-                PsychoTalk
+                Sign Up
               </Link>
-            </div>
-          </div>
-          <div className="flex w-full items-center justify-evenly">
-            <div>
-              <button
-                type="button"
-                aria-controls="navbarToggler"
-                name="navbarToggler"
-                title="navbarToggler"
-                onClick={() => setOpen(!open)}
-                id="navbarToggler"
-                className={` ${
-                  open && "navbarTogglerActive"
-                } absolute right-4 top-1/2 block -translate-y-1/2 rounded-lg px-3 py-[6px] ring-primary focus:ring-2 lg:hidden`}
-              >
-                <span className="relative my-[6px] block h-[2px] w-[30px] bg-white"></span>
-                <span className="relative my-[6px] block h-[2px] w-[30px] bg-white"></span>
-                <span className="relative my-[6px] block h-[2px] w-[30px] bg-white"></span>
-              </button>
-              <nav
-                // :className="!navbarOpen && 'hidden' "
-                id="navbarCollapse"
-                className={`absolute right-4 top-full w-full max-w-[250px] bg-transparent py-8 shadow lg:static lg:block lg:w-full lg:max-w-full lg:shadow-none ${
-                  !open && "hidden"
-                } `}
-              >
-                <div className="flex justify-evenly max-lg:flex-col space-x-10 px-5 border-b-1 border-gray-400 pb-2">
-                  <Link
-                    to="/about"
-                    className="text-black text-center text-xl font-normal font-['Roboto'] "
-                  >
-                    About Us
-                  </Link>
-                  <Link
-                    to="/contact"
-                    className="text-black text-center text-xl font-normal font-['Roboto']"
-                  >
-                    Contact Us
-                  </Link>
-                  <Link
-                     to="/experts"
-                    className="text-black text-center text-xl font-normal font-['Roboto']"
-                  >
-                    Experts
-                  </Link>
-                  <Link
-                    // to="/contact"
-                    className="text-black text-center text-xl font-normal font-['Roboto']"
-                  >
-                    Options
-                  </Link>
-                </div>
-              </nav>
-            </div>
-            <div className="hidden justify-end pr-16 sm:flex lg:pr-0 space-x-4">
-              {isLoginPage ? (
-                <Link
-                  to="/signup"
-                  className="p-[2.5px] min-w-40 text-center text-white text-lg font-bold font-['Roboto'] bg-gradient-to-b from-[#3C9BF9] to-[#9100BD] rounded-full transition hover:from-[#9100BD] hover:to-[#3C9BF9]"
-                >
-                  <div className="max-w-45 py-3 rounded-full xl:py-3 ">
-                    Sign Up
-                  </div>
-                </Link>
-              ) : isSignUpPage ? (
-                <Link
-                  to="/login"
-                  className="p-[2.5px] min-w-40 text-center text-black text-lg font-bold font-['Roboto'] bg-gradient-to-b from-[#3C9BF9] to-[#9100BD] rounded-full transition hover:from-[#9100BD] hover:to-[#3C9BF9]"
-                >
-                  <div className="bg-[#FFFFFF] max-w-45 py-3 rounded-full xl:py-3 ">
-                    Login
-                  </div>
-                </Link>
-              ) : (
-                // On any other page → show both Login + Sign Up
-                <>
-                  <Link
-                    to="/login"
-                    className="p-[2.5px] min-w-40 text-center text-black text-lg font-bold font-roboto bg-gradient-to-b from-[#3C9BF9] to-[#9100BD] rounded-full transition hover:from-[#9100BD] hover:to-[#3C9BF9]"
-                  >
-                    <div className="bg-white py-3 rounded-full xl:py-3">
-                      Login
-                    </div>
-                  </Link>
-                  <Link
-                    to="/signup"
-                    className="p-[2.5px] min-w-40 text-center text-white text-lg font-bold font-roboto bg-gradient-to-b from-[#3C9BF9] to-[#9100BD] rounded-full transition hover:from-[#9100BD] hover:to-[#3C9BF9]"
-                  >
-                    <div className="py-3 rounded-full xl:py-3">Sign Up</div>
-                  </Link>
-                </>
-              )}
-            </div>
-          </div>
+            </>
+          )}
         </div>
+
+        {/* === Mobile Menu Button === */}
+        <button
+          className="lg:hidden flex flex-col space-y-1 focus:outline-none"
+          onClick={() => setOpen(!open)}
+        >
+          <span
+            className={`h-0.5 w-6 bg-black transition-transform ${
+              open ? "rotate-45 translate-y-1.5" : ""
+            }`}
+          ></span>
+          <span
+            className={`h-0.5 w-6 bg-black ${
+              open ? "opacity-0" : "opacity-100"
+            }`}
+          ></span>
+          <span
+            className={`h-0.5 w-6 bg-black transition-transform ${
+              open ? "-rotate-45 -translate-y-1.5" : ""
+            }`}
+          ></span>
+        </button>
+      </div>
+
+      {/* === Mobile Dropdown Menu === */}
+      <div
+        className={`lg:hidden transition-all duration-300 overflow-hidden ${
+          open ? "max-h-80 py-4" : "max-h-0"
+        }`}
+      >
+        <nav className="flex flex-col items-center space-y-4">
+          <Link
+            to="/about"
+            className="text-lg text-gray-800 hover:text-[#9100BD]"
+            onClick={() => setOpen(false)}
+          >
+            About Us
+          </Link>
+          <Link
+            to="/contact"
+            className="text-lg text-gray-800 hover:text-[#9100BD]"
+            onClick={() => setOpen(false)}
+          >
+            Contact Us
+          </Link>
+          <Link
+            to="/experts"
+            className="text-lg text-gray-800 hover:text-[#9100BD]"
+            onClick={() => setOpen(false)}
+          >
+            Experts
+          </Link>
+          <Link
+            to="/options"
+            className="text-lg text-gray-800 hover:text-[#9100BD]"
+            onClick={() => setOpen(false)}
+          >
+            Options
+          </Link>
+
+          {/* Auth Buttons in Mobile */}
+          <div className="flex flex-col space-y-2 pt-2">
+            <Link
+              to="/login"
+              className="px-6 py-2 text-black text-lg font-semibold rounded-full bg-white border-2 border-[#9100BD] hover:bg-[#9100BD] hover:text-white transition"
+              onClick={() => setOpen(false)}
+            >
+              Login
+            </Link>
+            <Link
+              to="/signup"
+              className="px-6 py-2 text-white text-lg font-semibold rounded-full bg-linear-to-r from-[#3C9BF9] to-[#9100BD] hover:from-[#9100BD] hover:to-[#3C9BF9] transition"
+              onClick={() => setOpen(false)}
+            >
+              Sign Up
+            </Link>
+          </div>
+        </nav>
       </div>
     </header>
   );
 };
+
 export default Navbar;

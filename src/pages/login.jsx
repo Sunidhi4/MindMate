@@ -98,9 +98,9 @@ const Login = () => {
               </p>
               {loginType === "User"
                ?
-               <p onClick={toggleLoginType} className="text-[#9100BD] text-blue-500 underline mt-1 text-xs cursor-pointer hover:text-blue-700">Login as Expert?</p>
+               <p onClick={toggleLoginType} className="text-blue-500 underline mt-1 text-xs cursor-pointer hover:text-blue-700">Login as Expert?</p>
               :
-              <p onClick={toggleLoginType} className="text-[#9100BD] text-blue-500 underline mt-1 text-xs cursor-pointer hover:text-blue-700">Login as User?</p>
+              <p onClick={toggleLoginType} className=" text-blue-500 underline mt-1 text-xs cursor-pointer hover:text-blue-700">Login as User?</p>
         
               }
                    </div>
@@ -144,7 +144,7 @@ const Login = () => {
 
                 <button
                   type="submit"
-                  className="w-full mt-6 mb-2 bg-gradient-to-r from-[#3C9BF9] to-[#9100BD] text-white py-2 rounded-full hover:from-[#9100BD] hover:to-[#3C9BF9] cursor-pointer font-bold flex items-center justify-center gap-2 relative"
+                  className="w-full mt-6 mb-2 bg-linear-to-r from-[#3C9BF9] to-[#9100BD] text-white py-2 rounded-full hover:from-[#9100BD] hover:to-[#3C9BF9] cursor-pointer font-bold flex items-center justify-center gap-2 relative"
                   disabled={loading}
                 >
                   {loading ? (
@@ -161,7 +161,7 @@ const Login = () => {
                 </p>
               </form>
 
-              <div className="bg-gradient-to-r from-[#3C9BF9] to-[#9100BD] p-[1px] rounded-lg mt-3"></div>
+              <div className="bg-linear-to-r from-[#3C9BF9] to-[#9100BD] p-px rounded-lg mt-3"></div>
               <p className="text-sm text-gray-400 mt-4">
                 Don't have an account?{" "}
                 <Link to="/signup" className="font-gradient font-medium">

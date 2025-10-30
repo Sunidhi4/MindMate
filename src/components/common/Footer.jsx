@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#fff] text-white text-center pb-7">
-      <div className="w-full bg-gradient-to-r from-[#3C9BF9] to-[#9100BD] py-7 ">
+    <footer className="bg-white text-white text-center pb-7">
+      <div className="w-full bg-linear-to-r from-[#3C9BF9] to-[#9100BD] py-7 ">
         <div className="w-[60%] flex justify-around items-center flex-wrap text-center m-auto space-x-8">
           <Link to="/faq" className="text-white hover:underline">
             FAQ’s

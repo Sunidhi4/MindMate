@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import HomePage from "../pages/Home";
+import HomePage from "../pages/home";
 import Login from "../pages/login";
 // import { Welcome } from '../userPages/Welcome';
 import { PublicLayout } from "./PublicLayout";
@@ -62,7 +62,7 @@ export const AppRoutes = () => (
       <Route path="/user/experts" element={<Experts />} />
       <Route path="//user/expertDetails" element={<ExpertDetails />} />
       <Route path="/user/discussion" element={<Discussion />} />
-      <Route path="/user/routine" element={<Routine />} />
+      <Route path="/user/motivations" element={<Motivations />} />
     </Route>
 
     {/* expert layout routes */}

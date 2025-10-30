@@ -64,7 +64,7 @@ const  Sidebar = ({ open, setOpen }) => {
                 onClick={() => setOpen(false)}
                 className={({ isActive }) =>
                   `flex items-center gap-3 px-5 py-2 rounded-full transition-all text-lg font-medium ${isActive
-                    ? "bg-gradient-to-r from-[#3C9BF9] to-[#9100BD] text-white"
+                    ? "bg-linear-to-r from-[#3C9BF9] to-[#9100BD] text-white"
                     : "text-gray-500 hover:bg-gray-100"
                   }`
                 }

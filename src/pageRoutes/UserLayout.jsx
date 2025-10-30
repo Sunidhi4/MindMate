@@ -5,6 +5,7 @@ import {UserNavbar} from "../user/userComponents/UserNavbar"
 
 export const UserLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [navbarActiveLink , setNavbarActiveLink] = useState(false);
 
   return (
     <div className="flex bg-gray-100  min-h-screen">
@@ -19,7 +20,7 @@ export const UserLayout = () => {
         `}
       >
         {/* Navbar */}
-        <UserNavbar setSidebarOpen={setSidebarOpen} />
+        <UserNavbar navbarActiveLink={navbarActiveLink} setNavbarActiveLink={setNavbarActiveLink}  />
 
         {/* Main content area */}
         <main className="flex-1 pt-10 p-6 bg-gradient  dark:from-[#030e1f] dark:to-[#100114]  ">
