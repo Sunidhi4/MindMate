@@ -8,6 +8,8 @@ const Share = () => {
   const [questions, setQuestions] = useState([]);
   const userId = sessionStorage.getItem("id");
   const username = sessionStorage.getItem("name");
+
+  //updating profile when user share somethig on this page
   async function updateSessionStorage() {
     try {
       const res = await axios.get(`http://localhost:8080/User/getUserById/${userId}`);
@@ -20,6 +22,7 @@ const Share = () => {
     }
   }
 
+  //getting users all previous questions
   useEffect(() => {
     const getAllQuestionsByUserId = async () => {
       try {
@@ -38,6 +41,7 @@ const Share = () => {
     getAllQuestionsByUserId();
   }, [userId])
 
+  //user posting a post
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!inputValue.trim()) {
@@ -90,7 +94,7 @@ const Share = () => {
             className={`self-end px-6 py-2 rounded-md text-white font-semibold transition
               ${isSubmitting
                 ? "bg-gray-400 cursor-not-allowed"
-                : "bg-gradient-to-r from-[#3C9BF9] to-[#9100BD] hover:opacity-80 hover:text-black"
+                : "bg-linear-to-r from-[#3C9BF9] to-[#9100BD] hover:opacity-80 hover:text-black"
               }`}
           >
             {isSubmitting ? "Sending..." : "Send"}

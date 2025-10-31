@@ -14,6 +14,7 @@ const UserAppointments = () => {
           `http://localhost:8080/appointment/getAppointmentsByUserId/${userId}`
         );
         if (res.data) setAppointments(res.data);
+        
       } catch (error) {
         console.error("Error fetching appointments:", error);
       } finally {
@@ -33,7 +34,7 @@ const UserAppointments = () => {
   };
 
   return (
-    <div className="-m-10 p-20 bg-gradient-to-b from-[#d4d2f2] via-[#fff] to-[#fff] h-full ">
+    <div className="-m-10 p-20 bg-linear-to-b from-[#d4d2f2] via-[#f0ecec] to-[#f5f2f2] h-full ">
       <h1 className="text-4xl font-extrabold text-gray-800 text-center mb-12 tracking-wide">
         Your Appointments
       </h1>

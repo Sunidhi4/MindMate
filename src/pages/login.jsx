@@ -77,7 +77,7 @@ const Login = () => {
   };
 
   return (
-      <div className="flex items-center justify-center p-10 bg-white text-black">
+      <div className="min-h-screen flex items-center justify-center bg-gradient text-black">
         <motion.div
           initial={{ opacity: 0.4, scale: 0.7 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -86,14 +86,14 @@ const Login = () => {
             ease: easeInOut,
           }}
         >
-          <div className="w-full max-w-3xl bg-white p-6 rounded-4xl border-2 border-gray-300 shadow-4xl flex flex-col md:flex-row items-center animate-glow transition-all duration-500 hover:border-black">
-            <div className="flex flex-col items-center text-center md:w-1/2 p-6">
+          <div className="w-full sm:max-w-3xl -mt-40 sm:-mt-20 p-6 rounded-4xl sm:border-2 sm:border-purple-700 sm:hover:border-blue-700 sm:shadow-4xl flex flex-col md:flex-row items-center animate-glow transition-all duration-500 sm:bg-[#f0eded44]">
+            <div className="flex flex-col items-center text-center md:w-1/2 p-3 sm:p-6">
               {/* <img src={lockIcon} alt="Secure Login" className="w-50 mb-4" /> */}
-              <h2 className="text-xl font-medium">
+              <h2 className="text-lg sm:text-xl font-medium">
                 Welcome back to{" "}
                 <span className="font-gradient font-semibold">PsychoTalk</span>
               </h2>
-              <p className="text-gray-400 w-78">
+              <p className="text-xs sm:text-sm text-gray-400 w-78">
                 Share, Support, live a Stree free life.
               </p>
               {loginType === "User"
@@ -106,8 +106,8 @@ const Login = () => {
                    </div>
 
             {/* Right Side - Login Form */}
-            <div className="md:w-1/2 w-full p-6">
-              <h2 className="text-2xl font-bold mb-4">Login | <span className="text-[#9100BD]">{loginType}</span></h2>
+            <div className="md:w-1/2 sm:w-full sm:p-6 px-3">
+              <h2 className="text-lg sm:text-2xl font-bold mb-4">Login | <span className="text-[#9100BD]">{loginType}</span></h2>
 
               <form onSubmit={handleLogin}>
                 <label className="block text-gray-400 text-sm mb-1">
@@ -117,7 +117,7 @@ const Login = () => {
                   type="email"
                   name="email"
                   onChange={handleChange}
-                  className={`w-full py-2 px-4 rounded-full ring-1 ring-[#3C9BF9] focus:outline-none focus:ring-1 focus:ring-[#9100BD]`}
+                  className={`w-full py-2 px-4 text-sm sm:text-base rounded-full ring-1 ring-[#3C9BF9] focus:outline-none focus:ring-1 focus:ring-[#9100BD]`}
                   required
                 />
 
@@ -129,7 +129,7 @@ const Login = () => {
                     type={showPassword ? "text" : "password"}
                     name="password"
                     onChange={handleChange}
-                    className={`w-full py-2 px-4 rounded-full text-black ring-1 ring-[#3C9BF9] focus:outline-none focus:ring-1 focus:ring-[#9100BD]`}
+                    className={`w-full py-2 px-4 text-sm sm:text-base rounded-full text-black ring-1 ring-[#3C9BF9] focus:outline-none focus:ring-1 focus:ring-[#9100BD]`}
                     required
                   />
 

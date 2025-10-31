@@ -1,63 +1,70 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { Trash2 } from "lucide-react";
 import axios from "axios";
+import API from "../../../services/api";
+import { toast } from "react-toastify";
 
 const Discussion = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const questionId = location.state?.questionId;
-
-  const [question, setQuestion] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [answerInput, setAnswerInput] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [answers, setAnswers] = useState([]);
+  const textAreaRef = useRef(null);
+  const [deleting, setDeleting] = useState(false);
+  const userId = sessionStorage.getItem("id");
+  const username = sessionStorage.getItem("name");
+
+  //getting question data
+  const [question, setQuestion] = useState(location.state?.question);
+  useEffect(() => {
+    if (!question) {
+      alert("question not found");
+      navigate(-1)
+    }
+  }, []);
 
   useEffect(() => {
-    if (!questionId) {
-      navigate("/user");
-      return;
-    }
-
-    async function fetchQuestionDetails() {
+    const getAllAnswersByQuestionId = async () => {
       try {
-        const res = await axios.get(
-          `http://localhost:8080/question/getQuestionById?id=${questionId}`
-        );
-        setQuestion(res.data);
-        console.log(res.data);
-      } catch (error) {
-        console.error("Failed to fetch question details:", error);
+        setLoading(true);
+        const res = await axios.get(`http://localhost:8080/answer/getAllAnswersByQuestionId/${question.id}`);
+        if (res.data) {
+          setAnswers(res.data);
+        }
+      } catch(error) {
+        console.log(error);
       } finally {
         setLoading(false);
       }
     }
+    getAllAnswersByQuestionId();
+  }, [submitting , deleting])
 
-    fetchQuestionDetails();
-  }, [questionId, navigate]);
-
+  const handleTextAreaChage = (e) => {
+    setAnswerInput(e.target.value);
+    textAreaRef.current.style.height = "auto";
+    textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
+  }
   // Submit a new answer
   const handleSubmitAnswer = async (e) => {
     e.preventDefault();
     if (!answerInput.trim()) return alert("Please write something before submitting.");
-
-    const userId = sessionStorage.getItem("id");
-    const username = sessionStorage.getItem("name");
-
     try {
+      setLoading(true);
       setSubmitting(true);
-      const newAnswer = { 
+      const newAnswer = {
         answer: answerInput,
-        user : {id : sessionStorage.getItem("id")},
+        user: { id: userId },
       };
-      const res = await axios.post(`http://localhost:8080/answer/postAnswerByQuestionId/${questionId}`, newAnswer);
+      const res = await axios.post(`http://localhost:8080/answer/postAnswerByQuestionId/${question.id}`, newAnswer);
 
       if (res.data.status === "success" || res.data === true) {
         setAnswerInput("");
-        // Refresh question data to include the new answer
-        const updated = await axios.get(
-          `http://localhost:8080/question/getQuestionById?id=${questionId}`
-        );
-        setQuestion(updated.data);
+        setLoading(false);
       } else {
         alert("Failed to post your answer.");
       }
@@ -65,11 +72,12 @@ const Discussion = () => {
       console.error("Error submitting answer:", error);
     } finally {
       setSubmitting(false);
+      setLoading(false);
     }
   };
 
   if (loading) return <p className="text-center text-gray-500 mt-10">Loading discussion...</p>;
-  if (!question) return <p className="text-center text-gray-500 mt-10">Question not found.</p>;
+
 
   const readableTime = new Date(question.createdTime).toLocaleString("en-US", {
     weekday: "short",
@@ -78,62 +86,86 @@ const Discussion = () => {
   });
 
   // Sort answers: latest first
-  const sortedAnswers = [...(question.answerList || [])].sort(
-    (a, b) => new Date(b.createdTime) - new Date(a.createdTime)
+  const sortedAnswers = [...(answers || [])].sort(
+    (a, b) => new Date(b.time) - new Date(a.time)
   );
+
+  //deleting Own answer
+  const handleDelete = async (answerId) => {
+    let isSure = window.confirm("Do you want to delete your answer?")
+    if (isSure) {
+      try {
+        setDeleting(true);
+        const res = await axios.delete(`http://localhost:8080/answer/deleteAnswerByAnswerId/${answerId}`);
+        if (res.data == true) {
+          toast.success("Reflection deleted")
+
+        } else {
+          toast.error("Error Reflection deleted")
+        }
+      }
+      catch(error){
+        console.log(error);
+      } finally {
+        setDeleting(false);
+      }
+    }
+    return;
+  }
 
   return (
     <div className=" bg-white shadow-lg rounded-lg border border-[#b1d0f0] p-10">
       {/* Question Header */}
       <div className="mb-4">
-  <h1 className="text-3xl font-semibold text-[#000000] mb-2">
-    {question.question}
-  </h1>
-  <p className="text-gray-600 text-sm">
-    Asked by{" "}
-    {question.username !== sessionStorage.getItem("name") ? (
-      <span className="font-semibold text-purple-800">
-        {question.username}
-      </span>
-    ) : (
-      <span className="font-semibold text-purple-800">you</span>
-    )}{" "}
-    on
-   {`  ${readableTime}`}
-     
-  </p>
-</div>
+        <h1 className="text-3xl font-semibold text-[#000000] mb-2">
+          {question.question}
+        </h1>
+        <p className="text-gray-600 text-sm">
+          Asked by{" "}
+          {question.username !== username ? (
+            <span className="font-semibold text-purple-800">
+              {question.username}
+            </span>
+          ) : (
+            <span className="font-semibold text-purple-800">you</span>
+          )}{" "}
+          on
+          {`  ${readableTime}`}
+
+        </p>
+      </div>
 
       {/* Answer Box directly below question */}
-      { question.username !== sessionStorage.getItem("name")
-      ?
+      {question.username !== username
+        ?
 
-       <form onSubmit={handleSubmitAnswer} className="mb-6">
-        <h3 className="text-lg font-semibold text-[#3C9BF9] mb-2">Your Answer</h3>
-        <textarea
-          value={answerInput}
-          onChange={(e) => setAnswerInput(e.target.value)}
-          placeholder="Write your answer here..."
-          className="w-full h-20 p-2 border border-[#9100BD] rounded-md focus:ring-1 focus:ring-[#3C9BF9] focus:outline-none resize-none text-sm text-black placeholder:text-gray-500"
-        ></textarea>
-        <div className="flex justify-end">
-          <button
-          type="submit"
-          disabled={submitting}
-          className={`mt-2 px-5 py-1.5 rounded-md text-white font-semibold text-sm transition
-            ${
-              submitting
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-gradient-to-r from-[#3C9BF9] to-[#9100BD] hover:opacity-80 hover:text-black"
-            }`}
-        >
-          {submitting ? "Posting..." : "Post Answer"}
-        </button>
-        </div>
-      </form>
-       : ""
-      
-     
+        <form onSubmit={handleSubmitAnswer} className="mb-6">
+          <h3 className="text-lg font-semibold text-[#3C9BF9] mb-2">Your Answer</h3>
+          <textarea
+            ref={textAreaRef}
+            onChange={handleTextAreaChage}
+            value={answerInput}
+
+            placeholder="Write your answer here..."
+            className="w-full min-h-20  p-2 border border-[#9100BD] rounded-md focus:ring-1 focus:ring-[#3C9BF9] focus:outline-none resize-none text-sm text-black placeholder:text-gray-500"
+          ></textarea>
+          <div className="flex justify-end">
+            <button
+              type="submit"
+              disabled={submitting}
+              className={`mt-2 px-5 py-1.5 rounded-md text-white font-semibold text-sm transition
+            ${submitting
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-linear-to-r from-[#3C9BF9] to-[#9100BD] hover:opacity-80 hover:text-black"
+                }`}
+            >
+              {submitting ? "Posting..." : "Post Answer"}
+            </button>
+          </div>
+        </form>
+        : ""
+
+
       }
 
       <hr className="mb-4 border-[#b1d0f0]" />
@@ -141,7 +173,7 @@ const Discussion = () => {
       {/* Answers Section */}
       <div>
         <h2 className="text-xl font-semibold text-[#3C9BF9] mb-3">
-          Answers ({sortedAnswers.length})
+          Answers ({answers.length})
         </h2>
 
         {sortedAnswers.length > 0 ? (
@@ -152,15 +184,30 @@ const Discussion = () => {
             >
               <div className="flex items-start gap-3 mb-2">
                 <img
-                  src={`https://i.pravatar.cc/50?u=${ans.user.email}`}
-                  alt={ans.user.username}
+                  src={`https://i.pravatar.cc/50?u=${ans.name}`}
+                  alt={ans.name}
                   className="w-8 h-8 rounded-full border border-[#9100BD]"
                 />
                 <div>
-                  <p className="font-semibold text-[#9100BD] text-sm">{ans.user.username}</p>
+                  {ans.senderType == "user"
+                    ?
+                    (<p className="font-semibold text-[#9100BD] text-sm">{ans.name}</p>)
+                    :
+                    (
+                      <Link
+                        key={ans.id}
+                        to="/user/expertDetails"
+                        state={{expert : ans.senderId}}
+                      >
+                        <p className="font-bold text-[#9100BD] text-sm underline hover:text-blue-700">{ans.name}<span className="text-blue-600 no-underline"> | Expert</span></p>
+                      </Link>
+                    )
+                  }
+
                   <p className="text-xs text-gray-500">
-                    {new Date(ans.createdTime).toLocaleString("en-US", {
-                      weekday: "short",
+                    {new Date(ans.time).toLocaleString("en-US", {
+                      month: "short",
+                      day: "2-digit",
                       hour: "2-digit",
                       minute: "2-digit",
                     })}
@@ -170,8 +217,26 @@ const Discussion = () => {
 
               <p className="whitespace-pre-line text-gray-800 text-sm leading-relaxed">{ans.answer}</p>
 
-              <div className="text-xs text-gray-500 mt-2 flex items-center gap-2">
-                ❤️ {ans.likes} likes
+              <div className="flex justify-between">
+                <div className=" text-xs text-gray-500 mt-2 flex items-center gap-2">❤️ {ans.likes} likes</div>
+                <div className="mt-2">
+                  {username === ans.name ?
+                    (
+                      <button
+                        onClick={()=>handleDelete(ans.id)}
+                        className="p-2 rounded-full hover:bg-red-50 text-red-500 transition-all duration-200"
+                      >
+                        {deleting ? (
+                          <span className="text-xs text-gray-400">Deleting...</span>
+                        ) : (
+                          <Trash2 size={18} />
+                        )}
+                      </button>
+                    )
+                    :
+                    ""
+                  }
+                </div>
               </div>
             </div>
           ))

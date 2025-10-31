@@ -23,14 +23,14 @@ const publicExperts = () => {
         getAllExperts();
     }, [])
     return (
-        <div className=" px-40 py-20 grid grid-cols-3 gap-10 bg-gradient ">
+        <div className="px-7 sm:px-30 py-8 lg:py-15 flex flex-wrap justify-center gap-10 bg-gradient ">
 
             {experts != null && experts.length > 0 ?
                 experts.map((expert, index) => (
-                    <button 
-                    key={expert.id} 
-                    className="p-5 flex flex-col gap-2 items-start bg-linear-to-br from-[#c4e3f3] to-[#e3caf4] border-2 border-black rounded-2xl shadow-gray-400 shadow-xs hover:shadow-2xl transition transform hover:-translate-y-1 "
-                    onClick={()=>navigate("/login")}
+                    <button
+                        key={expert.id}
+                        className="w-xs p-5 flex flex-col items-stretch gap-4  bg-linear-to-br from-[#c4e3f3] to-[#e3caf4] border-2 border-black rounded-2xl shadow-gray-400 shadow-xs hover:shadow-2xl transition transform hover:-translate-y-1 "
+                        onClick={() => navigate("/login")}
                     >
                         <div className="flex items-center  gap-4">
                             {/* Profile Image */}
@@ -46,12 +46,12 @@ const publicExperts = () => {
                             </h3>
 
                         </div>
-                        <p className="mt-2 text-sm text-gray-700 ">{expert.about.substring(0 , 200)} <span className="text-gray-500 text-xs hover:text-blue-400 " title="login to see more">{expert.about.length > 200 ? "...see more" : ""}</span></p>
+                        <p className="mt-3 text-xs lg:text-sm text-gray-700 ">{expert.about.substring(0, 200)} <span className="text-gray-500 text-xs hover:text-blue-400 " title="login to see more">{expert.about.length > 200 ? "...see more" : ""}</span></p>
 
                         {/* Bottom Section */}
 
                         <p className="text-gray-600">
-                            <span className="font-medium text-gray-800">{expert.experience}</span>
+                            <span className=" text-xs md:text-base font-medium text-gray-800">{expert.experience}</span>
                         </p>
                         <p className="text-[#3C9BF9] font-semibold">₹{expert.fees} / session</p>
 

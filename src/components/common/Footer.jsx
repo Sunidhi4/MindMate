@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-white text-white text-center pb-7">
+    <footer className="bg-white text-white text-center  pb-3 ">
       <div className="w-full bg-linear-to-r from-[#3C9BF9] to-[#9100BD] py-7 ">
-        <div className="w-[60%] flex justify-around items-center flex-wrap text-center m-auto space-x-8">
+        <div className="w-full px-2 lg:px-10 flex justify-evenly items-center flex-wrap text-center m-auto space-x-8 text-xs lg:text-lg">
           <Link to="/faq" className="text-white hover:underline">
             FAQ’s
           </Link>
@@ -20,11 +20,11 @@ const Footer = () => {
           </Link>
         </div>
       </div>
-      <p className="pt-8 text-gray-400">
+      <p className="pt-2  text-gray-400 lg:text-base text-xs">
         copyright © 2025 -{" "}
         <span className="font-bold font-gradient">PsychoTalk</span>
       </p>
-      <p className="text-gray-500">All rights reserved.</p>
+      <p className="text-gray-500 text-xs">All rights reserved.</p>
     </footer>
   );
 };

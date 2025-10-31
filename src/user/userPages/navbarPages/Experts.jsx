@@ -7,7 +7,9 @@ const Experts = () => {
   useEffect(()=>{
       async function getAllExperts() {
         try{
+          setLoading(true);
         const res = await axios.get("http://localhost:8080/Expert/getAllExperts");
+        
         setExperts(res.data);
       }catch{
         console.log(e);
@@ -20,7 +22,9 @@ const Experts = () => {
     },[])
   return (
     
+    
     <div className="">
+     
           <section className="bg-white shadow-lg rounded-lg p-6 border border-[#98c5f1] ">
             <h2 className="text-2xl font-semibold text-[#9100BD] mb-6">Experts</h2>
             <div className="flex flex-col gap-6">

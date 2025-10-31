@@ -9,7 +9,7 @@ export const PublicLayout = () => {
     <>
       <Scroll />
       <Navbar />
-      <main>
+      <main className="min-h-screen">
         <Outlet /> {/* Child route components render here */}
       </main>
       <Footer />

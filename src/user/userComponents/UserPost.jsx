@@ -12,7 +12,7 @@ export const UserPost = ({ question }) => {
     question: question.question,
     createdTime: question.createdTime,
     initialLikes: question.likes,
-    answerCount: question.answerList.length,
+    answerCount : question.answerCount
   };
 
   const [likes, setLikes] = useState(questionData.initialLikes);
@@ -53,9 +53,14 @@ export const UserPost = ({ question }) => {
 
   return (
     <div
-      className="relative border-1 border-purple-600 group bg-white rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] border border-gray-200 
+      className="relative border border-purple-600 group bg-white rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] 
       p-5 mb-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(145,0,189,0.2)]"
     >
+       <Link
+        to="/user/discussion"
+        state={{ question: questionData}}
+        className="block"
+      >
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
@@ -88,15 +93,11 @@ export const UserPost = ({ question }) => {
       </div>
 
       {/* Question Content */}
-      <Link
-        to="/user/discussion"
-        state={{ questionId: questionData.id }}
-        className="block"
-      >
+     
         <p className="text-gray-800 leading-relaxed mb-5 text-[15.5px] tracking-wide hover:text-purple-700 transition-colors">
           {questionData.question}
         </p>
-      </Link>
+      
 
       {/* Footer */}
       <div className="flex items-center justify-between">
@@ -107,7 +108,7 @@ export const UserPost = ({ question }) => {
           transition-all duration-200 
           ${
             hasLiked
-              ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg"
+              ? "bg-linear-to-r from-blue-500 to-purple-500 text-white shadow-lg"
               : "bg-gray-50 text-gray-700 border border-gray-200 hover:bg-purple-50"
           }`}
         >
@@ -125,12 +126,13 @@ export const UserPost = ({ question }) => {
           bg-purple-50 border border-purple-200 text-purple-700"
         >
           <MessageCircle size={14} />
-          {questionData.answerCount} Answers
+           {questionData.answerCount} Answers
         </span>
       </div>
 
       {/* Animated Gradient Line */}
-      <div className="absolute bottom-0 left-0 w-full h-[3px] bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-b-2xl opacity-0 group-hover:opacity-100 transition-all duration-500" />
+      <div className="absolute bottom-0 left-0 w-full h-[3px] bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 rounded-b-2xl opacity-0 group-hover:opacity-100 transition-all duration-500" />
+    </Link>
     </div>
   );
 };

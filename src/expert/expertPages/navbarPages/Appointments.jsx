@@ -33,7 +33,7 @@ const Appointments = () => {
   };
 
   return (
-    <div className="-mt-10 p-10 pt-20 bg-linear-to-b from-[#f0e1fc] to-[#f5f2f2] ">
+    <div className="-mt-10 p-10 pt-20  ">
       <h1 className="text-4xl font-extrabold text-gray-800 text-center mb-12 tracking-wide">
         Your Bookings
       </h1>
@@ -43,7 +43,7 @@ const Appointments = () => {
           Loading your appointments...
         </div>
       ) : appointments.length > 0 ? (
-        <div className="flex flex-wrap flex-2 gap-10">
+        <div className="grid grid-cols-2">
           {appointments.map((appointment, index) => {
             const scheduled = appointment.isScheduled === "true";
 

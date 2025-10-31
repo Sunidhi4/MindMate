@@ -29,7 +29,7 @@ const Navbar = () => {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition-all duration-300 bg-[#fcf5f5] border-b-2 border-gray-500 ${
+      className={`sticky top-0 z-50 w-full transition-all duration-300 nav-bg border-b-2 border-gray-500 ${
         isScrolled
           ? "bg-white/30 backdrop-blur-lg shadow-sm  "
           : " shadow-none"
@@ -127,52 +127,53 @@ const Navbar = () => {
 
       {/* === Mobile Dropdown Menu === */}
       <div
-        className={`lg:hidden transition-all duration-300 overflow-hidden ${
+        className={`lg:hidden transition-all duration-300 overflow-hidden absolute z-20 right-0  nav-bg px-5 rounded-b-2xl  ${
           open ? "max-h-80 py-4" : "max-h-0"
         }`}
       >
-        <nav className="flex flex-col items-center space-y-4">
+        <nav className="flex flex-col items-center space-y-4 text-base">
+          <Link
+            to="/"
+            className=" text-gray-800 hover:text-[#9100BD]"
+            onClick={() => setOpen(false)}
+          >
+            Home
+          </Link>
           <Link
             to="/about"
-            className="text-lg text-gray-800 hover:text-[#9100BD]"
+            className=" text-gray-800 hover:text-[#9100BD]"
             onClick={() => setOpen(false)}
           >
             About Us
           </Link>
           <Link
             to="/contact"
-            className="text-lg text-gray-800 hover:text-[#9100BD]"
+            className=" text-gray-800 hover:text-[#9100BD]"
             onClick={() => setOpen(false)}
           >
             Contact Us
           </Link>
           <Link
             to="/experts"
-            className="text-lg text-gray-800 hover:text-[#9100BD]"
+            className=" text-gray-800 hover:text-[#9100BD]"
             onClick={() => setOpen(false)}
           >
             Experts
           </Link>
-          <Link
-            to="/options"
-            className="text-lg text-gray-800 hover:text-[#9100BD]"
-            onClick={() => setOpen(false)}
-          >
-            Options
-          </Link>
+          
 
           {/* Auth Buttons in Mobile */}
           <div className="flex flex-col space-y-2 pt-2">
             <Link
               to="/login"
-              className="px-6 py-2 text-black text-lg font-semibold rounded-full bg-white border-2 border-[#9100BD] hover:bg-[#9100BD] hover:text-white transition"
+              className="px-3 py-1 text-center text-black text-sm font-semibold rounded-full bg-white border-2 border-[#9100BD] hover:bg-[#9100BD] hover:text-white transition"
               onClick={() => setOpen(false)}
             >
               Login
             </Link>
             <Link
               to="/signup"
-              className="px-6 py-2 text-white text-lg font-semibold rounded-full bg-linear-to-r from-[#3C9BF9] to-[#9100BD] hover:from-[#9100BD] hover:to-[#3C9BF9] transition"
+              className="px-3 py-1 text-center text-white text-sm font-semibold rounded-full bg-linear-to-r from-[#3C9BF9] to-[#9100BD] hover:from-[#9100BD] hover:to-[#3C9BF9] transition"
               onClick={() => setOpen(false)}
             >
               Sign Up

@@ -65,31 +65,31 @@ const ContactUs = () => {
   };
 
   return (
-      <div className="flex justify-center items-center p-10 bg-gradient">
-        <div className="bg-[#52b7e9]/25  p-10 rounded-2xl shadow-lg w-[600px] text-black border-3 border-black-400 flex flex-col items-center">
-          <h2 className="text-2xl font-semibold text-center mb-6">
+      <div className="flex justify-center items-center lg:p-10 bg-gradient">
+        <div className=" min-h-screen  bg-gradient px-8 lg:px-15 py-10 rounded-2xl md:shadow-xl   md:shadow-gray-700 w-[600px] text-black flex flex-col items-center">
+          <h2 className="text-lg lg:text-2xl font-semibold text-center mb-6 text-purple-800">
             Contact Us
           </h2>
           <div className="w-full flex flex-col items-center">
             
             <div className="w-full text-center">
-              <p className="text-lg font-semibold text-gray-800">
+              <p className="text-xs lg:text-lg font-semibold font-gradient text-gray-800">
                 Let's Connect with us!
               </p>
-              <p className="text-gray-700 mb-6">
+              <p className="text-xs lg:text-base text-gray-700 mb-6 mt-1">
                 Got trouble or need support? We're here to help! Reach out for
                 support, feedback, or assistance.
               </p>
             </div>
           </div>
-          <form onSubmit={handleSubmit} className="space-y-4 w-full">
+          <form onSubmit={handleSubmit} className="space-y-4 w-full flex flex-col gap-2">
             <input
               type="text"
               name="name"
               placeholder="Full Name"
               value={formData.name}
               onChange={handleChange}
-              className={`w-full p-3 rounded-lg focus:outline-none border border-black`}
+              className={`w-full p-3 rounded-lg focus:outline-none border border-purple-600 h-10 lg:h-full placeholder:text-xs lg:placeholder:text-sm text-start text-base`}
         
             />
             {errors.fullName && (
@@ -102,7 +102,7 @@ const ContactUs = () => {
               placeholder="Email"
               value={formData.email}
               onChange={handleChange}
-              className={`w-full p-3 rounded-lg focus:outline-none border border-black`}
+              className={`w-full p-3 rounded-lg focus:outline-none border  border-purple-600 h-10 lg:h-full placeholder:text-xs lg:placeholder:text-sm text-start text-base`}
              
             />
             {errors.email && (
@@ -115,7 +115,7 @@ const ContactUs = () => {
               placeholder="Subject"
               value={formData.subject}
               onChange={handleChange}
-              className={`w-full p-3 rounded-lg focus:outline-none border border-black`}
+              className={`w-full p-3 rounded-lg focus:outline-none border  border-purple-600 h-10 lg:h-full placeholder:text-xs lg:placeholder:text-sm text-start text-base`}
               
             />
             {errors.subject && (
@@ -125,10 +125,10 @@ const ContactUs = () => {
             <textarea
               name="message"
               placeholder="Message"
-              rows="4"
+              rows="5"
               value={formData.message}
               onChange={handleChange}
-              className={`w-full p-3 rounded-lg  focus:outline-none border border-black`}
+              className={`w-full p-3 rounded-lg  focus:outline-none border  border-purple-600  placeholder:text-xs lg:placeholder:text-sm text-start  text-base`}
               
             ></textarea>
             {errors.message && (
@@ -138,7 +138,7 @@ const ContactUs = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full p-3 cursor-pointer rounded-lg bg-linear-to-r from-blue-400 to-purple-500 hover:from-blue-700 transition duration-300 border-2 border-blue-600"
+              className="w-full p-3 cursor-pointer rounded-lg bg-linear-to-r from-blue-400 to-purple-500 hover:from-blue-700 transition duration-300 border-2 border-purple-600"
             >
               {loading ? "Sending..." : "Submit"}
             </button>

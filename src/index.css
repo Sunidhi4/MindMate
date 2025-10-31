@@ -41,4 +41,10 @@ color: transparent;
   background: linear-gradient(to bottom right, #c4e3f3 , #e3caf4);
 }
 
+.nav-bg{
+  background: #e1e5e7;
+}
 
+.purple-color{
+  color: #951acf;
+}
