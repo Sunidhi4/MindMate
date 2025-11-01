@@ -17,7 +17,7 @@ export const ExpertLayout = () => {
         `}
       >
         {/* Navbar */}
-        <ExpertNavbar setSidebarOpen={setSidebarOpen} />
+        <ExpertNavbar />
 
         {/* Main content area */}
       <main className="flex-1 pt-10 p-6  bg-linear-to-br from-[#e2c8f0] to-[#c9e7f7]  ">

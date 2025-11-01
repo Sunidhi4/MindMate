@@ -162,7 +162,7 @@ const ExpertDetails = () => {
           <>
             {/* Back Button */}
             <button
-              onClick={() => navigate("/user/experts")}
+              onClick={() => navigate(-1)}
               className="absolute top-4 left-4 flex items-center text-sm text-[#9100BD] hover:text-[#3C9BF9] transition"
             >
               <FaArrowLeft className="w-4 h-4 mr-1" /> Back

@@ -48,3 +48,9 @@ color: transparent;
 .purple-color{
   color: #951acf;
 }
+.sidebar-bg-gradient{
+  background: linear-gradient(to bottom ,#e6f6f9 , #f6f3f3, #e5f9fa);
+}
+.navbar-bg-gradient{
+  background: linear-gradient(to right, #e4f8fc, #f6f3f3, #def8f9 );
+}

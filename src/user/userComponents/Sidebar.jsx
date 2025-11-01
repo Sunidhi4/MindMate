@@ -36,7 +36,7 @@ const  Sidebar = ({ open, setOpen }) => {
           }`}
       >
 
-        <div className="h-full bg-linear-to-b from-[#e6f6f9] via-[#f6f3f3] to-[#e5f9fa]">
+        <div className="h-full sidebar-bg-gradient">
           {/* Header */}
           <div className="flex justify-between items-center p-5 border-b border-gray-200 ">
             <div className="flex items-center gap-3"> 

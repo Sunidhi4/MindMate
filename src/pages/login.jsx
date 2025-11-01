@@ -35,7 +35,6 @@ const Login = () => {
       if(loginType === "User"){
         const res = await axios.post("http://localhost:8080/User/login", formData);
         if (res.data.token) {
-        console.log("User logged in:", res.data);
         sessionStorage.setItem("token", res.data.token); // Store token
         sessionStorage.setItem("id" ,res.data.user.id);
         sessionStorage.setItem("name" ,res.data.user.username);
@@ -51,11 +50,8 @@ const Login = () => {
           toast.error(res.data.errorMsg);
         }
       }else{
-        console.log(formData);
         const res = await axios.post("http://localhost:8080/Expert/login", formData);
-        console.log( res.data);
         if (res.data.token) {
-          console.log("expert logged in ")
         sessionStorage.setItem("token", res.data.token); // Store token
         sessionStorage.setItem("id" ,res.data.expert.id);
         sessionStorage.setItem("name" ,res.data.expert.fullName);

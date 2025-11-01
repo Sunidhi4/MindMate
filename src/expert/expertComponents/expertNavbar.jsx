@@ -25,7 +25,7 @@ export const ExpertNavbar = () => {
   }, []);
 
   return (
-    <header className="flex justify-between items-center bg-white shadow px-6 py-3 border-b border-gray-200 sticky top-0 z-30">
+    <header className="flex justify-between items-center navbar-bg-gradient shadow px-6 py-3 border-b border-gray-200 sticky top-0 z-30">
       {/* Left - Hamburger */}
       <div className="flex items-center gap-4">
         <button
@@ -42,6 +42,9 @@ export const ExpertNavbar = () => {
 <div className="flex items-center gap-7 text-gray-600 font-medium text-xl">
   <Link to="/expert/appointments" className="hover:text-[#9100BD]">
     Appointments
+  </Link>
+  <Link to="/expert/support" className="hover:text-[#9100BD]">
+   Support
   </Link>
   <Link to="/expert/motivations " className="hover:text-[#9100BD]">
     Motivations

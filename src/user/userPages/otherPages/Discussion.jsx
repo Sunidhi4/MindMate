@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { Trash2 } from "lucide-react";
+import { Trash2 , ArrowLeft} from "lucide-react";
 import axios from "axios";
 import API from "../../../services/api";
 import { toast } from "react-toastify";
@@ -115,8 +115,10 @@ const Discussion = () => {
 
   return (
     <div className=" bg-white shadow-lg rounded-lg border border-[#b1d0f0] p-10">
+      <p className="pb-3 -mt-4 text-sm flex items-center gap text-blue-500 hover:underline" onClick={()=>navigate(-1)}><ArrowLeft size={14}/>back</p>
       {/* Question Header */}
       <div className="mb-4">
+        
         <h1 className="text-3xl font-semibold text-[#000000] mb-2">
           {question.question}
         </h1>

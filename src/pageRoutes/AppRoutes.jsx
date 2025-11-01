@@ -10,7 +10,7 @@ import About from "../pages/about";
 import Contact from "../pages/contactUs";
 import FAQs from "../pages/faq";
 
-
+//user
 import Dashboard from "../user/userPages/sidebarPages/Dashboard";
 import UserAppointments from "../user/userPages/sidebarPages/UserAppointments";
 import Profile from "../user/userPages/sidebarPages/Profile";
@@ -24,6 +24,7 @@ import Routine from "../user/userPages/navbarPages/Routine";
 import Discussion from "../user/userPages/otherPages/Discussion";
 import ExpertDetails from "../user/userPages/otherPages/ExpertDetails";
 
+//expert
 import { ExpertLayout } from './ExpertLayout';
 import ExpertDashboard from "../expert/expertPages/sidebarPages/ExpertDashboard";
 import ExpertProfile from "../expert/expertPages/sidebarPages/ExpertProfile";
@@ -32,7 +33,8 @@ import ExpertSettings from "../expert/expertPages/sidebarPages/ExpertSettings";
 import ExpertNotification from '../expert/expertPages/sidebarPages/ExpertNotifications';
 import Motivations from "../expert/expertPages/navbarPages/Motivations";
 import Appointments from "../expert/expertPages/navbarPages/Appointments";
-
+import ExpertSupport from '../expert/expertPages/navbarPages/Support';
+import ExpertDiscussion from '../expert/expertPages/otherPages/Discussion';
 
 export const AppRoutes = () => (
   <Routes>
@@ -56,7 +58,7 @@ export const AppRoutes = () => (
       <Route path="/user/settings" element={<Settings />} />
       <Route path="/user/notifications" element={<Notifications />} />
       <Route path="/user/help" element={<Help />} />
-      {/* Navbar Routes */}
+      {/*User  Navbar Routes */}
       <Route path="/user/share" element={<Share />} />
       <Route path="/user/support" element={<Support />} />
       <Route path="/user/experts" element={<Experts />} />
@@ -77,10 +79,9 @@ export const AppRoutes = () => (
       {/* Expert Navbar Routes */}
       <Route path="/expert/appointments" element={<Appointments />} />
       <Route path="/expert/motivations" element={<Motivations />} />
-      <Route path="/user/experts" element={<Experts />} />
-      <Route path="//user/expertDetails" element={<ExpertDetails />} /> 
-      <Route path="/user/discussion" element={<Discussion />} />
-      <Route path="/user/routine" element={<Routine />} />
+      <Route path="/expert/support" element={<ExpertSupport />} />
+      <Route path="/expert/discussion" element={<ExpertDiscussion />} />
+     
     </Route>
 
   </Routes>

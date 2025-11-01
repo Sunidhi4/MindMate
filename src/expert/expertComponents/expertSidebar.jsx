@@ -32,6 +32,7 @@ export const ExpertSidebar = () => {
            open ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
          }`}
        >
+        <div className="h-full sidebar-bg-gradient">
          {/* Header */}
          <div className="flex justify-between items-center p-5 border-b border-gray-200">
            <div className="flex items-center gap-3">
@@ -60,7 +61,7 @@ export const ExpertSidebar = () => {
                className={({ isActive }) =>
                  `flex items-center gap-3 px-5 py-2 rounded-full transition-all text-lg font-medium ${
                    isActive
-                     ? "bg-gradient-to-r from-[#3C9BF9] to-[#9100BD] text-white"
+                     ? "bg-linear-to-r from-[#3C9BF9] to-[#9100BD] text-white"
                      : "text-gray-500 hover:bg-gray-100"
                  }`
                }
@@ -70,6 +71,7 @@ export const ExpertSidebar = () => {
              </NavLink>
            ))}
          </nav>
+         </div>
        </aside>
      </>
    );

@@ -55,7 +55,7 @@ export const UserNavbar = () => {
   }, []);
 
   return (
-    <header className="flex justify-between items-center bg-linear-to-r from-[#e4f8fc] via-[#f6f3f3] to-[#def8f9] dark:bg-black shadow px-6 py-3 border-b border-gray-200 sticky top-0 z-30 ">
+    <header className="flex justify-between items-center navbar-bg-gradient dark:bg-black shadow px-6 py-3 border-b border-gray-200 sticky top-0 z-30 ">
       {/* Left - Hamburger */}
       <div className="flex items-center gap-4 ">
 
