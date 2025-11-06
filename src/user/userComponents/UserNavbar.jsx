@@ -145,9 +145,10 @@ export const UserNavbar = () => {
             className="flex items-center space-x-2 focus:outline-none"
           >
             <img
-              src="https://i.pravatar.cc/40"
+              src={"https://i.pravatar.cc/80?u=" + sessionStorage.getItem("name")}
               alt="User Avatar"
-              className="w-9 h-9 rounded-full border border-gray-300"
+                className="w-9 h-9 rounded-full border-2 border-purple-500 ring-2 ring-purple-300 ring-offset-2 transition-all group-hover:ring-purple-500"
+
             />
             <ChevronDown
               size={18}

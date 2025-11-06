@@ -51,6 +51,7 @@ const Login = () => {
         }
       }else{
         const res = await axios.post("http://localhost:8080/Expert/login", formData);
+        console.log(res.data);
         if (res.data.token) {
         sessionStorage.setItem("token", res.data.token); // Store token
         sessionStorage.setItem("id" ,res.data.expert.id);

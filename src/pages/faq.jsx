@@ -48,26 +48,26 @@ const FAQs = () => {
     ];
 
     return (
-        <section className="bg-gradient sm:py-16 lg:py-24 text-black">
+        <section className="bg-gradient  sm:py-16 lg:py-24 text-black min-h-screen">
             <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-5xl">
                 {/* Heading Section */}
-                <div className="max-w-3xl mx-auto text-center">
-                    <h2 className="text-2xl font-bold font-Chakra leading-tight sm:text-4xl lg:text-5xl">
+                <div className="max-w-3xl pt-8 md:pt-0 mx-auto text-center">
+                    <h2 className="text-lg md:text-2xl font-bold font-Chakra leading-tight sm:text-4xl lg:text-5xl">
                         Frequently Asked Questions (FAQ’s) – PsychoTalk
                     </h2>
                 </div>
                 {/* FAQ List */}
                 <div className="max-w-3xl mx-auto mt-8 space-y-4 md:mt-16">
                     {faqs.map((faq, index) => (
-                        <div className=" rounded-xl p-0.5"> 
+                        <div className=" rounded-xl p-0.5" key={index}> 
                             <div
-                                key={index}
-                                className="transition-all duration-200 bg-linear-to-l from-[#88caf0] to-[#ea89f3] border-2 border-transparent rounded-[calc(10px-1px)] shadow-lg"
+                                
+                                className="transition-all duration-200 bg-linear-to-l from-[#76bce5] to-[#df74e9] border-2 border-transparent rounded-[calc(10px-1px)] shadow-lg"
                             >
                                 {/* FAQ Question Button */}
                                 <button
                                     type="button"
-                                    className=" flex items-center justify-between cursor-pointer w-full px-6 py-4 sm:p-6 text-lg font-semibold "
+                                    className=" flex items-center justify-between cursor-pointer w-full px-4 py-2 md:px-6 md:py-4 sm:p-6 text-sm md:text-lg font-semibold "
                                     onClick={() => toggleAnswer(index)}
                                 >
                                     <span>{faq.question}</span>
@@ -84,7 +84,7 @@ const FAQs = () => {
                                 </button>
                                 {/* FAQ Answer Section */}
                                 {openIndex === index && (
-                                    <div className="px-6 pb-4 sm:px-6 sm:pb-6 text-gray-800">
+                                    <div className="text-xs  md:text-base px-4 py-2 md:px-6 md:pb-4 sm:px-6 sm:pb-6 text-gray-800">
                                         <p>{faq.answer}</p>
                                     </div>
                                 )}
@@ -93,7 +93,7 @@ const FAQs = () => {
                     ))}
                 </div>
                 {/* Contact Support Section */}
-                <p className="text-center text-gray-800 text-base mt-10">
+                <p className="text-center text-gray-800 text-xs md:text-base mt-10">
                     Still have questions?{' '}
                     <Link to={"/contact"} className="cursor-pointer font-medium text-blue-500 transition-all duration-200 hover:text-blue-400">
                         Contact our support

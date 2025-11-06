@@ -2,8 +2,9 @@ import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Heart, MessageCircle, Trash2 } from "lucide-react";
+import { toast } from "react-toastify";
 
-export const UserPost = ({ question }) => {
+export const UserPost = ({ question, onPostDeleteSuccess }) => {
   const questionData = {
     id: question.id,
     username: question.username || "Anonymous",
@@ -32,8 +33,9 @@ export const UserPost = ({ question }) => {
         `http://localhost:8080/question/deleteById/${questionData.id}`
       );
       if (res.data === true || res.data.status === "success") {
-        alert("Question deleted successfully!");
-        window.location.reload();
+        setIsDeleting(false);
+        toast.success("Question deleted successfully!");
+        onPostDeleteSuccess();
       } else {
         alert("Failed to delete question.");
       }
@@ -41,6 +43,7 @@ export const UserPost = ({ question }) => {
       console.error("Error deleting question:", error);
     } finally {
       setIsDeleting(false);
+
     }
   };
 
@@ -77,19 +80,7 @@ export const UserPost = ({ question }) => {
             </div>
           </div>
 
-          {String(sessionStorage.getItem("id")) === String(questionData.userId) && (
-            <button
-              onClick={handleDelete}
-              disabled={isDeleting}
-              className="p-2 rounded-full hover:bg-red-50 text-red-500 transition-all duration-200"
-            >
-              {isDeleting ? (
-                <span className="text-xs text-gray-400">Deleting...</span>
-              ) : (
-                <Trash2 size={18} />
-              )}
-            </button>
-          )}
+
         </div>
 
         {/* Question Content */}
@@ -120,14 +111,35 @@ export const UserPost = ({ question }) => {
           {likes}
         </button>
 
-        {/* Answers Count */}
-        <span
-          className="flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full 
+        <div className="flex gap-2">
+
+          {/* Delete button */}
+          {String(sessionStorage.getItem("id")) === String(questionData.userId) && (
+            <button
+              onClick={handleDelete}
+              disabled={isDeleting}
+              className="p-2 rounded-full hover:bg-red-50 text-red-500 transition-all duration-200"
+            >
+              {isDeleting ? (
+                <span className="text-xs text-gray-400">Deleting...</span>
+              ) : (
+                <Trash2 size={18} />
+              )}
+            </button>
+          )}
+
+
+          {/* Answers Count */}
+          <span
+            className="flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full 
           bg-purple-50 border border-purple-200 text-purple-700"
-        >
-          <MessageCircle size={14} />
-          {questionData.answerCount} Answers
-        </span>
+          >
+            <MessageCircle size={14} />
+            {questionData.answerCount} Answers
+          </span>
+
+
+        </div>
       </div>
 
       {/* Animated Gradient Line */}

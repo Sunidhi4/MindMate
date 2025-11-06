@@ -139,7 +139,7 @@ const ExpertSignup = () => {
     return (
 
         <form onSubmit={handleSubmit} className="flex flex-col items-center">
-            <div className="flex justify-center gap-8 ">
+            <div className="flex justify-center md:flex-row flex-col md:gap-8 ">
 
                 <div>
                     <label className="block text-gray-400 text-sm mt-3 mb-1">

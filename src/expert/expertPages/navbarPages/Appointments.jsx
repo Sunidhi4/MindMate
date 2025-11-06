@@ -4,12 +4,13 @@ import { useEffect, useState } from "react";
 const Appointments = () => {
   const [loading, setLoading] = useState(false);
   const [appointments, setAppointments] = useState([]);
+  const expertId = sessionStorage.getItem("id");
 
   useEffect(() => {
     const getUserAppointments = async () => {
       setLoading(true);
       try {
-        const expertId = sessionStorage.getItem("id");
+       
         const res = await axios.get(
           `http://localhost:8080/appointment/getAppointmentByExpertId/${expertId}`
         );
@@ -22,7 +23,7 @@ const Appointments = () => {
     };
 
     getUserAppointments();
-  }, []);
+  }, [expertId]);
 
   const parseBackendDate = (str) => {
     if (!str) return new Date(0);

@@ -118,7 +118,6 @@ const ExpertDetails = () => {
               expert: { id: expert.id },
               reason: reason,
             };
-
             const appointRes = await axios.post(
               `http://localhost:8080/appointment/createAppointment?scheduleTime=${formattedTime}`,
               payload

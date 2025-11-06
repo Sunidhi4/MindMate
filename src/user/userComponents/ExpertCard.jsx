@@ -13,7 +13,7 @@ export const ExpertCard = ({ expert }) => {
     <Link
       to={`/user/expertDetails`}
       state={{ expert }} // Pass full data safely through React Router
-      className="block bg-white rounded-2xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 border border-[#E0E7FF] p-5"
+      className="block bg-white rounded-2xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 border border-[#c559f7] p-5"
     >
       <div className="flex items-center gap-4">
         {/* Profile Image */}

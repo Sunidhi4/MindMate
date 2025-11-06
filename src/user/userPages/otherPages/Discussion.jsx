@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { Trash2 , ArrowLeft} from "lucide-react";
+import { Trash2, ArrowLeft } from "lucide-react";
 import axios from "axios";
-import API from "../../../services/api";
 import { toast } from "react-toastify";
 
 const Discussion = () => {
@@ -35,14 +34,14 @@ const Discussion = () => {
         if (res.data) {
           setAnswers(res.data);
         }
-      } catch(error) {
+      } catch (error) {
         console.log(error);
       } finally {
         setLoading(false);
       }
     }
     getAllAnswersByQuestionId();
-  }, [submitting , deleting])
+  }, [submitting, deleting])
 
   const handleTextAreaChage = (e) => {
     setAnswerInput(e.target.value);
@@ -60,7 +59,14 @@ const Discussion = () => {
         answer: answerInput,
         user: { id: userId },
       };
-      const res = await axios.post(`http://localhost:8080/answer/postAnswerByQuestionId/${question.id}`, newAnswer);
+      const res = await axios.post(`http://localhost:8080/answer/postAnswerByQuestionId/${question.id}`, newAnswer,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          }
+        }
+      );
 
       if (res.data.status === "success" || res.data === true) {
         setAnswerInput("");
@@ -104,7 +110,7 @@ const Discussion = () => {
           toast.error("Error Reflection deleted")
         }
       }
-      catch(error){
+      catch (error) {
         console.log(error);
       } finally {
         setDeleting(false);
@@ -115,10 +121,10 @@ const Discussion = () => {
 
   return (
     <div className=" bg-white shadow-lg rounded-lg border border-[#b1d0f0] p-10">
-      <p className="pb-3 -mt-4 text-sm flex items-center gap text-blue-500 hover:underline" onClick={()=>navigate(-1)}><ArrowLeft size={14}/>back</p>
+      <p className="pb-3 -mt-4 text-sm flex items-center gap text-blue-500 hover:underline" onClick={() => navigate(-1)}><ArrowLeft size={14} />back</p>
       {/* Question Header */}
       <div className="mb-4">
-        
+
         <h1 className="text-3xl font-semibold text-[#000000] mb-2">
           {question.question}
         </h1>
@@ -199,7 +205,7 @@ const Discussion = () => {
                       <Link
                         key={ans.id}
                         to="/user/expertDetails"
-                        state={{expert : ans.senderId}}
+                        state={{ expert: ans.senderId }}
                       >
                         <p className="font-bold text-[#9100BD] text-sm underline hover:text-blue-700">{ans.name}<span className="text-blue-600 no-underline"> | Expert</span></p>
                       </Link>
@@ -225,7 +231,7 @@ const Discussion = () => {
                   {username === ans.name ?
                     (
                       <button
-                        onClick={()=>handleDelete(ans.id)}
+                        onClick={() => handleDelete(ans.id)}
                         className="p-2 rounded-full hover:bg-red-50 text-red-500 transition-all duration-200"
                       >
                         {deleting ? (

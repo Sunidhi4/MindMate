@@ -5,6 +5,7 @@ import { UserPost } from "../../userComponents/userPost";
 const Support = () => {
 
   const [questions, setQuestions] = useState([]);
+  const [refresh , setRefresh] = useState(false);
   useEffect(() => {
     const getAllQuestions = async () => {
       try {
@@ -21,9 +22,11 @@ const Support = () => {
     };
 
     getAllQuestions();
-  }, [])
+  }, [refresh])
 
-
+const handlePostDelete = ()=>{
+  setRefresh(prev => !prev);
+}
   return (
     <div className="">
       <section className="bg-white shadow-lg rounded-lg p-6 border border-[#98c5f1] ">
@@ -31,7 +34,7 @@ const Support = () => {
         <div className="flex flex-col gap-6">
           {questions && questions.length > 0 ? (
             questions.map((question) => (
-              <UserPost key={question.id} question={question} />
+              <UserPost key={question.id} question={question} onPostDeleteSuccess={handlePostDelete} />
             ))
           ) : (
             <p className="text-gray-500 text-center">No questions found.</p>

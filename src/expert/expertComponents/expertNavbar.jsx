@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { Bell, ChevronDown, Menu } from "lucide-react";
 import NotificationDropdown from "../../expert/expertPages/navbarPages/NotificationDropdown";
 import ProfileDropdown from "../../expert/expertPages/navbarPages/ProfileDropdown";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export const ExpertNavbar = () => {
- const [showNotifications, setShowNotifications] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const notificationRef = useRef(null);
   const profileRef = useRef(null);
@@ -38,18 +38,24 @@ export const ExpertNavbar = () => {
       </div>
 
 
-{/* middle Action */}
-<div className="flex items-center gap-7 text-gray-600 font-medium text-xl">
-  <Link to="/expert/appointments" className="hover:text-[#9100BD]">
-    Appointments
-  </Link>
-  <Link to="/expert/support" className="hover:text-[#9100BD]">
-   Support
-  </Link>
-  <Link to="/expert/motivations " className="hover:text-[#9100BD]">
-    Motivations
-  </Link>
-</div>
+      {/* middle Action */}
+      <div className="flex items-center gap-7 text-gray-600 font-medium text-xl">
+        <NavLink to="/expert/appointments"
+          className={({ isActive }) => `hover:text-[#9100BD] ${(isActive) ? "border-b-2 border-[#9100BD] text-[#9100BD]" : ""}`}
+        >
+          Appointments
+        </NavLink>
+        <NavLink to="/expert/support"
+          className={({ isActive }) => `hover:text-[#9100BD] ${(isActive) ? "border-b-2 border-[#9100BD] text-[#9100BD]" : ""}`}
+        >
+          Support
+        </NavLink>
+        <NavLink to="/expert/motivations "
+          className={({ isActive }) => `hover:text-[#9100BD] ${(isActive) ? "border-b-2 border-[#9100BD] text-[#9100BD]" : ""}`}
+        >
+          Motivations
+        </NavLink>
+      </div>
 
       {/* Right Actions */}
       <div className="flex items-center space-x-6">
@@ -84,9 +90,8 @@ export const ExpertNavbar = () => {
             />
             <ChevronDown
               size={18}
-              className={`text-gray-600 transition-transform ${
-                showProfileMenu ? "rotate-180" : "rotate-0"
-              }`}
+              className={`text-gray-600 transition-transform ${showProfileMenu ? "rotate-180" : "rotate-0"
+                }`}
             />
           </button>
           {showProfileMenu && <ProfileDropdown />}

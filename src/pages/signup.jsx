@@ -16,7 +16,7 @@ const SignUP = () => {
     (signupType === "user") ? setSignupType("expert") : setSignupType("user");
   }
   return (
-    <div className="flex items-center justify-center p-10 bg-white text-black">
+    <div className="min-h-screen  -mt-10 flex items-center justify-center p-10 bg-gradient text-black">
       <Scroll />
       <motion.div
         initial={{ opacity: 0.4, scale: 0.7 }}
@@ -26,7 +26,7 @@ const SignUP = () => {
           ease: easeInOut,
         }}
       >
-        <div className="flex justify-center bg-white pt-4 p-6 rounded-4xl border-2 border-gray-300 shadow-4xl items-center animate-glow transition-all duration-500 hover:border-black">
+        <div className="flex justify-center md:bg-white/80 pt-4 p-6 rounded-4xl md:border-2 border-purple-600 shadow-4xl items-center animate-glow transition-all duration-500 hover:border-black">
 
 
           <div className=" w-full p-6 justify-center align-middle">
@@ -39,11 +39,11 @@ const SignUP = () => {
             ) : (
               ""
             )}
-            <div className="flex justify-between align-middle">
-              <h2 className="text-2xl font-bold mb-4">Sign UP |
-                {(signupType === "user") ? (<span className="text-[#9100BD] text-2xl"> User</span>) : (<span className="text-[#9100BD] text-2xl"> Expert</span>)}
+            <div className="flex justify-between items-center pb md:pb-4 ">
+              <h2 className="text-lg md:text-2xl font-bold ">Sign UP |
+                {(signupType === "user") ? (<span className="text-[#9100BD] "> User</span>) : (<span className="text-[#9100BD]"> Expert</span>)}
               </h2>
-              {(signupType === "user") ? (<p onClick={toggleFrom} className="text-blue-500 underline">Register as Expert?</p>) : (<p onClick={toggleFrom} className="text-blue-500 underline">Register as User?</p>)}
+              {(signupType === "user") ? (<p onClick={toggleFrom} className="text-blue-500 text-xs md:text-sm underline">Register as Expert?</p>) : (<p onClick={toggleFrom} className="text-blue-500 text-xs md:text-sm underline">Register as User?</p>)}
             </div>
 
             {(signupType === "user") ? <UserSignup /> : <ExpertSignup />}

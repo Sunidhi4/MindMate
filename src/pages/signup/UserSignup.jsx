@@ -75,7 +75,7 @@ const UserSignup = () => {
 
 
         <form onSubmit={handleSubmit} className="flex flex-col items-center">
-            <div className="flex justify-center gap-8 ">
+            <div className="flex justify-center flex-col md:flex-row md:gap-8  ">
                 <div className="">
 
                     <label className="block text-gray-400 text-sm mt-3 mb-1">
@@ -85,7 +85,6 @@ const UserSignup = () => {
                         type="text"
                         name="username"
                         onChange={handleChange}
-                        p
                         className={`w-2xs p-2 rounded-full text-black ring-1 ring-[#3C9BF9] focus:outline-none focus:ring-1 focus:ring-[#9100BD] placeholder:text-gray-400 placeholder:pl-1`}
                         required
                     />

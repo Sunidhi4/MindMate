@@ -33,8 +33,14 @@ const UserAppointments = () => {
     return new Date(year, month - 1, day, hour, minute, second);
   };
 
+  const sortedAppointments = [...(appointments || [])].sort(
+    (a , b) => new Date(b.time) - new Date(a.time)
+  ); 
+
+ 
+
   return (
-    <div className="-m-10 p-20 bg-linear-to-b from-[#d4d2f2] via-[#f0ecec] to-[#f5f2f2] h-full ">
+    <div className="-m-10 p-20 bg-linear-to-b from-[#d4d2f2] via-[#f0ecec] to-[#f5f2f2] min-h-screen ">
       <h1 className="text-4xl font-extrabold text-gray-800 text-center mb-12 tracking-wide">
         Your Appointments
       </h1>
@@ -45,7 +51,7 @@ const UserAppointments = () => {
         </div>
       ) : appointments.length > 0 ? (
         <div className="flex flex-col gap-10">
-          {appointments.map((appointment, index) => {
+          {sortedAppointments.map((appointment, index) => {
             const scheduled = appointment.isScheduled === "true";
 
             return (

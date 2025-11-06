@@ -20,7 +20,7 @@ import Help from "../user/userPages/sidebarPages/Help";
 import Share from "../user/userPages/navbarPages/Share";
 import Support from "../user/userPages/navbarPages/Support";
 import Experts from "../user/userPages/navbarPages/Experts";
-import Routine from "../user/userPages/navbarPages/Routine";
+import MotivationalPosts from "../user/userPages/navbarPages/MotivationalPosts";
 import Discussion from "../user/userPages/otherPages/Discussion";
 import ExpertDetails from "../user/userPages/otherPages/ExpertDetails";
 
@@ -62,9 +62,11 @@ export const AppRoutes = () => (
       <Route path="/user/share" element={<Share />} />
       <Route path="/user/support" element={<Support />} />
       <Route path="/user/experts" element={<Experts />} />
-      <Route path="//user/expertDetails" element={<ExpertDetails />} />
+       <Route path="/user/expertDetails" element={<ExpertDetails />} />
+      
+     
       <Route path="/user/discussion" element={<Discussion />} />
-      <Route path="/user/motivations" element={<Motivations />} />
+      <Route path="/user/motivations" element={<MotivationalPosts />} />
     </Route>
 
     {/* expert layout routes */}

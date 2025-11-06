@@ -8,7 +8,8 @@ const Share = () => {
   const [questions, setQuestions] = useState([]);
   const userId = sessionStorage.getItem("id");
   const username = sessionStorage.getItem("name");
-
+  const [posted , setPosted] = useState(false);
+  const [refresh , setRefresh] = useState(false);
   //updating profile when user share somethig on this page
   async function updateSessionStorage() {
     try {
@@ -39,7 +40,11 @@ const Share = () => {
     };
 
     getAllQuestionsByUserId();
-  }, [userId])
+  }, [userId, posted , refresh])
+
+  const handlePostDelete=()=>{
+    setRefresh(prev => !prev);
+  }
 
   //user posting a post
   const handleSubmit = async (e) => {
@@ -57,6 +62,7 @@ const Share = () => {
 
     try {
       setIsSubmitting(true);
+      setPosted(true)
       const res = await axios.post(
         "http://localhost:8080/question/createQuestion",
         newQuestion
@@ -65,13 +71,13 @@ const Share = () => {
       if (res.data.status === "success") {
         updateSessionStorage();
         setInputValue("");
-        await getAllQuestionsByUserId();
       } else {
         console.error("Server error:", res.data);
       }
     } catch (error) {
       console.error("Error posting question:", error);
     } finally {
+      setPosted(false);
       setIsSubmitting(false);
     }
   };
@@ -108,7 +114,7 @@ const Share = () => {
         <div className="flex flex-col gap-6">
           {questions && questions.length > 0 ? (
             questions.map((question) => (
-              <UserPost key={question.id} question={question} />
+              <UserPost key={question.id} question={question} onPostDeleteSuccess={handlePostDelete}/>
             ))
           ) : (
             <p className="text-gray-500 text-center">No questions found.</p>
