@@ -9,23 +9,26 @@ const UserSignup = () => {
 
     const [formData, setFormData] = useState({
         username: "",
-        email: "",
+        //  email: "",
         password: "",
-        phone: "",
-        age: "",
-        gender: ""
+        // phone: "",
+        // age: "",
+        //gender: ""
     });
 
     const navigate = useNavigate();
 
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    //const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const passwordRegex =
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$#!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    const phoneRegex = /^[6-9]\d{9}$/;
 
-    const validateEmail = (email) => emailRegex.test(email);
+    const usernameRegex = /^[a-zA-Z0-9_@#]{8,}/;
+    //const phoneRegex = /^[6-9]\d{9}$/;
+
+    //const validateEmail = (email) => emailRegex.test(email);
     const validatePassword = (password) => passwordRegex.test(password);
-    const validatePhone = (phone) => phoneRegex.test(phone);
+    const validateUsername = (username) => usernameRegex.test(username);
+    //const validatePhone = (phone) => phoneRegex.test(phone);
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -34,34 +37,37 @@ const UserSignup = () => {
         e.preventDefault();
         setLoading(true);
 
-        if (!validateEmail(formData.email)) {
-            toast.error("Invalid Email!");
-            return;
-        }
+        // if (!validateEmail(formData.email)) {
+        //     toast.error("Invalid Email!");
+        //     return;
+        // }
 
+        if (!validateUsername(formData.username)) {
+            toast.error("username should have alphabet , number , _ # @ only")
+        }
         if (!validatePassword(formData.password)) {
             toast.error(
                 "Password must be at least 8 characters, with one uppercase, one number, and one special character!"
             );
             return;
         }
-        if (!validatePhone(formData.phone)) {
-            toast.error("incorrect phone number");
-            return;
-        }
+        // if (!validatePhone(formData.phone)) {
+        //     toast.error("incorrect phone number");
+        //     return;
+        // }
 
         setLoading(true);
 
 
         try {
-            const res = await axios.post("http://localhost:8080/User/register", formData);
+            const res = await axios.post("http://localhost:8080/public/register/user", formData);
 
-            if (res.data.status === "success") {
+            if (res.status === "ok") {
                 console.log("User registered:", res.data);
                 toast.success("User registered successfully! Please login.");
                 navigate("/login");
             } else {
-                toast.error("Username or Email already exist.");
+                toast.error("Username already exist choose different one.");
             }
 
         } catch (error) {
@@ -76,10 +82,9 @@ const UserSignup = () => {
 
         <form onSubmit={handleSubmit} className="flex flex-col items-center">
             <div className="flex justify-center flex-col md:flex-row md:gap-8  ">
-                <div className="">
-
+                <div>
                     <label className="block text-gray-400 text-sm mt-3 mb-1">
-                       Username
+                        Username
                     </label>
                     <input
                         type="text"
@@ -89,6 +94,63 @@ const UserSignup = () => {
                         required
                     />
 
+                    <label className="block text-gray-400 text-sm mt-3 mb-1">
+                        Password
+                    </label>
+                    <div className="relative w-full">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            name="password"
+                            onChange={handleChange}
+                            required
+                            className={`w-2xs p-2 rounded-full text-black ring-1 ring-[#3C9BF9] focus:outline-none focus:ring-1 focus:ring-[#9100BD]`}
+
+                        />
+
+                        <button
+                            type="button"
+                            className="absolute right-3 top-2 text-gray-400 hover:text-gray-600 transition cursor-pointer"
+                            onClick={() => setShowPassword(!showPassword)}
+                        >
+                            {showPassword ? "show" : "hide"}
+                        </button>
+                    </div>
+
+                    <div className="flex flex-col items-center w-2xs mt-5">
+                        <button
+                            type="submit"
+                            className="w-full mt-6 mb-3 bg-linear-to-r from-[#3C9BF9] to-[#9100BD] text-white py-2 rounded-full hover:from-[#9100BD] hover:to-[#3C9BF9] cursor-pointer font-bold flex items-center justify-center gap-2 relative"
+                            disabled={loading}
+                        >
+                            {loading ? (
+                                <div className="w-5 h-5 border-2 my-0.5 border-white border-t-transparent rounded-full animate-spin"></div>
+                            ) : (
+                                "Register"
+                            )}
+                        </button>
+                        <div className="w-full bg-linear-to-r from-[#3C9BF9] to-[#9100BD] p-1px rounded-lg mt-3"></div>
+                        <p className="text-sm text-gray-400 mt-3">
+                            Already have an account?{" "}
+                            <Link
+                                to="/login"
+                                className="font-gradient font-medium"
+                            >
+                                Login
+                            </Link>
+                        </p>
+
+                    </div>
+                </div>
+                
+            </div>
+
+        </form>
+
+    )
+}
+
+export default UserSignup
+{/* 
                     <label className="block text-gray-400 text-sm mt-3 mb-1">
                         Email
                     </label>
@@ -163,54 +225,8 @@ const UserSignup = () => {
 
                     />
 
-                    <label className="block text-gray-400 text-sm mt-3 mb-1">
-                        Password
-                    </label>
-                    <div className="relative w-full">
-                        <input
-                            type={showPassword ? "text" : "password"}
-                            name="password"
-                            onChange={handleChange}
-                            required
-                            className={`w-2xs p-2 rounded-full text-black ring-1 ring-[#3C9BF9] focus:outline-none focus:ring-1 focus:ring-[#9100BD]`}
-
-                        />
-
-                        <button
-                            type="button"
-                            className="absolute right-3 top-2 text-gray-400 hover:text-gray-600 transition cursor-pointer"
-                            onClick={() => setShowPassword(!showPassword)}
-                        >
-                            {showPassword ? "show" : "hide"}
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div className="flex flex-col items-center w-2xs mt-5">
-                <button
-                    type="submit"
-                    className="w-full mt-6 mb-3 bg-gradient-to-r from-[#3C9BF9] to-[#9100BD] text-white py-2 rounded-full hover:from-[#9100BD] hover:to-[#3C9BF9] cursor-pointer font-bold flex items-center justify-center gap-2 relative"
-                    disabled={loading}
-                >
-                    {loading ? (
-                        <div className="w-5 h-5 border-2 my-0.5 border-white border-t-transparent rounded-full animate-spin"></div>
-                    ) : (
-                        "Register"
-                    )}
-                </button>
-                <div className="w-full bg-gradient-to-r from-[#3C9BF9] to-[#9100BD] p-[1px] rounded-lg mt-3"></div>
-                <p className="text-sm text-gray-400 mt-3">
-                    Already have an account?{" "}
-                    <Link
-                        to="/login"
-                        className="font-gradient font-medium"
-                    >
-                        Login
-                    </Link>
-                </p>
-            </div>
-
-        </form>
+                   
+                </div> */}
 
 
 
@@ -219,7 +235,4 @@ const UserSignup = () => {
 
 
 
-    )
-}
 
-export default UserSignup

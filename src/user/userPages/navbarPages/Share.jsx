@@ -1,39 +1,44 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { UserPost } from "../../userComponents/userPost";
-
+import Pagination from "../../../utils/Pagination";
 const Share = () => {
   const [inputValue, setInputValue] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [questions, setQuestions] = useState([]);
-  const userId = sessionStorage.getItem("id");
-  const username = sessionStorage.getItem("name");
+  const userId = localStorage.getItem("id");
+  const username = localStorage.getItem("username");
   const [posted , setPosted] = useState(false);
   const [refresh , setRefresh] = useState(false);
+  const [page , setPage] = useState(0);
+  const [totalPages , setTotalPages] = useState(0);
+  const [size] = useState(6);
   //updating profile when user share somethig on this page
-  async function updateSessionStorage() {
-    try {
-      const res = await axios.get(`http://localhost:8080/User/getUserById/${userId}`);
-      if (res.data.status === "success") {
-        sessionStorage.setItem("answersCount", res.data.user.answersCount);
-        sessionStorage.setItem("questionsCount", res.data.user.questionsCount);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  // async function updateSessionStorage() {
+  //   try {
+  //     const res = await axios.get(`http://localhost:8080/User/getUserById/${userId}`);
+  //     if (res.data.status === "success") {
+  //       sessionStorage.setItem("answersCount", res.data.user.answersCount);
+  //       sessionStorage.setItem("questionsCount", res.data.user.questionsCount);
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
   //getting users all previous questions
   useEffect(() => {
     const getAllQuestionsByUserId = async () => {
       try {
-        const res = await axios.get(`http://localhost:8080/question/getQuestionByUserId?id=${userId}`);
-        if (Array.isArray(res.data)) {
-          const sortedQuestions = res.data.sort(
-            (a, b) => new Date(b.createdTime) - new Date(a.createdTime)
-          );
-          setQuestions(sortedQuestions);
-        }
+        const res = await axios.get(`http://localhost:8080/user/question/getMy?page=${page}&size=${size}` ,{
+          headers :{
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        });
+        console.log(res.data);
+        
+        setQuestions(res.data.content);
+        setTotalPages(res.data.totalPages)
       } catch (error) {
         console.error("Error fetching questions:", error);
       }
@@ -56,20 +61,23 @@ const Share = () => {
 
     const newQuestion = {
       question: inputValue,
-      userId: userId,
-      username: username
     };
 
     try {
       setIsSubmitting(true);
       setPosted(true)
       const res = await axios.post(
-        "http://localhost:8080/question/createQuestion",
-        newQuestion
+        "http://localhost:8080/user/question/post",
+        newQuestion,
+        {
+          headers:{
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        }
       );
 
-      if (res.data.status === "success") {
-        updateSessionStorage();
+      if (res.data) {
+       // updateSessionStorage();
         setInputValue("");
       } else {
         console.error("Server error:", res.data);
@@ -123,6 +131,11 @@ const Share = () => {
         </div>
 
       </section>
+      <Pagination
+            page={page}
+            totalPages={totalPages}
+            setPage={setPage}
+          />
     </div>
   );
 };

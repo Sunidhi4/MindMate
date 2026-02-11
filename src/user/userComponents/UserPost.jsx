@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Heart, MessageCircle, Trash2 } from "lucide-react";
 import { toast } from "react-toastify";
 
-export const UserPost = ({ question, onPostDeleteSuccess }) => {
+export const UserPost = ({ question, onPostDeleteSuccess , setRefresh }) => {
   const questionData = {
     id: question.id,
     username: question.username || "Anonymous",
@@ -30,7 +30,11 @@ export const UserPost = ({ question, onPostDeleteSuccess }) => {
     try {
       setIsDeleting(true);
       const res = await axios.delete(
-        `http://localhost:8080/question/deleteById/${questionData.id}`
+        `http://localhost:8080/user/question/${questionData.id}`,{
+          headers:{
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        }
       );
       if (res.data === true || res.data.status === "success") {
         setIsDeleting(false);
@@ -43,8 +47,8 @@ export const UserPost = ({ question, onPostDeleteSuccess }) => {
       console.error("Error deleting question:", error);
     } finally {
       setIsDeleting(false);
-
     }
+    setRefresh(true)
   };
 
   const readableTime = new Date(questionData.createdTime).toLocaleString("en-US", {
@@ -114,7 +118,7 @@ export const UserPost = ({ question, onPostDeleteSuccess }) => {
         <div className="flex gap-2">
 
           {/* Delete button */}
-          {String(sessionStorage.getItem("id")) === String(questionData.userId) && (
+          {String(localStorage.getItem("username")) === String(questionData.username) && (
             <button
               onClick={handleDelete}
               disabled={isDeleting}
