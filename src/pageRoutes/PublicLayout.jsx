@@ -1,8 +1,8 @@
 import { Outlet } from "react-router-dom";
 // import Navbar from "../components/common/Navbar";
-import Navbar from '../components/common/Navbar'
-import Scroll from "../components/scroll";
-import Footer from "../components/common/Footer";
+import Navbar from '../public/components/Navbar'
+import Scroll from "../public/components/scroll";
+import Footer from "../public/components/Footer";
 
 export const PublicLayout = () => {
   return (

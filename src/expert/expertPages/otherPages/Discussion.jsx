@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Trash2, ArrowLeft } from "lucide-react";
 import axios from "axios";
-import API from "../../../services/api";
 import { toast } from "react-toastify";
 
 const Discussion = () => {

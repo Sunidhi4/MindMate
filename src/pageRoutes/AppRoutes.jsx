@@ -1,41 +1,41 @@
 import { Routes, Route } from "react-router-dom";
-import HomePage from "../pages/home";
-import Login from "../pages/login";
-import ProtectedRoute from "../components/protectedRoute";
-import PublicRoute from "../components/PublicRoute";
-// import { Welcome } from '../userPages/Welcome';
+import HomePage from "../public/pages/home";
+import Login from "../public/components/login";
+import ProtectedRoute from "../utils/ProtectedRoute";
+import PublicRoute from "../utils/PublicRoute";
+
 import { PublicLayout } from "./PublicLayout";
 import { UserLayout } from "./UserLayout";
-import SignUP from "../pages/signup";
-import PublicExperts from "../pages/publicExperts";
-import About from "../pages/about";
-import Contact from "../pages/contactUs";
-import FAQs from "../pages/faq";
+import SignUP from "../public/components/signup";
+import PublicExperts from "../public/pages/publicExperts";
+import About from "../public/pages/about";
+import Contact from "../public/pages/contactUs";
+import FAQs from "../public/pages/faq";
 //user
-import Dashboard from "../user/userPages/sidebarPages/Dashboard";
-import UserAppointments from "../user/userPages/sidebarPages/UserAppointments";
-import Profile from "../user/userPages/sidebarPages/Profile";
-import Settings from "../user/userPages/sidebarPages/Settings";
-import Notifications from "../user/userPages/sidebarPages/Notifications";
-import Help from "../user/userPages/sidebarPages/Help";
-import Share from "../user/userPages/navbarPages/Share";
-import Support from "../user/userPages/navbarPages/Support";
-import Experts from "../user/userPages/navbarPages/Experts";
-import MotivationalPosts from "../user/userPages/navbarPages/MotivationalPosts";
-import Discussion from "../user/userPages/otherPages/Discussion";
-import ExpertDetails from "../user/userPages/otherPages/ExpertDetails";
+import Dashboard from "../protected/pages/Dashboard";
+import UserAppointments from "../protected/pages/UserAppointments";
+import Profile from "../protected/pages/Profile";
+import Settings from "../protected/pages/Settings";
+import Notifications from "../protected/pages/Notifications";
+import Help from "../protected/pages/Help";
+import Share from "../protected/pages/Share";
+import Support from "../protected/pages/Support";
+import Experts from "../protected/pages/Experts";
+import MotivationalPosts from "../protected/pages/MotivationalPosts";
+import Discussion from "../protected/pages/Discussion";
+import ExpertDetails from "../protected/pages/ExpertDetails";
 
 //expert
 import { ExpertLayout } from './ExpertLayout';
-import ExpertDashboard from "../expert/expertPages/sidebarPages/ExpertDashboard";
+
 import ExpertProfile from "../expert/expertPages/sidebarPages/ExpertProfile";
 import ExpertHelp from "../expert/expertPages/sidebarPages/ExpertHelp";
 import ExpertSettings from "../expert/expertPages/sidebarPages/ExpertSettings";
 import ExpertNotification from '../expert/expertPages/sidebarPages/ExpertNotifications';
 import Motivations from "../expert/expertPages/navbarPages/Motivations";
 import Appointments from "../expert/expertPages/navbarPages/Appointments";
-import ExpertSupport from '../expert/expertPages/navbarPages/Support';
-import ExpertDiscussion from '../expert/expertPages/otherPages/Discussion';
+import ExpertVerification from "../protected/pages/verification/ExpertVerification";
+import VerificationSubmitted from "../protected/pages/VerificationSubmitted";
 
 export const AppRoutes = () => (
   <Routes>
@@ -78,18 +78,24 @@ export const AppRoutes = () => (
     <Route element={<ProtectedRoute allowedRoles={["EXPERT"]} />}>
       <Route element={<ExpertLayout />}>
         {/* Expert Sidebar Routes */}
-        <Route path="/expert/dashboard" element={<ExpertDashboard />} />
+        <Route path="/expert/dashboard" element={<Dashboard />} />
         <Route path="/expert/profile" element={<ExpertProfile />} />
-        <Route path="/expert/settings" element={<ExpertSettings />} />
+        <Route path="/expert/settings" element={<Settings />} />
         <Route path="/expert/notifications" element={<ExpertNotification />} />
         <Route path="/expert/help" element={<ExpertHelp />} />
         {/* Expert Navbar Routes */}
         <Route path="/expert/appointments" element={<Appointments />} />
-        <Route path="/expert/motivations" element={<Motivations />} />
-        <Route path="/expert/support" element={<ExpertSupport />} />
-        <Route path="/expert/discussion" element={<ExpertDiscussion />} />
+        <Route path="/expert/support" element={<Support />} />
+        <Route path="/expert/discussion" element={<Discussion />} />
+        <Route path="/expert/motivations" element={<MotivationalPosts />} />
 
       </Route>
+      <Route path="/expert/verification" element={<ExpertVerification/>}/>
+      <Route path="/expert/underReview" element={<VerificationSubmitted/>} />
+    </Route>
+
+    <Route element={<ProtectedRoute allowedRoles={["USER" , "EXPERT"]}/>}>
+
     </Route>
   </Routes>
 );

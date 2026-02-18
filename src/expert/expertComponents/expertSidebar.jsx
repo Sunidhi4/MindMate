@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import PsychoTalkLogoTrans from "../../assets/psychotalk_logo_trans.webp";
+import PsychoTalkLogoTrans from "../../public/assets/psychotalk_logo_trans.webp";
 import {
   LayoutDashboard,
   UserRound,

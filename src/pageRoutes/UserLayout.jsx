@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
-import Sidebar from "../user/userComponents/Sidebar";
-import {UserNavbar} from "../user/userComponents/UserNavbar"
+import Sidebar from "../protected/layout/Sidebar";
+import {UserNavbar} from "../protected/layout/UserNavbar"
 
 export const UserLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);

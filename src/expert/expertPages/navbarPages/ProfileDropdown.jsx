@@ -6,7 +6,7 @@ const ProfileDropdown = () => {
   const email = sessionStorage.getItem("email") || "john@example.com";
 
   const logoutHandler = ()=>{
-    sessionStorage.clear();
+    localStorage.clear();
   }
   return (
     <div className="absolute right-0 mt-3 w-60 bg-white border border-gray-200 rounded-xl shadow-lg p-3 z-50">

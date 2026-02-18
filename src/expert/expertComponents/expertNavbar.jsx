@@ -50,7 +50,7 @@ export const ExpertNavbar = () => {
         >
           Support
         </NavLink>
-        <NavLink to="/expert/motivations "
+        <NavLink to="/expert/motivations"
           className={({ isActive }) => `hover:text-[#9100BD] ${(isActive) ? "border-b-2 border-[#9100BD] text-[#9100BD]" : ""}`}
         >
           Motivations
