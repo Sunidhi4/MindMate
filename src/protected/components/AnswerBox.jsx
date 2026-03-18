@@ -66,7 +66,7 @@ const AnswerBox = ({ans}) => {
                       <Link
                         key={ans.id}
                         to="/user/expertDetails"
-                        state={{ expert: ans.accountId }}
+                        state={{ expertId: ans.accountId }}
                       >
                         <p className="font-bold text-[#9100BD] text-sm underline hover:text-blue-700">{ans.displayName}<span className="text-blue-600 no-underline"> | Expert</span></p>
                       </Link>

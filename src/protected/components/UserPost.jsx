@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Heart, MessageCircle, Trash2 } from "lucide-react";
 import { toast } from "react-toastify";
 
-export const UserPost = ({ question, onPostDeleteSuccess , setRefresh }) => {
+export const UserPost = ({ question, onPostDeleteSuccess, setRefresh }) => {
   const questionData = {
     id: question.id,
     username: question.username || "Anonymous",
@@ -13,7 +13,7 @@ export const UserPost = ({ question, onPostDeleteSuccess , setRefresh }) => {
     question: question.question,
     createdTime: question.createdTime,
     initialLikes: question.likes,
-    answerCount: question.answerCount
+    answerCount: question.answerCount,
   };
 
   const [likes, setLikes] = useState(questionData.initialLikes);
@@ -21,8 +21,8 @@ export const UserPost = ({ question, onPostDeleteSuccess , setRefresh }) => {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const handleLikeToggle = () => {
-    setLikes(hasLiked ? likes - 1 : likes + 1);
-    setHasLiked(!hasLiked);
+    setLikes(prev => hasLiked ? prev - 1 : prev + 1);
+    setHasLiked(prev => !prev);
   };
 
   const handleDelete = async () => {
@@ -30,125 +30,140 @@ export const UserPost = ({ question, onPostDeleteSuccess , setRefresh }) => {
     try {
       setIsDeleting(true);
       const res = await axios.delete(
-        `http://localhost:8080/user/question/${questionData.id}`,{
-          headers:{
-            Authorization: `Bearer ${localStorage.getItem("token")}`
-          }
-        }
+        `http://localhost:8080/user/question/${questionData.id}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
       if (res.data === true || res.data.status === "success") {
-        setIsDeleting(false);
         toast.success("Question deleted successfully!");
         onPostDeleteSuccess();
       } else {
-        alert("Failed to delete question.");
+        toast.error("Failed to delete question.");
       }
     } catch (error) {
       console.error("Error deleting question:", error);
+      toast.error("Something went wrong.");
     } finally {
       setIsDeleting(false);
+      setRefresh(true);
     }
-    setRefresh(true)
   };
 
   const readableTime = new Date(questionData.createdTime).toLocaleString("en-US", {
-    month: "short",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
+    month: "short", day: "numeric",
+    hour: "2-digit", minute: "2-digit",
   });
+
+  const isOwner = String(localStorage.getItem("username")) === String(questionData.username);
+  const role = localStorage.getItem("role");
+  const discussionPath = role === "USER" ? "/user/discussion" : "/expert/discussion";
 
   return (
     <div
-      className="relative border border-purple-600 group bg-white rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] 
-      p-5 mb-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(145,0,189,0.2)]"
+      className="group relative overflow-hidden rounded-2xl bg-white shadow-sm
+                 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
+      style={{ border: "1px solid #e9d5ff" }}
     >
-      <Link
-        to={localStorage.getItem("role") === "USER" ? "/user/discussion" : "/expert/discussion"}
-        state={{ question: questionData }}
-        className="block"
-      >
-        {/* Header */}
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <img
-              src={questionData.userImage}
-              alt="User"
-              className="w-11 h-11 rounded-full border-2 border-purple-500 ring-2 ring-purple-300 ring-offset-2 transition-all group-hover:ring-purple-500"
-            />
-            <div>
-              <h3 className="font-semibold text-gray-900 text-sm">
-                {questionData.username}
-              </h3>
-              <p className="text-xs text-gray-500">{readableTime}</p>
+      {/* Always-visible gradient top bar */}
+      <div className="h-1 w-full"
+        style={{ background: "linear-gradient(90deg,#3C9BF9,#9100BD,#ec4899)" }} />
+
+      <div className="p-5">
+
+        {/* ── Header ── */}
+        <div className="flex items-start justify-between gap-3 mb-3">
+
+          <Link
+            to={discussionPath}
+            state={{ question: questionData }}
+            className="flex items-center gap-3 min-w-0 flex-1"
+          >
+            {/* Avatar with gradient ring */}
+            <div className="shrink-0 p-0.5 rounded-full"
+              style={{ background: "linear-gradient(135deg,#3C9BF9,#9100BD)" }}>
+              <img
+                src={questionData.userImage}
+                alt={questionData.username}
+                className="w-9 h-9 rounded-full object-cover block"
+                style={{ border: "2px solid white" }}
+              />
             </div>
-          </div>
 
+            <div className="min-w-0">
+              <p className="text-sm font-bold truncate" style={{ color: "#9100BD" }}>
+                @{questionData.username}
+              </p>
+              <p className="text-[11px] text-gray-400">{readableTime}</p>
+            </div>
+          </Link>
 
-        </div>
-
-        {/* Question Content */}
-
-        <p className="text-gray-800 leading-relaxed mb-5 text-[15.5px] tracking-wide hover:text-purple-700 transition-colors">
-          {questionData.question}
-        </p>
-
-      </Link>
-
-      {/* Footer */}
-      <div className="flex items-center justify-between">
-        {/* Like Button */}
-        <button
-          onClick={handleLikeToggle}
-          className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium shadow-inner 
-          transition-all duration-200 
-          ${hasLiked
-              ? "bg-linear-to-r from-blue-500 to-purple-500 text-white shadow-lg"
-              : "bg-gray-50 text-gray-700 border border-gray-200 hover:bg-purple-50"
-            }`}
-        >
-          <Heart
-            size={16}
-            fill={hasLiked ? "white" : "none"}
-            stroke={hasLiked ? "white" : "#9333ea"}
-          />
-          {likes}
-        </button>
-
-        <div className="flex gap-2">
-
-          {/* Delete button */}
-          {String(localStorage.getItem("username")) === String(questionData.username) && (
+          {/* Delete — owner only */}
+          {isOwner && (
             <button
               onClick={handleDelete}
               disabled={isDeleting}
-              className="p-2 rounded-full hover:bg-red-50 text-red-500 transition-all duration-200"
+              title="Delete post"
+              className="shrink-0 p-1.5 rounded-lg transition-colors duration-150
+                         text-gray-300 hover:bg-red-50 hover:text-red-500"
             >
-              {isDeleting ? (
-                <span className="text-xs text-gray-400">Deleting...</span>
-              ) : (
-                <Trash2 size={18} />
-              )}
+              {isDeleting
+                ? <span className="text-[11px] text-gray-400">...</span>
+                : <Trash2 size={15} />
+              }
             </button>
           )}
+        </div>
 
+        {/* ── Question text ── */}
+        <Link to={discussionPath} state={{ question: questionData }}>
+          <p className="text-sm text-gray-700 leading-relaxed line-clamp-3
+                        group-hover:text-[#9100BD] transition-colors duration-150">
+            {questionData.question}
+          </p>
+        </Link>
 
-          {/* Answers Count */}
-          <span
-            className="flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full 
-          bg-purple-50 border border-purple-200 text-purple-700"
+        {/* ── Divider ── */}
+        <div className="my-4 h-px"
+          style={{ background: "linear-gradient(to right,#e9d5ff,transparent)" }} />
+
+        {/* ── Footer ── */}
+        <div className="flex items-center justify-between">
+
+          {/* Like button */}
+          <button
+            onClick={handleLikeToggle}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold
+                       transition-all duration-200 select-none"
+            style={hasLiked
+              ? { background: "linear-gradient(90deg,#3C9BF9,#9100BD)", color: "white" }
+              : { background: "#faf5ff", color: "#9100BD", border: "1px solid #ddd6fe" }
+            }
           >
-            <MessageCircle size={14} />
-            {questionData.answerCount} Answers
-          </span>
+            <Heart
+              size={13}
+              fill={hasLiked ? "white" : "#9100BD"}
+              stroke={hasLiked ? "white" : "#9100BD"}
+            />
+            {likes}
+          </button>
 
+          {/* Answers count */}
+          <Link
+            to={discussionPath}
+            state={{ question: questionData }}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold
+                       transition-all duration-200 hover:opacity-80"
+            style={{ background: "linear-gradient(90deg,#eff6ff,#faf5ff)", color: "#3C9BF9", border: "1px solid #bfdbfe" }}
+          >
+            <MessageCircle size={13} />
+            {questionData.answerCount} {questionData.answerCount === 1 ? "Answer" : "Answers"}
+          </Link>
 
         </div>
       </div>
 
-      {/* Animated Gradient Line */}
-      <div className="absolute bottom-0 left-0 w-full h-[3px] bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 rounded-b-2xl opacity-0 group-hover:opacity-100 transition-all duration-500" />
-
+      {/* Bottom glow line on hover */}
+      <div className="absolute bottom-0 left-0 w-full h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style={{ background: "linear-gradient(90deg,#3C9BF9,#9100BD,#ec4899)" }} />
     </div>
   );
 };

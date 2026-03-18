@@ -23,7 +23,7 @@ export const UserLayout = () => {
         <UserNavbar navbarActiveLink={navbarActiveLink} setNavbarActiveLink={setNavbarActiveLink}  />
 
         {/* Main content area */}
-        <main className="flex-1 pt-10 p-6 bg-gradient  dark:from-[#030e1f] dark:to-[#100114]  ">
+        <main className="flex-1 bg-gradient  dark:from-[#030e1f] dark:to-[#100114]  ">
           <Outlet />
         </main>
       </div>

@@ -24,6 +24,7 @@ import Experts from "../protected/pages/Experts";
 import MotivationalPosts from "../protected/pages/MotivationalPosts";
 import Discussion from "../protected/pages/Discussion";
 import ExpertDetails from "../protected/pages/ExpertDetails";
+import BookAppointment from "../protected/components/BookAppointment";
 
 //expert
 import { ExpertLayout } from './ExpertLayout';
@@ -68,7 +69,7 @@ export const AppRoutes = () => (
         <Route path="/user/experts" element={<Experts />} />
         <Route path="/user/expertDetails" element={<ExpertDetails />} />
 
-
+        <Route path="/user/bookAppointment" element={<BookAppointment/>}/>
         <Route path="/user/discussion" element={<Discussion />} />
         <Route path="/user/motivations" element={<MotivationalPosts />} />
       </Route>
