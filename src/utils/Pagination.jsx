@@ -1,55 +1,118 @@
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
 const Pagination = ({ page, totalPages, setPage }) => {
-  if (totalPages === 0) return null;
+  if (!totalPages || totalPages <= 1) return null;
 
   const handlePageChange = (newPage) => {
     if (newPage >= 0 && newPage < totalPages) {
       setPage(newPage);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
+  /* ── Smart page number logic ──
+     Always show: first, last, current, and 1 neighbour each side.
+     Fill gaps with "..." ellipsis.
+  */
+  const getPageNumbers = () => {
+    const pages = [];
+    const delta = 1; // neighbours on each side of current
+
+    const rangeStart = Math.max(1, page - delta);          // 0-indexed → display 1-indexed
+    const rangeEnd   = Math.min(totalPages - 2, page + delta);
+
+    // Always include first page (index 0)
+    pages.push(0);
+
+    // Left ellipsis
+    if (rangeStart > 1) pages.push("...");
+
+    // Middle range
+    for (let i = rangeStart; i <= rangeEnd; i++) {
+      if (i > 0 && i < totalPages - 1) pages.push(i);
+    }
+
+    // Right ellipsis
+    if (rangeEnd < totalPages - 2) pages.push("...");
+
+    // Always include last page
+    if (totalPages > 1) pages.push(totalPages - 1);
+
+    return pages;
+  };
+
+  const pageNumbers = getPageNumbers();
+
+  const btnBase = `
+    h-9 min-w-[36px] px-2.5 rounded-xl text-sm font-semibold
+    flex items-center justify-center
+    transition-all duration-150 select-none
+  `;
+
+  const activeBtn = `text-white shadow-sm`;
+  const idleBtn   = `
+    bg-white dark:bg-gray-800
+    text-gray-600 dark:text-gray-300
+    border border-gray-200 dark:border-gray-700
+    hover:border-purple-400 dark:hover:border-purple-500
+    hover:text-purple-600 dark:hover:text-purple-400
+  `;
+  const disabledBtn = `
+    bg-gray-100 dark:bg-gray-800/50
+    text-gray-300 dark:text-gray-600
+    border border-gray-200 dark:border-gray-700
+    cursor-not-allowed
+  `;
+
   return (
-    <div className="flex justify-center items-center gap-2 mt-8 flex-wrap">
-      
-      {/* Prev Button */}
+    <div className="flex justify-center items-center gap-1.5 mt-6 flex-wrap">
+
+      {/* ── Prev ── */}
       <button
         onClick={() => handlePageChange(page - 1)}
         disabled={page === 0}
-        className={`px-4 py-2 rounded-lg border transition-all duration-200
-          ${page === 0
-            ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-            : "bg-white text-purple-600 border-purple-400 hover:bg-purple-100"
-          }`}
+        className={`${btnBase} ${page === 0 ? disabledBtn : idleBtn} gap-1`}
+        aria-label="Previous page"
       >
-        Prev
+        <ChevronLeft size={15} />
+        <span className="hidden sm:inline">Prev</span>
       </button>
 
-      {/* Page Numbers */}
-      {[...Array(totalPages)].map((_, index) => (
-        <button
-          key={index}
-          onClick={() => handlePageChange(index)}
-          className={`px-4 py-2 rounded-lg border transition-all duration-200
-            ${page === index
-              ? "bg-purple-600 text-white border-purple-600"
-              : "bg-white text-purple-600 border-purple-400 hover:bg-purple-100"
-            }`}
-        >
-          {index + 1}
-        </button>
-      ))}
+      {/* ── Page numbers ── */}
+      {pageNumbers.map((p, i) =>
+        p === "..." ? (
+          <span key={`ellipsis-${i}`}
+            className="h-9 w-8 flex items-center justify-center text-gray-400 dark:text-gray-500 text-sm font-medium">
+            ···
+          </span>
+        ) : (
+          <button
+            key={p}
+            onClick={() => handlePageChange(p)}
+            className={`${btnBase} ${page === p ? activeBtn : idleBtn}`}
+            style={page === p
+              ? { background: "linear-gradient(135deg,#3C9BF9,#9100BD)" }
+              : {}
+            }
+            aria-label={`Page ${p + 1}`}
+            aria-current={page === p ? "page" : undefined}
+          >
+            {p + 1}
+          </button>
+        )
+      )}
 
-      {/* Next Button */}
+      {/* ── Next ── */}
       <button
         onClick={() => handlePageChange(page + 1)}
         disabled={page === totalPages - 1}
-        className={`px-4 py-2 rounded-lg border transition-all duration-200
-          ${page === totalPages - 1
-            ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-            : "bg-white text-purple-600 border-purple-400 hover:bg-purple-100"
-          }`}
+        className={`${btnBase} ${page === totalPages - 1 ? disabledBtn : idleBtn} gap-1`}
+        aria-label="Next page"
       >
-        Next
+        <span className="hidden sm:inline">Next</span>
+        <ChevronRight size={15} />
       </button>
+
     </div>
   );
 };

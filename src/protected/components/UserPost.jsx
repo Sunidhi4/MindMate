@@ -59,7 +59,7 @@ export const UserPost = ({ question, onPostDeleteSuccess, setRefresh }) => {
 
   return (
     <div
-      className="group relative overflow-hidden rounded-2xl bg-white shadow-sm
+      className="group relative overflow-hidden rounded-2xl bg-white dark:bg-gray-900 shadow-sm
                  hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
       style={{ border: "1px solid #e9d5ff" }}
     >
@@ -115,7 +115,7 @@ export const UserPost = ({ question, onPostDeleteSuccess, setRefresh }) => {
 
         {/* ── Question text ── */}
         <Link to={discussionPath} state={{ question: questionData }}>
-          <p className="text-sm text-gray-700 leading-relaxed line-clamp-3
+          <p className="text-sm text-gray-700 dark:text-white leading-relaxed line-clamp-3
                         group-hover:text-[#9100BD] transition-colors duration-150">
             {questionData.question}
           </p>

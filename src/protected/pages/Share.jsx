@@ -67,7 +67,7 @@ const Share = () => {
       <div className="w-full  mx-auto px-10 py-8 flex flex-col gap-6">
 
         {/* ══ COMPOSE CARD ══ */}
-        <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-purple-100">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-sm border border-purple-100">
           {/* top accent */}
           <div className="h-1" style={{ background: "linear-gradient(90deg,#3C9BF9,#9100BD,#ec4899)" }} />
 
@@ -79,7 +79,7 @@ const Share = () => {
                 <Sparkles size={15} style={{ color: "#9100BD" }} />
               </div>
               <div>
-                <h2 className="text-base font-bold text-gray-900">Share Your Mind</h2>
+                <h2 className="text-base font-bold text-gray-900 dark:text-white">Share Your Mind</h2>
                 <p className="text-xs text-gray-400">Express freely — this is your safe space</p>
               </div>
             </div>
@@ -92,11 +92,10 @@ const Share = () => {
                   onChange={(e) => setInputValue(e.target.value.slice(0, maxChars))}
                   placeholder="Express your thoughts, emotions, or feelings here..."
                   rows={5}
-                  className="w-full p-4 rounded-xl text-sm text-gray-800 placeholder-gray-400
-                             resize-none focus:outline-none transition-all duration-200"
+                  className="w-full p-4 rounded-xl text-sm text-gray-800 placeholder-gray-400 
+                             resize-none focus:outline-none transition-all duration-200 bg-white dark:bg-gray-900"
                   style={{
                     border: "1.5px solid #ddd6fe",
-                    background: "#fdfbff",
                     boxShadow: "inset 0 1px 4px rgba(145,0,189,0.04)",
                   }}
                   onFocus={e => e.target.style.borderColor = "#9100BD"}
