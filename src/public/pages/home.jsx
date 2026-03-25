@@ -10,6 +10,7 @@ function HomePage() {
         <Welcome/>
         <Features/>
         <Statistics/>
+        
         {/* <Footer/> */}
         </>
     );

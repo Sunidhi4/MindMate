@@ -203,7 +203,7 @@ const ExpertDetails = () => {
             {/* Fee + Book — mobile */}
             <div className="sm:hidden mt-5 flex items-center justify-between p-4 rounded-xl
                             border border-purple-100 dark:border-gray-700
-                            bg-gradient-to-r from-purple-50 to-blue-50 dark:from-gray-700 dark:to-gray-700">
+                            bg-linear-to-r from-purple-50 to-blue-50 dark:from-gray-700 dark:to-gray-700">
               <div>
                 <p className="text-xs text-gray-400 dark:text-gray-500">Consultation Fee</p>
                 <p className="text-xl font-bold" style={{ color: "#3C9BF9" }}>₹{expert.fees}</p>
@@ -281,7 +281,7 @@ const ExpertDetails = () => {
 
               <div className="flex items-center gap-4 p-4 rounded-xl
                               border border-purple-100 dark:border-gray-700
-                              bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-700 dark:to-gray-700">
+                              bg-linear-to-r from-blue-50 to-purple-50 dark:from-gray-700 dark:to-gray-700">
                 <div className="w-12 h-12 rounded-full flex items-center justify-center
                                 font-bold text-white text-base shrink-0"
                   style={{ background: "linear-gradient(135deg,#3C9BF9,#9100BD)" }}>

@@ -5,7 +5,7 @@ import PsychoTalkLogo from "/psychotalk_logo.webp";
 
 const navItems = [
   { name: "Home",     path: "/"        },
-  { name: "About Us", path: "/about"   },
+  { name: "About", path: "/about"   },
   { name: "Contact",  path: "/contact" },
   { name: "Experts",  path: "/experts" },
 ];

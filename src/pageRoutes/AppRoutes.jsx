@@ -11,6 +11,8 @@ import PublicExperts from "../public/pages/publicExperts";
 import About from "../public/pages/about";
 import Contact from "../public/pages/contactUs";
 import FAQs from "../public/pages/faq";
+import Privacy from "../public/pages/Privacy";
+import Terms from "../public/pages/Terms";
 //user
 import Dashboard from "../protected/pages/Dashboard";
 import UserAppointments from "../protected/pages/UserAppointments";
@@ -24,7 +26,7 @@ import Experts from "../protected/pages/Experts";
 import MotivationalPosts from "../protected/pages/MotivationalPosts";
 import Discussion from "../protected/pages/Discussion";
 import ExpertDetails from "../protected/pages/ExpertDetails";
-import BookAppointment from "../protected/components/BookAppointment";
+import BookAppointment from "../protected/pages/BookAppointment";
 
 //expert
 import { ExpertLayout } from './ExpertLayout';
@@ -34,9 +36,9 @@ import ExpertHelp from "../expert/expertPages/sidebarPages/ExpertHelp";
 import ExpertSettings from "../expert/expertPages/sidebarPages/ExpertSettings";
 import ExpertNotification from '../expert/expertPages/sidebarPages/ExpertNotifications';
 import Motivations from "../expert/expertPages/navbarPages/Motivations";
-import Appointments from "../expert/expertPages/navbarPages/Appointments";
 import ExpertVerification from "../protected/pages/verification/ExpertVerification";
 import VerificationSubmitted from "../protected/pages/VerificationSubmitted";
+import ExpertAppointments from "../protected/pages/ExpertAppointments";
 
 export const AppRoutes = () => (
   <Routes>
@@ -51,6 +53,8 @@ export const AppRoutes = () => (
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/faq" element={<FAQs />} />
+      <Route path="/privacy" element={<Privacy/>} />
+      <Route path="/terms" element={<Terms/>} />
     </Route>
 
     {/* User layout routes */}
@@ -85,7 +89,7 @@ export const AppRoutes = () => (
         <Route path="/expert/notifications" element={<ExpertNotification />} />
         <Route path="/expert/help" element={<ExpertHelp />} />
         {/* Expert Navbar Routes */}
-        <Route path="/expert/appointments" element={<Appointments />} />
+        <Route path="/expert/appointments" element={<ExpertAppointments />} />
         <Route path="/expert/support" element={<Support />} />
         <Route path="/expert/discussion" element={<Discussion />} />
         <Route path="/expert/motivations" element={<MotivationalPosts />} />

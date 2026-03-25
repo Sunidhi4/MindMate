@@ -50,7 +50,7 @@ const UserDashboard = () => {
       dark:bg-gray-900 → solid dark override
       NO negative margins — parent layout owns the spacing
     */
-    <div className="min-h-full w-full bg-gradient dark:bg-gray-900 ">
+    <div className="min-h-full w-full bg-gradient ">
 
       <style>{`
         *, *::before, *::after { box-sizing: border-box; }
@@ -100,7 +100,7 @@ const UserDashboard = () => {
                 <Sparkles size={11} /> Your safe space
               </span>
 
-              <h1 className="text-2xl md:text-3xl font-bold leading-snug break-words
+              <h1 className="text-2xl md:text-3xl font-bold leading-snug 
                              text-gray-900 dark:text-white">
                 {greeting},{" "}
                 <span style={{
