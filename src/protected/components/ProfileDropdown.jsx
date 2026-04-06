@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 const ProfileDropdown = () => {
 
-  const userName = sessionStorage.getItem("name") || "John Doe";
-  const email = sessionStorage.getItem("email") || "john@example.com";
+  const username = localStorage.getItem("username") || "John Doe";
+  const role = localStorage.getItem("role") || "john@example.com";
 
   const logoutHandler = ()=>{
     localStorage.clear();
@@ -12,13 +12,13 @@ const ProfileDropdown = () => {
     <div className="absolute right-0 mt-3 w-60 bg-white border border-gray-200 rounded-xl shadow-lg p-3 z-50">
       <div className="flex items-center gap-3 p-2 border-b border-gray-100">
         <img
-          src={"https://i.pravatar.cc/80?u=" + sessionStorage.getItem("name")}
+          src={"https://i.pravatar.cc/80?u=" + username}
           alt="User"
           className="w-10 h-10 rounded-full"
         />
         <div>
-          <p className="text-sm font-semibold text-gray-800">{userName}</p>
-          <p className="text-xs text-gray-500">{email}</p>
+          <p className="text-sm font-semibold text-gray-800">{username}</p>
+          <p className="text-xs text-gray-500">{role}</p>
         </div>
       </div>
       <ul className="mt-2">

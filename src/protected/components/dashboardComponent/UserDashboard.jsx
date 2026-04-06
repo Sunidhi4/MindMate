@@ -80,7 +80,7 @@ const UserDashboard = () => {
         }
       `}</style>
 
-      <div className="w-full max-w-5xl mx-auto py-6 space-y-5">
+      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-8 space-y-5">
 
         {/* ══ HERO ══ */}
         <div className="rounded-2xl overflow-hidden shadow-sm

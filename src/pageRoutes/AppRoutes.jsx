@@ -5,7 +5,7 @@ import ProtectedRoute from "../utils/ProtectedRoute";
 import PublicRoute from "../utils/PublicRoute";
 
 import { PublicLayout } from "./PublicLayout";
-import { UserLayout } from "./UserLayout";
+import { UserLayout } from "./Userlayout/UserLayout";
 import SignUP from "../public/components/signup";
 import PublicExperts from "../public/pages/publicExperts";
 import About from "../public/pages/about";
@@ -13,6 +13,10 @@ import Contact from "../public/pages/contactUs";
 import FAQs from "../public/pages/faq";
 import Privacy from "../public/pages/Privacy";
 import Terms from "../public/pages/Terms";
+
+//protected 
+import MotivationalPosts from "../protected/pages/MotivationalPosts";
+
 //user
 import Dashboard from "../protected/pages/Dashboard";
 import UserAppointments from "../protected/pages/UserAppointments";
@@ -23,20 +27,20 @@ import Help from "../protected/pages/Help";
 import Share from "../protected/pages/Share";
 import Support from "../protected/pages/Support";
 import Experts from "../protected/pages/Experts";
-import MotivationalPosts from "../protected/pages/MotivationalPosts";
+
 import Discussion from "../protected/pages/Discussion";
 import ExpertDetails from "../protected/pages/ExpertDetails";
 import BookAppointment from "../protected/pages/BookAppointment";
 
 //expert
-import { ExpertLayout } from './ExpertLayout';
+import { ExpertLayout } from './expertLayout/ExpertLayout';
 
-import ExpertProfile from "../expert/expertPages/sidebarPages/ExpertProfile";
-import ExpertHelp from "../expert/expertPages/sidebarPages/ExpertHelp";
-import ExpertSettings from "../expert/expertPages/sidebarPages/ExpertSettings";
-import ExpertNotification from '../expert/expertPages/sidebarPages/ExpertNotifications';
-import Motivations from "../expert/expertPages/navbarPages/Motivations";
-import ExpertVerification from "../protected/pages/verification/ExpertVerification";
+//import ExpertProfile from "../expert/expertPages/sidebarPages/ExpertProfile";
+//import ExpertHelp from "../expert/expertPages/sidebarPages/ExpertHelp";
+//import ExpertSettings from "../expert/expertPages/sidebarPages/ExpertSettings";
+//import ExpertNotification from '../expert/expertPages/sidebarPages/ExpertNotifications';
+//import Motivations from "../expert/expertPages/navbarPages/Motivations";
+import ExpertVerification from "../protected/pages/ExpertVerification";
 import VerificationSubmitted from "../protected/pages/VerificationSubmitted";
 import ExpertAppointments from "../protected/pages/ExpertAppointments";
 
@@ -84,10 +88,10 @@ export const AppRoutes = () => (
       <Route element={<ExpertLayout />}>
         {/* Expert Sidebar Routes */}
         <Route path="/expert/dashboard" element={<Dashboard />} />
-        <Route path="/expert/profile" element={<ExpertProfile />} />
+        <Route path="/expert/profile" element={<Profile />} />
         <Route path="/expert/settings" element={<Settings />} />
-        <Route path="/expert/notifications" element={<ExpertNotification />} />
-        <Route path="/expert/help" element={<ExpertHelp />} />
+        <Route path="/expert/notifications" element={<tNotification />} />
+        <Route path="/expert/help" element={<Help />} />
         {/* Expert Navbar Routes */}
         <Route path="/expert/appointments" element={<ExpertAppointments />} />
         <Route path="/expert/support" element={<Support />} />

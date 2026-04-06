@@ -4,7 +4,7 @@ import UserDashboard from '../components/dashboardComponent/UserDashboard';
 const Dashboard = () => {
 
   return (
-    <div className="p-8 ">
+    <div className="">
       {
         (localStorage.getItem("role") === "USER")
           ? 

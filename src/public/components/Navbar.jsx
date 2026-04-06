@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
-import PsychoTalkLogo from "/psychotalk_logo.webp";
+import PsychoTalkLogo from "../assets/psychotalk_logo.webp";
 
 const navItems = [
   { name: "Home",     path: "/"        },

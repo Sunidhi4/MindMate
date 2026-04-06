@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { ExpertNavbar } from '../expert/expertComponents/ExpertNavbar'
-import { ExpertSidebar } from '../expert/expertComponents/ExpertSidebar';
+import { ExpertNavbar } from './ExpertNavbar'
+import { ExpertSidebar } from './ExpertSidebar';
 import { Outlet } from 'react-router-dom'
 export const ExpertLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -20,7 +20,7 @@ export const ExpertLayout = () => {
         <ExpertNavbar />
 
         {/* Main content area */}
-      <main className="flex-1 pt-10 p-6  bg-linear-to-br from-[#e2c8f0] to-[#c9e7f7]  ">
+      <main className="flex-1 bg-linear-to-br from-[#e6d3f0] dark:from-[#11051f] to-[#daeef8] dark:to-[#07192e] ">
           <Outlet />
         </main>
       </div>    

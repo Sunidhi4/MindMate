@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Bell, ChevronDown, Menu, X } from "lucide-react";
-import NotificationDropdown from "../components/NotificationDropdown";
-import ProfileDropdown from "../components/ProfileDropdown";
+import NotificationDropdown from "../../protected/components/NotificationDropdown";
+import ProfileDropdown from "../../protected/components/ProfileDropdown";
 import { NavLink } from "react-router-dom";
 
 export const UserNavbar = ({ setSidebarOpen }) => {

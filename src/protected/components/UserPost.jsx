@@ -33,7 +33,7 @@ export const UserPost = ({ question, onPostDeleteSuccess, setRefresh }) => {
         `http://localhost:8080/user/question/${questionData.id}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
-      if (res.data === true || res.data.status === "success") {
+      if (res.status === 200) {
         toast.success("Question deleted successfully!");
         onPostDeleteSuccess();
       } else {

@@ -97,7 +97,7 @@ const Sidebar = ({ open, setOpen }) => {
 
         {/* ── User pill ── */}
         <div className="mx-3 mt-4 mb-2 px-3 py-2.5 rounded-xl
-                        bg-gradient-to-r from-purple-50 to-blue-50
+                        bg-linear-to-r from-purple-50 to-blue-50
                         dark:from-purple-900/20 dark:to-blue-900/20
                         border border-purple-100 dark:border-gray-700
                         flex items-center gap-3 shrink-0">

@@ -1,7 +1,8 @@
-import PsychoTalkLogo from "/psychotalk_logo.webp";
+import PsychoTalkLogo from "../../assets/psychotalk_logo.webp";
 import { Link } from "react-router-dom";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { motion } from "motion/react";
+
 
 const Welcome = () => {
   const badges = [

@@ -32,16 +32,16 @@ export const ExpertSidebar = () => {
            open ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
          }`}
        >
-        <div className="h-full sidebar-bg-gradient">
+        <div className="h-full bg-white dark:bg-[#16071f]">
          {/* Header */}
-         <div className="flex justify-between items-center p-5 border-b border-gray-200">
+         <div className="flex justify-between items-center p-3 border-b border-gray-200">
            <div className="flex items-center gap-3">
              <img
                src={PsychoTalkLogoTrans}
                alt="logo"
-               className="w-12 h-12 pointer-events-none"
+               className="w-9 h-9 pointer-events-none"
              />
-             <h1 className="text-2xl kanit font-gradient">PsychoTalk</h1>
+             <h1 className="text-xl font-bold font-gradient">PsychoTalk</h1>
            </div>
            <button
              onClick={() => setOpen(false)}
@@ -59,7 +59,7 @@ export const ExpertSidebar = () => {
                to={path}
                onClick={() => setOpen(false)}
                className={({ isActive }) =>
-                 `flex items-center gap-3 px-5 py-2 rounded-full transition-all text-lg font-medium ${
+                 `flex items-center gap-3 px-5 py-2 rounded-full transition-all text-lg font-medium dark:text-[#ebe8e8] ${
                    isActive
                      ? "bg-linear-to-r from-[#3C9BF9] to-[#9100BD] text-white"
                      : "text-gray-500 hover:bg-gray-100"

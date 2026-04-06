@@ -38,7 +38,7 @@ color: transparent;
   background-clip: text;
 }
 .bg-gradient{
-  background: linear-gradient(to bottom right, #c4e3f3 , #e3caf4);
+  background: linear-gradient(to bottom right, #cfe8f5 , #ead5f9);
 }
 
 .dark .bg-gradient {
@@ -50,10 +50,4 @@ color: transparent;
 
 .purple-color{
   color: #951acf;
-}
-.sidebar-bg-gradient{
-  background: linear-gradient(to bottom ,#e6f6f9 , #f6f3f3, #e5f9fa);
-}
-.navbar-bg-gradient{
-  background: linear-gradient(to right, #e4f8fc, #f6f3f3, #def8f9 );
 }
