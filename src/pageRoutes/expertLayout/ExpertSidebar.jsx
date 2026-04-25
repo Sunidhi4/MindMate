@@ -15,6 +15,7 @@ const navItems = [
   { name: "Settings", path: "/expert/settings", icon: Settings },
   { name: "Notifications", path: "/expert/notifications", icon: Bell },
   { name: "Help", path: "/expert/help", icon: HelpCircle },
+
 ];
 export const ExpertSidebar = () => {
  return (
@@ -59,7 +60,7 @@ export const ExpertSidebar = () => {
                to={path}
                onClick={() => setOpen(false)}
                className={({ isActive }) =>
-                 `flex items-center gap-3 px-5 py-2 rounded-full transition-all text-lg font-medium dark:text-[#ebe8e8] ${
+                 `flex items-center gap-3 px-5 py-2 rounded-full transition-all text-lg font-semibold dark:text-[#ebe8e8] ${
                    isActive
                      ? "bg-linear-to-r from-[#3C9BF9] to-[#9100BD] text-white"
                      : "text-gray-500 hover:bg-gray-100"

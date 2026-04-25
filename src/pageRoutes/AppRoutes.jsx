@@ -31,15 +31,11 @@ import Experts from "../protected/pages/Experts";
 import Discussion from "../protected/pages/Discussion";
 import ExpertDetails from "../protected/pages/ExpertDetails";
 import BookAppointment from "../protected/pages/BookAppointment";
+import QuickChat from "../protected/pages/QuickChat";
 
 //expert
 import { ExpertLayout } from './expertLayout/ExpertLayout';
 
-//import ExpertProfile from "../expert/expertPages/sidebarPages/ExpertProfile";
-//import ExpertHelp from "../expert/expertPages/sidebarPages/ExpertHelp";
-//import ExpertSettings from "../expert/expertPages/sidebarPages/ExpertSettings";
-//import ExpertNotification from '../expert/expertPages/sidebarPages/ExpertNotifications';
-//import Motivations from "../expert/expertPages/navbarPages/Motivations";
 import ExpertVerification from "../protected/pages/ExpertVerification";
 import VerificationSubmitted from "../protected/pages/VerificationSubmitted";
 import ExpertAppointments from "../protected/pages/ExpertAppointments";
@@ -80,6 +76,7 @@ export const AppRoutes = () => (
         <Route path="/user/bookAppointment" element={<BookAppointment/>}/>
         <Route path="/user/discussion" element={<Discussion />} />
         <Route path="/user/motivations" element={<MotivationalPosts />} />
+        <Route path="/user/quickChat" element={<QuickChat />} />
       </Route>
     </Route>
     {/* expert layout routes */}

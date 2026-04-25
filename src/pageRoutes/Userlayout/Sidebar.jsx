@@ -13,6 +13,7 @@ const navItems = [
   { name: "Settings",         path: "/user/settings",      icon: Settings            },
   { name: "Notifications",    path: "/user/notifications", icon: Bell                },
   { name: "Help",             path: "/user/help",          icon: HelpCircle          },
+  { name: "QuickChat",        path: "/user/quickChat",     icon: HelpCircle           },
 ];
 
 const Sidebar = ({ open, setOpen }) => {

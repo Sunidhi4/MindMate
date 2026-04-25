@@ -48,7 +48,7 @@ export const ExpertNavbar = () => {
 
 
       {/* middle Action */}
-      <div className="flex items-center gap-7 text-gray-600 dark:text-white font-medium text-xl">
+      <div className="flex items-center gap-7 text-gray-600 dark:text-white font-semibold text-xl">
         <NavLink to="/expert/appointments"
           className={({ isActive }) => `hover:text-[#9100BD] ${(isActive) ? "border-b-2 border-[#9100BD] text-[#9100BD]" : ""}`}
         >
