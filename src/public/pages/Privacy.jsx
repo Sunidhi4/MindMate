@@ -29,7 +29,7 @@ const sections = [
     content: [
       {
         heading: "Platform Operations",
-        text: "Your information is used solely to provide, maintain, and improve PsychoTalk's features — including community discussions, expert sessions, and notifications.",
+        text: "Your information is used solely to provide, maintain, and improve MindMate's features — including community discussions, expert sessions, and notifications.",
       },
       {
         heading: "Communication",
@@ -189,7 +189,7 @@ const Privacy = () => {
             style={{ color: isDark ? "#9ca3af" : "#4b5563" }}
           >
             Your privacy is fundamental to everything we build. This policy explains
-            how PsychoTalk collects, uses, and protects your information.
+            how MindMate collects, uses, and protects your information.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4 mt-5">
@@ -227,7 +227,7 @@ const Privacy = () => {
           <Lock size={22} className="shrink-0 opacity-80" />
           <p className="text-sm leading-relaxed text-white/90 text-center sm:text-left">
             <strong>Our commitment:</strong> We will never sell your data, never show you ads,
-            and never compromise your anonymity. PsychoTalk is built on trust.
+            and never compromise your anonymity. MindMate is built on trust.
           </p>
         </div>
 

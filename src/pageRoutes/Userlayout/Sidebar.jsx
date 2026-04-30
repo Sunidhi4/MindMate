@@ -81,7 +81,7 @@ const Sidebar = ({ open, setOpen }) => {
               />
             </div>
             <span className="text-xl font-bold text-gray-800 dark:text-white tracking-tight">
-              PsychoTalk
+              MindMate
             </span>
           </div>
 

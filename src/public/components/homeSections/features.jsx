@@ -128,7 +128,7 @@ const Features = () => {
               background: "linear-gradient(90deg,#9100BD,#3C9BF9)",
               WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
             }}>
-              PsychoTalk?
+              MindMate?
             </span>
           </h2>
 
@@ -232,7 +232,7 @@ const Features = () => {
           >
             💜 Join{" "}
             <span style={{ color: "#9100BD", fontWeight: 700 }}>thousands</span>
-            {" "}of people already healing together on PsychoTalk
+            {" "}of people already healing together on MindMate
           </p>
         </div>
 

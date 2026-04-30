@@ -75,7 +75,7 @@ const Navbar = () => {
                 className="w-8 h-8 object-contain pointer-events-none" />
             </div>
             <span className="hidden sm:block text-2xl font-bold text-gray-800 dark:text-white tracking-tight">
-              PsychoTalk
+              MindMate
             </span>
           </Link>
 

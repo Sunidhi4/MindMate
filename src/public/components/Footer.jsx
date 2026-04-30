@@ -34,7 +34,7 @@ const Footer = () => {
             <div className="w-7 h-7 rounded-lg  flex items-center justify-center">
               <span className="text-xs font-bold"><img src={PsychoTalkLogoTrans} alt="P" /></span>
             </div>
-            <span className="text-white font-bold text-lg">PsychoTalk</span>
+            <span className="text-white font-bold text-lg">MindMate</span>
           </div>
 
           {/* Nav links */}
@@ -65,7 +65,7 @@ const Footer = () => {
         <div className="mt-4 pt-4 border-t border-white/15
                         flex flex-col sm:flex-row items-center justify-between gap-1">
           <p className="text-white/50 text-[11px]">
-            © {year} PsychoTalk. All rights reserved.
+            © {year} MindMate. All rights reserved.
           </p>
           <p className="flex items-center gap-1 text-white/50 text-[11px]">
             Made with <Heart size={10} className="text-pink-300 fill-pink-300" /> for mental wellness

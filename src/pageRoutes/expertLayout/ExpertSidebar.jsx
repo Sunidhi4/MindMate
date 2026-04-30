@@ -42,7 +42,7 @@ export const ExpertSidebar = () => {
                alt="logo"
                className="w-9 h-9 pointer-events-none"
              />
-             <h1 className="text-xl font-bold font-gradient">PsychoTalk</h1>
+             <h1 className="text-xl font-bold font-gradient">MindMate</h1>
            </div>
            <button
              onClick={() => setOpen(false)}

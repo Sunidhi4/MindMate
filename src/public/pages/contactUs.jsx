@@ -71,7 +71,7 @@ const ContactUs = () => {
       : "";
 
   const contactInfo = [
-    { icon: <Mail size={15} />,  color: "#9100BD", label: "Email",    value: "support@psychotalk.in"  },
+    { icon: <Mail size={15} />,  color: "#9100BD", label: "Email",    value: "support@MindMate.in"  },
     { icon: <Phone size={15} />, color: "#3C9BF9", label: "Phone",    value: "+91 98765 43210"         },
     { icon: <MapPin size={15}/>, color: "#ec4899", label: "Location", value: "Mumbai, India"           },
     { icon: <Clock size={15} />, color: "#10b981", label: "Hours",    value: "Mon–Sat, 9am – 6pm IST"  },

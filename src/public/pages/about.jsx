@@ -88,7 +88,7 @@ const AboutPage = () => {
               <Sparkles size={11} /> Mental Health Platform
             </span>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight mb-4">
-              About PsychoTalk
+              About MindMate
             </h1>
             <p className="text-white/80 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
               A supportive online platform dedicated to helping individuals facing mental health challenges.
@@ -159,7 +159,7 @@ const AboutPage = () => {
         <div>
           <div className="flex items-center gap-2 mb-4">
             <Users size={17} className="text-blue-500" />
-            <h2 className="text-base font-bold text-gray-900 dark:text-white">Who Can Use PsychoTalk?</h2>
+            <h2 className="text-base font-bold text-gray-900 dark:text-white">Who Can Use MindMate?</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {audience.map((a, i) => (
@@ -205,7 +205,7 @@ const AboutPage = () => {
                         border border-purple-100 dark:border-gray-700 shadow-sm">
           <div className="flex items-center gap-2 mb-5">
             <CheckCircle2 size={17} className="text-purple-500" />
-            <h2 className="text-base font-bold text-gray-900 dark:text-white">Why Choose PsychoTalk?</h2>
+            <h2 className="text-base font-bold text-gray-900 dark:text-white">Why Choose MindMate?</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
@@ -248,7 +248,7 @@ const AboutPage = () => {
           <h3 className="text-xl font-bold mb-2">Thank You for Being Here</h3>
           <p className="text-sm text-white/75 leading-relaxed max-w-md mx-auto mb-5">
             Your willingness to share and seek help is a powerful step toward healing.
-            PsychoTalk is here to support you — every step of the way.
+            MindMate is here to support you — every step of the way.
           </p>
           <a href="/user/share"
             className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold

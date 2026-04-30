@@ -141,7 +141,7 @@ const Statistics = () => {
           <Heart className="mx-auto mb-3 opacity-80" size={24} />
           <p className="text-xl font-bold mb-2">You're not alone.</p>
           <p className="text-sm text-white/75 mb-5 max-w-md mx-auto">
-            Millions face these challenges every day. PsychoTalk is here to help
+            Millions face these challenges every day. MindMate is here to help
             you find support, share your story, and heal together.
           </p>
           <a href="/signup"

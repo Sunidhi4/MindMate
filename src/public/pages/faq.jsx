@@ -9,15 +9,15 @@ const faqCategories = [
     color: "#9100BD",
     faqs: [
       {
-        question: "What is PsychoTalk?",
-        answer: "PsychoTalk is a supportive online platform where individuals facing mental health challenges can share experiences anonymously, connect with peers, and access professional guidance in a safe, judgment-free environment.",
+        question: "What is MindMate?",
+        answer: "MindMate is a supportive online platform where individuals facing mental health challenges can share experiences anonymously, connect with peers, and access professional guidance in a safe, judgment-free environment.",
       },
       {
-        question: "Who can use PsychoTalk?",
+        question: "Who can use MindMate?",
         answer: "Anyone seeking mental health support, peer connection, or professional guidance can join. Licensed mental health professionals also provide consultations through the platform.",
       },
       {
-        question: "Is PsychoTalk free to use?",
+        question: "Is MindMate free to use?",
         answer: "Community participation is completely free. Professional consultations may involve fees depending on the provider and session type chosen.",
       },
     ],
@@ -28,7 +28,7 @@ const faqCategories = [
     color: "#3C9BF9",
     faqs: [
       {
-        question: "Is PsychoTalk anonymous and confidential?",
+        question: "Is MindMate anonymous and confidential?",
         answer: "Yes. We prioritize your privacy. You can participate anonymously using a display name, and all shared information and expert sessions remain confidential.",
       },
       {
@@ -48,7 +48,7 @@ const faqCategories = [
     faqs: [
       {
         question: "Is the community judgment-free?",
-        answer: "Absolutely. PsychoTalk fosters a respectful, empathetic environment where members are encouraged to share openly without fear of criticism.",
+        answer: "Absolutely. MindMate fosters a respectful, empathetic environment where members are encouraged to share openly without fear of criticism.",
       },
       {
         question: "What if I experience inappropriate behavior?",
@@ -71,7 +71,7 @@ const faqCategories = [
       },
       {
         question: "Are the experts verified?",
-        answer: "Yes. All experts on PsychoTalk go through a verification process to confirm their qualifications and credentials before being approved.",
+        answer: "Yes. All experts on MindMate go through a verification process to confirm their qualifications and credentials before being approved.",
       },
       {
         question: "How do I get started?",

@@ -10,7 +10,7 @@ const sections = [
     content: [
       {
         heading: "Age Requirement",
-        text: "You must be at least 13 years old to use PsychoTalk. Users under 18 should have parental awareness of their participation on the platform.",
+        text: "You must be at least 13 years old to use MindMate. Users under 18 should have parental awareness of their participation on the platform.",
       },
       {
         heading: "Account Responsibility",
@@ -37,7 +37,7 @@ const sections = [
       },
       {
         heading: "Misinformation",
-        text: "Spreading false or misleading medical information is prohibited. PsychoTalk is a supportive community — not a substitute for professional medical advice.",
+        text: "Spreading false or misleading medical information is prohibited. MindMate is a supportive community — not a substitute for professional medical advice.",
       },
     ],
   },
@@ -48,11 +48,11 @@ const sections = [
     content: [
       {
         heading: "Your Content",
-        text: "You retain ownership of everything you post. By posting, you grant PsychoTalk a non-exclusive, royalty-free licence to display and store your content solely for the purpose of operating the platform.",
+        text: "You retain ownership of everything you post. By posting, you grant MindMate a non-exclusive, royalty-free licence to display and store your content solely for the purpose of operating the platform.",
       },
       {
         heading: "Platform Content",
-        text: "All PsychoTalk branding, design, and platform code is owned by PsychoTalk. You may not copy, reproduce, or redistribute platform assets without written permission.",
+        text: "All MindMate branding, design, and platform code is owned by MindMate. You may not copy, reproduce, or redistribute platform assets without written permission.",
       },
       {
         heading: "Content Removal",
@@ -67,7 +67,7 @@ const sections = [
     content: [
       {
         heading: "Not Medical Advice",
-        text: "PsychoTalk is a peer support and professional connection platform. Content shared by users or experts does not constitute formal medical or psychiatric advice. Always consult a licensed professional for medical decisions.",
+        text: "MindMate is a peer support and professional connection platform. Content shared by users or experts does not constitute formal medical or psychiatric advice. Always consult a licensed professional for medical decisions.",
       },
       {
         heading: "Service Availability",
@@ -75,7 +75,7 @@ const sections = [
       },
       {
         heading: "Limitation of Liability",
-        text: "To the extent permitted by law, PsychoTalk is not liable for indirect, incidental, or consequential damages arising from your use of the platform.",
+        text: "To the extent permitted by law, MindMate is not liable for indirect, incidental, or consequential damages arising from your use of the platform.",
       },
     ],
   },
@@ -86,7 +86,7 @@ const sections = [
     content: [
       {
         heading: "Expert Verification",
-        text: "Experts on PsychoTalk undergo a credential verification process. However, users are encouraged to do their own due diligence before booking sessions.",
+        text: "Experts on MindMate undergo a credential verification process. However, users are encouraged to do their own due diligence before booking sessions.",
       },
       {
         heading: "Session Conduct",
@@ -192,7 +192,7 @@ const Terms = () => {
             className="text-sm sm:text-base max-w-xl mx-auto leading-relaxed transition-colors duration-300"
             style={{ color: isDark ? "#9ca3af" : "#4b5563" }}
           >
-            By using PsychoTalk you agree to these terms. Please read them carefully —
+            By using MindMate you agree to these terms. Please read them carefully —
             they protect both you and our community.
           </p>
 
@@ -230,7 +230,7 @@ const Terms = () => {
         >
           <Gavel size={22} className="shrink-0 opacity-80" />
           <p className="text-sm leading-relaxed text-white/90 text-center sm:text-left">
-            <strong>By creating an account or using PsychoTalk</strong>, you confirm that
+            <strong>By creating an account or using MindMate</strong>, you confirm that
             you have read, understood, and agreed to these Terms of Use.
           </p>
         </div>

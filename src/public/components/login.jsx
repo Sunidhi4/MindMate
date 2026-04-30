@@ -125,7 +125,7 @@ const Login = () => {
                 <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
                   <Sparkles size={18} className="text-white" />
                 </div>
-                <span className="text-lg font-bold tracking-tight">PsychoTalk</span>
+                <span className="text-lg font-bold tracking-tight">MindMate</span>
               </div>
 
               <h2 className="text-2xl sm:text-3xl font-bold leading-tight mb-3">
@@ -264,7 +264,7 @@ const Login = () => {
 
         {/* Tagline below card */}
         <p className="text-center mt-5 text-xs text-gray-400 dark:text-gray-500">
-          <span className="shimmer-text font-semibold">PsychoTalk</span>
+          <span className="shimmer-text font-semibold">MindMate</span>
           {" "}· Share. Support. Heal. 💜
         </p>
       </motion.div>
