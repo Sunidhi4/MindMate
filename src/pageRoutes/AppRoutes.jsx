@@ -33,6 +33,8 @@ import ExpertDetails from "../protected/pages/ExpertDetails";
 import BookAppointment from "../protected/pages/BookAppointment";
 import QuickChat from "../protected/pages/QuickChat";
 import Assessments from "../protected/pages/Assessments";
+import CareJourney from "../protected/pages/CareJourney";
+import WellnessAgent from "../protected/pages/WellnessAgent";
 
 //expert
 import { ExpertLayout } from './expertLayout/ExpertLayout';
@@ -79,6 +81,8 @@ export const AppRoutes = () => (
         <Route path="/user/motivations" element={<MotivationalPosts />} />
         <Route path="/user/quickChat" element={<QuickChat />} />
         <Route path="/user/assessments" element={<Assessments />} />
+        <Route path="/user/care-journey" element={<CareJourney />} />
+        <Route path="/user/wellness" element={<WellnessAgent />} />
         
       </Route>
     </Route>

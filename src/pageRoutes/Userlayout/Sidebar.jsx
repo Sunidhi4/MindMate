@@ -9,13 +9,15 @@ import RiskStatus from "../../protected/components/RiskStatusWidget";
 
 const navItems = [
   { name: "Dashboard",        path: "/user/dashboard",     icon: LayoutDashboard     },
-  { name: "Appointments",     path: "/user/appointments",  icon: LiaAddressCardSolid },
+  { name: "Share",       path: "/user/share"  ,  icon: UserRound   },
+    { name: "Support",     path: "/user/support" , icon: Bell     },
+    { name: "Experts",     path: "/user/experts"  , icon: HelpCircle    },
+  { name: "Appointments",     path: "/user/appointments",  icon: LiaAddressCardSolid }
   // { name: "Profile",          path: "/user/profile",       icon: UserRound           },
   // { name: "Settings",         path: "/user/settings",      icon: Settings            },
   // { name: "Notifications",    path: "/user/notifications", icon: Bell                },
   // { name: "Help",             path: "/user/help",          icon: HelpCircle          },
-  { name: "QuickChat",        path: "/user/quickChat",     icon: HelpCircle           },
-   { name: "AssessmentAgent",        path: "/user/assessments",     icon: HelpCircle     },
+    
 ];
 
 const Sidebar = ({ open, setOpen }) => {

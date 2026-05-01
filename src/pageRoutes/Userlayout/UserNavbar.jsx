@@ -6,10 +6,13 @@ import { NavLink } from "react-router-dom";
 
 export const UserNavbar = ({ setSidebarOpen }) => {
   const navItems = [
-    { name: "Share",       path: "/user/share"       },
-    { name: "Support",     path: "/user/support"     },
-    { name: "Experts",     path: "/user/experts"     },
-    { name: "Motivations", path: "/user/motivations" },
+
+   // { name: "Motivations", path: "/user/motivations" },
+     { name: "QuickChat",        path: "/user/quickChat" },
+   { name: "WellnessAgent",        path: "/user/wellness" },
+    { name: "AssessmentAgent",        path: "/user/assessments" },
+    { name: "CareJourney Agent",        path: "/user/care-journey" },
+   
   ];
 
   const [darkMode, setDarkMode]                 = useState(false);

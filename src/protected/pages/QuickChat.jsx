@@ -29,7 +29,7 @@ const QuickChat = () => {
       {
         id: 0,
         role: "ai",
-        text: "Hi 👋 I'm **PsycheAI**. This is a quick, private space to talk. What's on your mind?",
+        text: "Hi 👋 I'm **MindMate AI**. This is a quick, private space to talk. What's on your mind?",
       },
     ];
   });
