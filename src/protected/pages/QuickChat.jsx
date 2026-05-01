@@ -159,7 +159,7 @@ const QuickChat = () => {
       <div className="flex justify-between items-center mb-3">
         <h2 className="font-bold text-lg flex items-center gap-2">
           <img src={PsycheAI} className="w-8 h-8 rounded-full" />
-          PsycheAI <Sparkles size={14} />
+          Mind Mate <Sparkles size={14} />
         </h2>
 
         <button onClick={handleReset} className="text-red-500 text-sm flex gap-1 items-center">
