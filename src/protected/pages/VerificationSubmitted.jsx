@@ -1,39 +1,59 @@
 import React, { useEffect, useState } from "react";
 import { ShieldCheck, Clock, Phone, Mail } from "lucide-react";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
-
-
+import { useNavigate } from "react-router-dom";
 
 const VerificationSubmitted = () => {
-  const [loading , setLoading] = useState(false);
-  useEffect(()=>{
-    async function getMyProfile() {
-      try{
-        setLoading(true);
-        const res = await axios.get(`http://localhost:8080/expert/myProfile` , {
-          headers:{
-            Authorization: `Bearer ${localStorage.getItem("token")}`
-          }
-        })
-        if(res.data){
-          if(res.data.verified){
-            <Navigate to="/expert/dashboard" replace/>
-          }
-        }
-    }catch(e){
-      console.log(e);
-    }
-    finally{
-      setLoading(false);
-    }
-    }
-    getMyProfile() 
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
-  } , [])
+  // ✅ Logout function
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/", { replace: true });
+  };
+
+  // ✅ Check verification status
+  useEffect(() => {
+    const getMyProfile = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:8080/expert/myProfile",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+
+        // If verified → go to dashboard
+        if (res.data?.verified) {
+          navigate("/expert/dashboard", { replace: true });
+        }
+      } catch (e) {
+        console.log(e);
+
+        // If token invalid → logout
+        handleLogout();
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getMyProfile();
+  }, []);
+
+  // Optional loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p>Checking status...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient px-6">
-
       <div className="bg-white max-w-2xl w-full rounded-3xl shadow-2xl p-10 text-center relative overflow-hidden">
 
         {/* Decorative Blur Circle */}
@@ -100,10 +120,18 @@ const VerificationSubmitted = () => {
           <p className="text-transparent bg-clip-text bg-linear-to-r from-[#3C9BF9] to-[#9100BD] font-semibold mt-2">
             We're excited to have you onboard soon!
           </p>
-           <p className="text-gray-500 text-xs pt-2">
+          <p className="text-gray-500 text-xs pt-2">
             For more details call on : +91 7223959729
           </p>
         </div>
+
+        {/* ✅ Logout Button */}
+        <button
+          onClick={handleLogout}
+          className="bg-green-500 hover:bg-green-600 text-white px-5 py-2 mt-6 rounded-3xl transition"
+        >
+          Log out
+        </button>
 
       </div>
     </div>

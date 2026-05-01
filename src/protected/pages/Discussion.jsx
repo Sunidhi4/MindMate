@@ -48,6 +48,7 @@ const Discussion = () => {
         setTotalPages(res.data.totalPages);
         setTotalElements(res.data.totalElements);
         setAnswers(res.data.content || []);
+        console.log(res.data)
       } catch (err) {
         console.log(err);
       } finally {

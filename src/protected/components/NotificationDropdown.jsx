@@ -138,7 +138,8 @@ const NotificationDropdown = () => {
           </div>
         ) : (
           <ul className="divide-y" style={{ borderColor: isDark ? "rgba(255,255,255,0.04)" : "#faf5ff" }}>
-            {notifications.map(n => {
+            {[...notifications]
+  .sort((a, b) => new Date(b.time) - new Date(a.time)).map(n => {
               const isUnread = n.status === "UNREAD";
               return (
                 <li

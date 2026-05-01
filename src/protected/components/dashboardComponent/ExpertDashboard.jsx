@@ -5,7 +5,7 @@ import {
   BookOpen, Users, AlertTriangle, CheckCircle2, ChevronRight,
   Sparkles, Heart, MessageCircle, Upload, Activity,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import Snapshots from "./Snapshots";
 
 /* ── Animated counter ── */
@@ -48,6 +48,7 @@ const ExpertDashboard = () => {
       .finally(() => setLoading(false));
   }, []);
 
+
   const hour = new Date().getHours();
   const greeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
   const name = profile?.fullName || localStorage.getItem("username") || "Doctor";
@@ -66,6 +67,10 @@ const ExpertDashboard = () => {
   const cardBg = { background: isDark ? "rgba(255,255,255,0.04)" : "white", border: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "#ede9fe"}` };
   const muted  = { color: isDark ? "#9ca3af" : "#6b7280" };
   const strong = { color: isDark ? "#f9fafb" : "#111827" };
+
+  if (!loading && profile && !profile.verified) {
+  return <Navigate to="/expert/verification" replace />;
+}
 
   return (
     <div

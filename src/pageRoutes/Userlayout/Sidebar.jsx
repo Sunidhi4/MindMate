@@ -5,15 +5,17 @@ import {
   LayoutDashboard, UserRound, Settings,
   Bell, HelpCircle, X,
 } from "lucide-react";
+import RiskStatus from "../../protected/components/RiskStatusWidget";
 
 const navItems = [
   { name: "Dashboard",        path: "/user/dashboard",     icon: LayoutDashboard     },
   { name: "Appointments",     path: "/user/appointments",  icon: LiaAddressCardSolid },
-  { name: "Profile",          path: "/user/profile",       icon: UserRound           },
-  { name: "Settings",         path: "/user/settings",      icon: Settings            },
-  { name: "Notifications",    path: "/user/notifications", icon: Bell                },
-  { name: "Help",             path: "/user/help",          icon: HelpCircle          },
+  // { name: "Profile",          path: "/user/profile",       icon: UserRound           },
+  // { name: "Settings",         path: "/user/settings",      icon: Settings            },
+  // { name: "Notifications",    path: "/user/notifications", icon: Bell                },
+  // { name: "Help",             path: "/user/help",          icon: HelpCircle          },
   { name: "QuickChat",        path: "/user/quickChat",     icon: HelpCircle           },
+   { name: "AssessmentAgent",        path: "/user/assessments",     icon: HelpCircle     },
 ];
 
 const Sidebar = ({ open, setOpen }) => {
@@ -97,12 +99,12 @@ const Sidebar = ({ open, setOpen }) => {
         </div>
 
         {/* ── User pill ── */}
-        <div className="mx-3 mt-4 mb-2 px-3 py-2.5 rounded-xl
+        <div className="mx-3 mt-4 mb-2 px-3 py-2.5 rounded-xl 
                         bg-linear-to-r from-purple-50 to-blue-50
                         dark:from-purple-900/20 dark:to-blue-900/20
                         border border-purple-100 dark:border-gray-700
-                        flex items-center gap-3 shrink-0">
-          <div className="p-0.5 rounded-full shrink-0"
+                        flex flex-col  gap-3 shrink-0">
+          <div className="p-0.5 rounded-full shrink-0 flex gap-3 p-2"
             style={{ background: "linear-gradient(135deg,#3C9BF9,#9100BD)" }}>
             <img
               src={`https://i.pravatar.cc/80?u=${username}`}
@@ -110,12 +112,16 @@ const Sidebar = ({ open, setOpen }) => {
               className="w-8 h-8 rounded-full object-cover block"
               style={{ border: "2px solid white" }}
             />
+            <div className="min-w-0">
+            <p className="text-xs font-bold text-white dark:text-grey-800 truncate">{username}</p>
+            <p className="text-[10px] font-medium text-black dark:white">Member</p>
           </div>
-          <div className="min-w-0">
-            <p className="text-xs font-bold text-gray-800 dark:text-white truncate">{username}</p>
-            <p className="text-[10px] font-medium text-purple-500 dark:text-purple-400">Member</p>
           </div>
+          
+          <RiskStatus/>
         </div>
+
+          
 
         {/* ── Nav links ── */}
         <nav className="flex flex-col gap-1 px-3 py-2 flex-1 overflow-y-auto">

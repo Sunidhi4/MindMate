@@ -105,7 +105,7 @@ const AnswerBox = ({ ans, setDeleting: notifyParent }) => {
   const Avatar = () => (
     <div className="shrink-0 p-0.5 rounded-full overflow-hidden border border-purple-600" style={{ background: cfg.ringGradient }}>
       {isAI ? (
-        <img src={PsycheAI} alt="PsycheAI"
+        <img src={PsycheAI} alt="MindMateAI"
           className="w-9 h-9 rounded-full object-cover scale-[1.2]"
           style={{ border: "2px solid white" }} />
       ) : (
@@ -174,18 +174,47 @@ const AnswerBox = ({ ans, setDeleting: notifyParent }) => {
             <Avatar />
             <NameRow />
           </div>
+          
 
           {/* Delete — only for owner, not AI */}
           {isOwner && !isAI && (
-            <button onClick={handleDelete} disabled={deleting} title="Delete answer"
-              className="shrink-0 p-1.5 rounded-lg transition-colors text-gray-300 dark:text-gray-600
-                         hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-500 dark:hover:text-red-400">
-              {deleting
-                ? <span className="text-[10px] text-gray-400">...</span>
-                : <Trash2 size={14} />
-              }
-            </button>
-          )}
+  <div className="flex items-center gap-3">
+    
+    {/* Safety Rating Badge */}
+    <div
+      className={`px-3 py-1 rounded-full text-xs font-semibold
+        ${
+          ans.safetyRating <= 3
+            ? "bg-red-100 text-red-600"
+            : ans.safetyRating <= 6
+            ? "bg-yellow-100 text-yellow-700"
+            : "bg-green-100 text-green-600"
+        }`}
+    >
+      Safety: {ans.safetyRating}/10
+      {" "}
+      {ans.safetyRating <= 3 && "⚠️ High Risk"}
+      {ans.safetyRating > 3 && ans.safetyRating <= 6 && "😐 Medium"}
+      {ans.safetyRating > 6 && "✅ Very Safe"}
+    </div>
+
+    {/* Delete Button */}
+    <button
+      onClick={handleDelete}
+      disabled={deleting}
+      title="Delete answer"
+      className="shrink-0 p-1.5 rounded-lg transition-colors text-gray-300 dark:text-gray-600
+                 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-500 dark:hover:text-red-400"
+    >
+      {deleting ? (
+        <span className="text-[10px] text-gray-400">...</span>
+      ) : (
+        <Trash2 size={14} />
+      )}
+    </button>
+
+  </div>
+)}
         </div>
 
         {/* ── AI label strip ── */}
