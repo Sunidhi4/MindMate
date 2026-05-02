@@ -85,7 +85,7 @@ const UserAppointments = () => {
       const options = {
         key, amount,
         currency: appt.currency || "INR",
-        name: "PsychoTalk",
+        name: "MindMate",
         description: `Session with ${appt.expert?.fullName}`,
         order_id: orderId,
         handler: async (response) => {
