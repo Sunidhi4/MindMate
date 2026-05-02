@@ -34,19 +34,20 @@ const RiskStatusWidget = () => {
   const [risk, setRisk] = useState(null);
   const [eligible, setEligible] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   const token = localStorage.getItem("token");
 
   useEffect(() => {
     if (!token) {
       setLoading(false);
+      setError(true);
       return;
     }
 
     const fetchData = async () => {
       try {
-        setLoading(true);
-
+        // Fetch the data
         const [riskRes, eligibleRes] = await Promise.all([
           axios.get("http://localhost:8080/api/escalation/getRiskStatus", {
             headers: { Authorization: `Bearer ${token}` },
@@ -64,17 +65,30 @@ const RiskStatusWidget = () => {
 
         setRisk(normalizedRisk);
         setEligible(eligibleRes.data === true);
+        setError(false);
       } catch (err) {
         console.error("❌ API error:", err);
+        // Only set error if we don't already have risk data to display
+        if (!risk) {
+          setError(true);
+        }
       } finally {
         setLoading(false);
       }
     };
 
+    // Fetch immediately on mount
     fetchData();
-  }, [token]);
 
-  if (loading || !risk) {
+    // Set up an interval to automatically hit the backend every 30 seconds (30,000 ms)
+    const intervalId = setInterval(fetchData, 30000);
+
+    // Clean up the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, [token, risk]);
+
+  // Loading Skeleton State
+  if (loading) {
     return (
       <div className="p-3">
         <div className="h-20 rounded-2xl bg-gray-200 animate-pulse" />
@@ -82,13 +96,18 @@ const RiskStatusWidget = () => {
     );
   }
 
-  const cfg =
-    LEVEL_CONFIG[risk] || {
-      label: "UNKNOWN",
-      text: "text-gray-700",
-      bg: "bg-gray-50",
-      border: "border-gray-200",
-    };
+  // Error or Unknown State
+  if (error || !risk || !LEVEL_CONFIG[risk]) {
+    return (
+      <div className="p-3">
+        <div className="p-4 bg-gray-50 border border-gray-200 rounded-2xl text-center text-xs text-gray-500 shadow-sm">
+          {error ? "Unable to load risk status." : "Risk status unavailable."}
+        </div>
+      </div>
+    );
+  }
+
+  const cfg = LEVEL_CONFIG[risk];
 
   return (
     <div className="p-1">
@@ -116,7 +135,7 @@ const RiskStatusWidget = () => {
         </div>
 
         {/* Message */}
-        <p className={clsx("text-xs", cfg.text)}>
+        <p className={clsx("text-xs leading-relaxed", cfg.text)}>
           {risk === "LOW" && "You're doing well. Keep maintaining your mental wellness."}
           {risk === "MODERATE" && "Some concerns detected. A quick check-in could help."}
           {risk === "HIGH" && "Elevated stress detected. Consider taking assessment soon."}

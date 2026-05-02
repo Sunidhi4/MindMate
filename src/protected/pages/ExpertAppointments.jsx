@@ -1,16 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { Calendar, RefreshCw, CheckCircle, XCircle, Flag } from "lucide-react";
+import { Calendar, RefreshCw, CheckCircle, XCircle, Flag, FileText, X } from "lucide-react";
 import { AppointmentCard } from "../components/AppointmentCard";
 
-/*
-  Expert actions per status:
-  - REQUESTED      → Confirm (sends to PAYMENT_PENDING) | Cancel
-  - PAYMENT_PENDING→ Cancel (payment not done yet, expert can still cancel)
-  - SCHEDULED      → Complete (payment done, no cancel allowed)
-  - Others         → no actions
-*/
 const actionMap = {
   REQUESTED:       ["CONFIRM", "CANCEL"],
   PAYMENT_PENDING: ["CANCEL"],
@@ -32,6 +25,178 @@ const tabColor = {
   SCHEDULED: "#9100BD", COMPLETED: "#10b981", CANCELLED: "#ef4444",
 };
 
+// ─── Report Modal ────────────────────────────────────────────────────────────
+const ReportModal = ({ report, loading, onClose, isDark }) => {
+  // Parse report text into sections (split on double newline or section headers)
+  const sections = report
+    ? report.reportText
+        .split(/\n\n/)
+        .map(s => s.trim())
+        .filter(Boolean)
+    : [];
+
+  // Detect if a section is a risk section for special styling
+  const isRiskSection = (text) =>
+    /risk/i.test(text.split("\n")[0]);
+
+  return (
+    // Backdrop
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      style={{ background: "rgba(0,0,0,0.55)", backdropFilter: "blur(2px)" }}
+      onClick={onClose}
+    >
+      {/* Modal */}
+      <div
+        className="w-full max-w-lg rounded-2xl overflow-hidden shadow-2xl"
+        style={{
+          background: isDark ? "#1a1a2e" : "white",
+          border: `1px solid ${isDark ? "rgba(255,255,255,0.1)" : "#ede9fe"}`,
+          maxHeight: "85vh",
+          display: "flex",
+          flexDirection: "column",
+        }}
+        onClick={e => e.stopPropagation()}
+      >
+        {/* Color bar */}
+        <div className="h-1 shrink-0" style={{ background: "linear-gradient(90deg,#3C9BF9,#9100BD,#ec4899)" }} />
+
+        {/* Header */}
+        <div
+          className="flex items-center justify-between px-5 py-4 shrink-0"
+          style={{ borderBottom: `1px solid ${isDark ? "rgba(255,255,255,0.06)" : "#f0e9ff"}` }}
+        >
+          <div className="flex items-center gap-3">
+            <div
+              className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
+              style={{ background: isDark ? "rgba(145,0,189,0.2)" : "#f3e8ff" }}
+            >
+              <FileText size={14} style={{ color: "#9100BD" }} />
+            </div>
+            <div>
+              <p className="font-bold text-sm" style={{ color: isDark ? "#f9fafb" : "#111827" }}>
+                Patient Report
+              </p>
+              {report && (
+                <p className="text-[11px]" style={{ color: isDark ? "#9ca3af" : "#6b7280" }}>
+                  Appointment #{report.appointmentId} ·{" "}
+                  {new Date(report.createdAt).toLocaleDateString("en-IN", {
+                    day: "numeric", month: "short", year: "numeric",
+                  })}
+                </p>
+              )}
+            </div>
+          </div>
+          <button
+            onClick={onClose}
+            className="w-7 h-7 rounded-full flex items-center justify-center transition-colors"
+            style={{
+              background: isDark ? "rgba(255,255,255,0.07)" : "#f3f4f6",
+              color: isDark ? "#9ca3af" : "#6b7280",
+              border: "none",
+            }}
+          >
+            <X size={14} />
+          </button>
+        </div>
+
+        {/* Body */}
+        <div className="overflow-y-auto flex-1 px-5 py-4 space-y-3">
+          {loading ? (
+            // Skeleton
+            <div className="space-y-3">
+              {[80, 60, 90, 70].map((w, i) => (
+                <div key={i}>
+                  <div
+                    className="h-3 rounded-full mb-2 animate-pulse"
+                    style={{ width: "35%", background: isDark ? "rgba(255,255,255,0.08)" : "#e9d5ff" }}
+                  />
+                  <div
+                    className="h-3 rounded-full animate-pulse"
+                    style={{ width: `${w}%`, background: isDark ? "rgba(255,255,255,0.05)" : "#f3f4f6" }}
+                  />
+                </div>
+              ))}
+            </div>
+          ) : !report ? (
+            // Not generated
+            <div className="flex flex-col items-center justify-center py-10 text-center">
+              <div
+                className="w-12 h-12 rounded-full flex items-center justify-center mb-3"
+                style={{ background: isDark ? "rgba(145,0,189,0.12)" : "#f3e8ff" }}
+              >
+                <FileText size={20} style={{ color: "#9100BD", opacity: 0.5 }} />
+              </div>
+              <p className="font-semibold text-sm" style={{ color: isDark ? "#f9fafb" : "#111827" }}>
+                Report not generated yet
+              </p>
+              <p className="text-xs mt-1" style={{ color: isDark ? "#9ca3af" : "#6b7280" }}>
+                The patient report will appear here once it has been created.
+              </p>
+            </div>
+          ) : (
+            // Report sections
+            sections.map((section, i) => {
+              const lines = section.split("\n");
+              const heading = lines[0].replace(/[*#]/g, "").trim();
+              const body = lines.slice(1).join("\n").replace(/\*\*/g, "").trim();
+              const risk = isRiskSection(section);
+
+              return (
+                <div
+                  key={i}
+                  className="rounded-xl px-4 py-3"
+                  style={{
+                    background: risk
+                      ? isDark ? "rgba(239,68,68,0.1)" : "#fff1f2"
+                      : isDark ? "rgba(255,255,255,0.04)" : "#f8f7ff",
+                    border: `1px solid ${
+                      risk
+                        ? isDark ? "rgba(239,68,68,0.25)" : "#fecdd3"
+                        : isDark ? "rgba(255,255,255,0.06)" : "#ede9fe"
+                    }`,
+                  }}
+                >
+                  <p
+                    className="text-[10px] font-bold uppercase tracking-wider mb-1.5"
+                    style={{ color: risk ? "#dc2626" : "#9100BD" }}
+                  >
+                    {heading}
+                  </p>
+                  <p
+                    className="text-xs leading-relaxed whitespace-pre-line"
+                    style={{ color: risk
+                      ? isDark ? "#fca5a5" : "#991b1b"
+                      : isDark ? "#d1d5db" : "#374151"
+                    }}
+                  >
+                    {body || heading}
+                  </p>
+                </div>
+              );
+            })
+          )}
+        </div>
+
+        {/* Footer */}
+        <div
+          className="px-5 py-3 flex justify-end shrink-0"
+          style={{ borderTop: `1px solid ${isDark ? "rgba(255,255,255,0.06)" : "#f0e9ff"}` }}
+        >
+          <button
+            onClick={onClose}
+            className="px-5 py-2 rounded-xl text-xs font-semibold text-white transition-all hover:opacity-90"
+            style={{ background: "linear-gradient(90deg,#9100BD,#3b82f6)" }}
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ─── Main Component ──────────────────────────────────────────────────────────
 const ExpertAppointments = () => {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading]           = useState(true);
@@ -40,6 +205,9 @@ const ExpertAppointments = () => {
   const [isDark, setIsDark]             = useState(
     () => document.documentElement.classList.contains("dark")
   );
+
+  // Report modal state
+  const [reportModal, setReportModal]   = useState({ open: false, apptId: null, report: null, loading: false });
 
   useEffect(() => {
     const observer = new MutationObserver(() =>
@@ -56,7 +224,7 @@ const ExpertAppointments = () => {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       setAppointments(res.data || []);
-    } catch (err) {
+    } catch {
       toast.error("Failed to load appointments.");
     } finally {
       setLoading(false);
@@ -76,7 +244,7 @@ const ExpertAppointments = () => {
       );
       if (res.status === 200) {
         toast.success(`Appointment ${cfg.label.toLowerCase()}ed.`);
-        fetchAppointments(); // auto reload
+        fetchAppointments();
       } else {
         toast.error("Failed to update status.");
       }
@@ -87,15 +255,30 @@ const ExpertAppointments = () => {
     }
   };
 
+  // ── View Report ─────────────────────────────────────────────────────────────
+  const handleViewReport = async (apptId) => {
+    setReportModal({ open: true, apptId, report: null, loading: true });
+    try {
+      const res = await axios.get(
+        `http://localhost:8080/api/care-journey/report/${apptId}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+      );
+      setReportModal({ open: true, apptId, report: res.data, loading: false });
+    } catch (err) {
+      // 404 or any error → report not generated
+      setReportModal({ open: true, apptId, report: null, loading: false });
+    }
+  };
+
+  const closeReportModal = () =>
+    setReportModal({ open: false, apptId: null, report: null, loading: false });
+
   const filtered = activeTab === "ALL"
     ? appointments
     : appointments.filter(a => a.appointmentStatus === activeTab);
 
   return (
-    <div
-      className="min-h-full w-full py-6 transition-colors duration-300"
-      
-    >
+    <div className="min-h-full w-full py-6 transition-colors duration-300">
       <div className="w-full max-w-4xl mx-auto px-4 sm:px-6">
 
         {/* Header */}
@@ -119,10 +302,10 @@ const ExpertAppointments = () => {
         {!loading && appointments.length > 0 && (
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
             {[
-              { label: "Requested",  status: "REQUESTED",       color: "#f59e0b" },
-              { label: "Awaiting Pay",status: "PAYMENT_PENDING",color: "#3C9BF9" },
-              { label: "Scheduled",  status: "SCHEDULED",       color: "#9100BD" },
-              { label: "Completed",  status: "COMPLETED",       color: "#10b981" },
+              { label: "Requested",   status: "REQUESTED",        color: "#f59e0b" },
+              { label: "Awaiting Pay",status: "PAYMENT_PENDING",  color: "#3C9BF9" },
+              { label: "Scheduled",   status: "SCHEDULED",        color: "#9100BD" },
+              { label: "Completed",   status: "COMPLETED",        color: "#10b981" },
             ].map((s, i) => (
               <div key={i} className="rounded-xl p-3 text-center"
                 style={{ background: isDark ? "rgba(255,255,255,0.04)" : "white", border: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "#ede9fe"}` }}>
@@ -188,12 +371,29 @@ const ExpertAppointments = () => {
               .map(appt => {
                 const actions = actionMap[appt.appointmentStatus] || [];
                 return (
-                  <AppointmentCard key={appt.id} appt={appt} isDark={isDark} role="EXPERT">
-
+                  <AppointmentCard
+                    key={appt.id}
+                    appt={appt}
+                    isDark={isDark}
+                    role="EXPERT"
+                    headerAction={
+                      // ── View Report button injected into card header ──
+                      <button
+                        onClick={() => handleViewReport(appt.id)}
+                        className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-[11px] font-semibold transition-all hover:opacity-80"
+                        style={{
+                          background: isDark ? "rgba(145,0,189,0.15)" : "#f3e8ff",
+                          color: "#9100BD",
+                          border: "1px solid rgba(145,0,189,0.2)",
+                        }}
+                      >
+                        <FileText size={11} />
+                        View Report
+                      </button>
+                    }
+                  >
                     {(actions.length > 0 || appt.appointmentStatus === "SCHEDULED" || appt.appointmentStatus === "COMPLETED") && (
                       <div className="pt-3 flex flex-wrap items-center gap-2">
-
-                        {/* Action buttons */}
                         {actions.map(actionKey => {
                           const cfg       = actionConfig[actionKey];
                           const isLoading = marking?.id === appt.id && marking?.action === actionKey;
@@ -214,7 +414,6 @@ const ExpertAppointments = () => {
                           );
                         })}
 
-                        {/* Status notes */}
                         {appt.appointmentStatus === "PAYMENT_PENDING" && (
                           <p className="text-xs ml-1" style={{ color: isDark ? "#9ca3af" : "#6b7280" }}>
                             ⏳ Waiting for patient payment.
@@ -238,6 +437,16 @@ const ExpertAppointments = () => {
           </div>
         )}
       </div>
+
+      {/* Report Modal */}
+      {reportModal.open && (
+        <ReportModal
+          report={reportModal.report}
+          loading={reportModal.loading}
+          onClose={closeReportModal}
+          isDark={isDark}
+        />
+      )}
     </div>
   );
 };

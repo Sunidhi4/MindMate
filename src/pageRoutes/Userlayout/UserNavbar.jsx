@@ -9,9 +9,9 @@ export const UserNavbar = ({ setSidebarOpen }) => {
 
    // { name: "Motivations", path: "/user/motivations" },
      { name: "QuickChat",        path: "/user/quickChat" },
-   { name: "WellnessAgent",        path: "/user/wellness" },
-    { name: "AssessmentAgent",        path: "/user/assessments" },
-    { name: "CareJourney Agent",        path: "/user/care-journey" },
+   { name: "WellnessExpert",        path: "/user/wellness" },
+    { name: "Assessments",        path: "/user/assessments" },
+    { name: "CareJourney",        path: "/user/care-journey" },
    
   ];
 

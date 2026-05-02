@@ -15,9 +15,10 @@ const paymentConfig = {
   FAILED:   { label: "Failed", color: "#ef4444" },
 };
 
-export const AppointmentCard = ({ appt, isDark, role = "USER", children }) => {
-  const status  = statusConfig[appt.appointmentStatus] || statusConfig.REQUESTED;
-  const payment = paymentConfig[appt.paymentStatus]    || paymentConfig.CREATED;
+export const AppointmentCard = ({ appt, isDark, role = "USER", headerAction, children }) => {
+
+  const status    = statusConfig[appt.appointmentStatus] || statusConfig.REQUESTED;
+  const payment   = paymentConfig[appt.paymentStatus]    || paymentConfig.CREATED;
   const amountINR = appt.amountInPaise ? (appt.amountInPaise / 100) : 0;
 
   const formatDate = (d) =>
@@ -41,6 +42,8 @@ export const AppointmentCard = ({ appt, isDark, role = "USER", children }) => {
       <div className="p-5">
         {/* Header */}
         <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
+
+          {/* Left: Avatar + Name */}
           <div className="flex items-center gap-3 min-w-0">
             <div
               className="w-10 h-10 rounded-full flex items-center justify-center text-base font-extrabold shrink-0"
@@ -64,27 +67,32 @@ export const AppointmentCard = ({ appt, isDark, role = "USER", children }) => {
             </div>
           </div>
 
-          {/* Status badge */}
-          <span
-            className="flex items-center gap-1.5 text-[11px] font-semibold px-2.5 py-1 rounded-full shrink-0"
-            style={{
-              background: isDark ? status.dark : status.bg,
-              color: status.text,
-              border: `1px solid ${isDark ? status.dot + "40" : status.border}`,
-            }}
-          >
-            <span className="w-1.5 h-1.5 rounded-full" style={{ background: status.dot }} />
-            {status.label}
-          </span>
+          {/* Right: headerAction (e.g. View Report) + Status badge */}
+          <div className="flex items-center gap-2 shrink-0 flex-wrap justify-end">
+            {headerAction && headerAction}
+
+            <span
+              className="flex items-center gap-1.5 text-[11px] font-semibold px-2.5 py-1 rounded-full"
+              style={{
+                background: isDark ? status.dark : status.bg,
+                color: status.text,
+                border: `1px solid ${isDark ? status.dot + "40" : status.border}`,
+              }}
+            >
+              <span className="w-1.5 h-1.5 rounded-full" style={{ background: status.dot }} />
+              {status.label}
+            </span>
+          </div>
+
         </div>
 
         {/* Info grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4">
           {[
-            { icon: <Calendar size={12} />,    color: "#9100BD", label: "Appointment", value: formatDate(appt.appointmentTime) },
-            { icon: <Clock size={12} />,        color: "#3C9BF9", label: "Duration",    value: `${appt.durationInMinutes} minutes` },
-            { icon: <IndianRupee size={12} />,  color: "#10b981", label: "Amount",      value: `₹${amountINR} (${payment.label})`, payColor: payment.color },
-            { icon: <FileText size={12} />,     color: "#ec4899", label: "Reason",      value: appt.reason },
+            { icon: <Calendar size={12} />,   color: "#9100BD", label: "Appointment", value: formatDate(appt.appointmentTime) },
+            { icon: <Clock size={12} />,       color: "#3C9BF9", label: "Duration",    value: `${appt.durationInMinutes} minutes` },
+            { icon: <IndianRupee size={12} />, color: "#10b981", label: "Amount",      value: `₹${amountINR} (${payment.label})`, payColor: payment.color },
+            { icon: <FileText size={12} />,    color: "#ec4899", label: "Reason",      value: appt.reason },
           ].map((row, i) => (
             <div key={i}
               className="flex items-start gap-2 px-3 py-2 rounded-xl"
