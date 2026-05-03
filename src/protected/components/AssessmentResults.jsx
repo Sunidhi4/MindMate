@@ -49,7 +49,7 @@ const AssessmentResults = () => {
     const fetchResults = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/assessment/results",
+          "https://mindmate-production-81d8.up.railway.app/api/assessment/results",
           {
             headers: { Authorization: `Bearer ${token}` },
           }

@@ -20,7 +20,7 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:8080/public/login", formData);
+      const res = await axios.post("https://mindmate-production-81d8.up.railway.app/public/login", formData);
       if (res.data.token) {
         toast.success("Login successful!");
         const { token, role, username, id } = res.data;

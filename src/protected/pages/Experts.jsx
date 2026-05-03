@@ -28,7 +28,7 @@ const Experts = () => {
     async function getAllExperts() {
       try {
         setLoading(true);
-        const res = await axios.get(`http://localhost:8080/public/getAllExperts?page=${page}&size=${size}`);
+        const res = await axios.get(`https://mindmate-production-81d8.up.railway.app/public/getAllExperts?page=${page}&size=${size}`);
         setExperts(res.data.content);
         setTotalPages(res.data.totalPages);
         setTotalElements(res.data.totalElements);

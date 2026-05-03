@@ -39,7 +39,7 @@ const Snapshots = () => {
   useEffect(() => {
     async function getSnapshots() {
       try {
-        const res = await axios.get("http://localhost:8080/public/snapshots");
+        const res = await axios.get("https://mindmate-production-81d8.up.railway.app/public/snapshots");
 
         if (res.status === 200) {
           setSnapshots(res.data);

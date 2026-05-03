@@ -47,7 +47,7 @@ const BookAppointment = () => {
     try {
       setSlotStatus("checking");
       const res = await axios.post(
-        "http://localhost:8080/appointment/user/checkTimeSlot",
+        "https://mindmate-production-81d8.up.railway.app/appointment/user/checkTimeSlot",
         { appointmentTime: time, durationInMinutes: Number(duration), expertId: expert.id },
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
@@ -91,7 +91,7 @@ const BookAppointment = () => {
     try {
       setLoading(true);
       const res = await axios.post(
-        "http://localhost:8080/appointment/user/request",
+        "https://mindmate-production-81d8.up.railway.app/appointment/user/request",
         payload,
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );

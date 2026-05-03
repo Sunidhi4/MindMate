@@ -22,9 +22,9 @@ const Assessments = () => {
         setLoading(true);
 
         const [availRes, recRes, eligRes] = await Promise.all([
-          axios.get("http://localhost:8080/api/assessment/getAvailableAssessments", { headers }),
-          axios.get("http://localhost:8080/api/assessment/getRecommendedAssessment", { headers }),
-          axios.get("http://localhost:8080/api/assessment/isEligible", { headers }),
+          axios.get("https://mindmate-production-81d8.up.railway.app/api/assessment/getAvailableAssessments", { headers }),
+          axios.get("https://mindmate-production-81d8.up.railway.app/api/assessment/getRecommendedAssessment", { headers }),
+          axios.get("https://mindmate-production-81d8.up.railway.app/api/assessment/isEligible", { headers }),
         ]);
 
         setAvailable(availRes.data || []);

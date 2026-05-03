@@ -19,7 +19,7 @@ const TypeAnswer = ({question, submitting, setSubmitting}) => {
                 questionId: question.id,
                 answer: answerInput
             };
-            const res = await axios.post(`http://localhost:8080/api/answer`, newAnswer,
+            const res = await axios.post(`https://mindmate-production-81d8.up.railway.app/api/answer`, newAnswer,
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,

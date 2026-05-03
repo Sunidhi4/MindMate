@@ -33,7 +33,7 @@ const SignUp = () => {
     setLoading(true);
     try {
       const res = await axios.post(
-        `http://localhost:8080/public/register/${signupType}`,
+        `https://mindmate-production-81d8.up.railway.app/public/register/${signupType}`,
         formData
       );
       if (res.status === 200) {

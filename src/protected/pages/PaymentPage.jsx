@@ -5,7 +5,7 @@ const PaymentPage = () => {
   const handlePayment = async () => {
     try {
       // Step 1: Create order on backend
-      const orderUrl = "http://localhost:8080/api/payment/createOrder";
+      const orderUrl = "https://mindmate-production-81d8.up.railway.app/api/payment/createOrder";
       const { data } = await axios.post(orderUrl, { amount: 50000 }); // ₹500.00
 
       // Step 2: Open Razorpay checkout
@@ -18,7 +18,7 @@ const PaymentPage = () => {
         order_id: data.orderId,
         handler: async function (response) {
           // Step 3: Verify payment on backend
-          const verifyUrl = "http://localhost:8080/api/payment/verify";
+          const verifyUrl = "https://mindmate-production-81d8.up.railway.app/api/payment/verify";
           const res = await axios.post(verifyUrl, response);
           alert(res.data.status);
         },

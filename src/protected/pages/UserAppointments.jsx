@@ -35,7 +35,7 @@ const UserAppointments = () => {
   const fetchAppointments = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:8080/appointment/user/getAll", {
+      const res = await axios.get("https://mindmate-production-81d8.up.railway.app/appointment/user/getAll", {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       setAppointments(res.data || []);
@@ -54,7 +54,7 @@ const UserAppointments = () => {
     try {
       setCancellingId(apptId);
       const res = await axios.put(
-        `http://localhost:8080/appointment/user/cancel/${apptId}`,
+        `https://mindmate-production-81d8.up.railway.app/appointment/user/cancel/${apptId}`,
         {},
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
@@ -76,7 +76,7 @@ const UserAppointments = () => {
     try {
       setPayingId(appt.id);
       const orderRes = await axios.post(
-        `http://localhost:8080/user/payment/create-order/${appt.id}`,
+        `https://mindmate-production-81d8.up.railway.app/user/payment/create-order/${appt.id}`,
         {},
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
@@ -91,7 +91,7 @@ const UserAppointments = () => {
         handler: async (response) => {
           try {
             const verifyRes = await axios.post(
-              "http://localhost:8080/user/payment/verify",
+              "https://mindmate-production-81d8.up.railway.app/user/payment/verify",
               response,
               { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
             );

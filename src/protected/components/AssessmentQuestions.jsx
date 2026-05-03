@@ -16,7 +16,7 @@ const AssessmentQuestions = ({ type, onBack }) => {
     const fetchQuestions = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8080/api/assessment/${type}`,
+          `https://mindmate-production-81d8.up.railway.app/api/assessment/${type}`,
           { headers }
         );
         setQuestions(res.data || []);
@@ -48,7 +48,7 @@ const AssessmentQuestions = ({ type, onBack }) => {
 
     try {
       await axios.post(
-        "http://localhost:8080/api/assessment",
+        "https://mindmate-production-81d8.up.railway.app/api/assessment",
         payload,
         { headers }
       );

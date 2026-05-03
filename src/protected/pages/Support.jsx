@@ -38,7 +38,7 @@ const Support = () => {
       try {
         setLoading(true);
         const res = await axios.get(
-          `http://localhost:8080/api/question/getAll?page=${page}&size=${size}`,
+          `https://mindmate-production-81d8.up.railway.app/api/question/getAll?page=${page}&size=${size}`,
           { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
         );
         setTotalPages(res.data.totalPages);

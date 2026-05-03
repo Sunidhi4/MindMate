@@ -27,7 +27,6 @@ const tabColor = {
 
 // ─── Report Modal ────────────────────────────────────────────────────────────
 const ReportModal = ({ report, loading, onClose, isDark }) => {
-  // Parse report text into sections (split on double newline or section headers)
   const sections = report
     ? report.reportText
         .split(/\n\n/)
@@ -35,18 +34,15 @@ const ReportModal = ({ report, loading, onClose, isDark }) => {
         .filter(Boolean)
     : [];
 
-  // Detect if a section is a risk section for special styling
   const isRiskSection = (text) =>
     /risk/i.test(text.split("\n")[0]);
 
   return (
-    // Backdrop
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
       style={{ background: "rgba(0,0,0,0.55)", backdropFilter: "blur(2px)" }}
       onClick={onClose}
     >
-      {/* Modal */}
       <div
         className="w-full max-w-lg rounded-2xl overflow-hidden shadow-2xl"
         style={{
@@ -103,7 +99,6 @@ const ReportModal = ({ report, loading, onClose, isDark }) => {
         {/* Body */}
         <div className="overflow-y-auto flex-1 px-5 py-4 space-y-3">
           {loading ? (
-            // Skeleton
             <div className="space-y-3">
               {[80, 60, 90, 70].map((w, i) => (
                 <div key={i}>
@@ -119,7 +114,6 @@ const ReportModal = ({ report, loading, onClose, isDark }) => {
               ))}
             </div>
           ) : !report ? (
-            // Not generated
             <div className="flex flex-col items-center justify-center py-10 text-center">
               <div
                 className="w-12 h-12 rounded-full flex items-center justify-center mb-3"
@@ -135,7 +129,6 @@ const ReportModal = ({ report, loading, onClose, isDark }) => {
               </p>
             </div>
           ) : (
-            // Report sections
             sections.map((section, i) => {
               const lines = section.split("\n");
               const heading = lines[0].replace(/[*#]/g, "").trim();
@@ -206,8 +199,7 @@ const ExpertAppointments = () => {
     () => document.documentElement.classList.contains("dark")
   );
 
-  // Report modal state
-  const [reportModal, setReportModal]   = useState({ open: false, apptId: null, report: null, loading: false });
+  const [reportModal, setReportModal] = useState({ open: false, apptId: null, report: null, loading: false });
 
   useEffect(() => {
     const observer = new MutationObserver(() =>
@@ -220,7 +212,7 @@ const ExpertAppointments = () => {
   const fetchAppointments = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:8080/appointment/expert/getAll", {
+      const res = await axios.get("https://mindmate-production-81d8.up.railway.app/appointment/expert/getAll", {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       setAppointments(res.data || []);
@@ -238,7 +230,7 @@ const ExpertAppointments = () => {
     try {
       setMarking({ id: apptId, action: actionKey });
       const res = await axios.put(
-        `http://localhost:8080/appointment/expert/markStatus/${apptId}?status=${cfg.apiStatus}`,
+        `https://mindmate-production-81d8.up.railway.app/appointment/expert/markStatus/${apptId}?status=${cfg.apiStatus}`,
         {},
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
@@ -260,12 +252,14 @@ const ExpertAppointments = () => {
     setReportModal({ open: true, apptId, report: null, loading: true });
     try {
       const res = await axios.get(
-        `http://localhost:8080/api/care-journey/report/${apptId}`,
+        `https://mindmate-production-81d8.up.railway.app/api/care-journey/report/${apptId}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
-      setReportModal({ open: true, apptId, report: res.data, loading: false });
-    } catch (err) {
-      // 404 or any error → report not generated
+      // Treat null / empty / missing reportText as "not generated yet"
+      const report = res.data?.reportText ? res.data : null;
+      setReportModal({ open: true, apptId, report, loading: false });
+    } catch {
+      // 404 or any network error → not generated
       setReportModal({ open: true, apptId, report: null, loading: false });
     }
   };
@@ -302,10 +296,10 @@ const ExpertAppointments = () => {
         {!loading && appointments.length > 0 && (
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
             {[
-              { label: "Requested",   status: "REQUESTED",        color: "#f59e0b" },
-              { label: "Awaiting Pay",status: "PAYMENT_PENDING",  color: "#3C9BF9" },
-              { label: "Scheduled",   status: "SCHEDULED",        color: "#9100BD" },
-              { label: "Completed",   status: "COMPLETED",        color: "#10b981" },
+              { label: "Requested",    status: "REQUESTED",       color: "#f59e0b" },
+              { label: "Awaiting Pay", status: "PAYMENT_PENDING", color: "#3C9BF9" },
+              { label: "Scheduled",    status: "SCHEDULED",       color: "#9100BD" },
+              { label: "Completed",    status: "COMPLETED",       color: "#10b981" },
             ].map((s, i) => (
               <div key={i} className="rounded-xl p-3 text-center"
                 style={{ background: isDark ? "rgba(255,255,255,0.04)" : "white", border: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "#ede9fe"}` }}>
@@ -377,7 +371,6 @@ const ExpertAppointments = () => {
                     isDark={isDark}
                     role="EXPERT"
                     headerAction={
-                      // ── View Report button injected into card header ──
                       <button
                         onClick={() => handleViewReport(appt.id)}
                         className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-[11px] font-semibold transition-all hover:opacity-80"

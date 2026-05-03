@@ -77,7 +77,7 @@ const QuickChat = () => {
     abortRef.current = new AbortController();
 
     try {
-      const res = await fetch("http://localhost:8080/user/quickChat", {
+      const res = await fetch("https://mindmate-production-81d8.up.railway.app/user/quickChat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

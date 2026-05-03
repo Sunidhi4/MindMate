@@ -10,7 +10,7 @@ const WellnessAgent = () => {
   const fetchChatHistory = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:8080/user/chat/loadHistory', {
+      const response = await fetch('https://mindmate-production-81d8.up.railway.app/user/chat/loadHistory', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -88,7 +88,7 @@ const WellnessAgent = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:8080/user/chat/getResponse?message=${encodeURIComponent(inputMessage)}`,
+        `https://mindmate-production-81d8.up.railway.app/user/chat/getResponse?message=${encodeURIComponent(inputMessage)}`,
         {
           method: 'POST',
           headers: {

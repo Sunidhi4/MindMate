@@ -30,7 +30,7 @@ export const UserPost = ({ question, onPostDeleteSuccess, setRefresh }) => {
     try {
       setIsDeleting(true);
       const res = await axios.delete(
-        `http://localhost:8080/user/question/${questionData.id}`,
+        `https://mindmate-production-81d8.up.railway.app/user/question/${questionData.id}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
       if (res.status === 200) {
