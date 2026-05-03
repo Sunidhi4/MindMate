@@ -119,7 +119,7 @@ const PublicExperts = () => {
     async function getAllExperts() {
       try {
         setLoading(true);
-        const res = await axios.get("http://localhost:8080/public/getAllExperts");
+        const res = await axios.get("https://mindmate-production-81d8.up.railway.app/public/getAllExperts");
         setExperts(res.data.content);
       } catch (e) {
         console.log(e);

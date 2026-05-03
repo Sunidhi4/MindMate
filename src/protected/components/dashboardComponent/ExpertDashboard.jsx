@@ -40,7 +40,7 @@ const ExpertDashboard = () => {
   }, []);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/expert/myProfile", {
+    axios.get("https://mindmate-production-81d8.up.railway.app/expert/myProfile", {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     })
       .then(res => setProfile(res.data))

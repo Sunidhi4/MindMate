@@ -398,7 +398,7 @@ const CareJourney = () => {
   const fetchRoutine = async () => {
     try {
       setLoadingRoutine(true);
-      const res = await axios.get("http://localhost:8080/api/lifestyle/routine", {
+      const res = await axios.get("https://mindmate-production-81d8.up.railway.app/api/lifestyle/routine", {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       setRoutine(res.data || null);
@@ -416,7 +416,7 @@ const CareJourney = () => {
     try {
       setGenerating(true);
       await axios.post(
-        "http://localhost:8080/api/lifestyle/generate",
+        "https://mindmate-production-81d8.up.railway.app/api/lifestyle/generate",
         form,
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );

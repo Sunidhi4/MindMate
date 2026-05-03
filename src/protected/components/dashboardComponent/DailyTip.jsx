@@ -14,7 +14,7 @@ const DailyTip = () => {
     useEffect(()=>{
         async function getTip() {
             try{
-                const res = await axios.get("http://localhost:8080/public/tip");
+                const res = await axios.get("https://mindmate-production-81d8.up.railway.app/public/tip");
                 if(res.status === 200){
                     setTip(res.data);
                 }

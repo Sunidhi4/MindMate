@@ -42,7 +42,7 @@ const Discussion = () => {
       try {
         setLoading(true);
         const res = await axios.get(
-          `http://localhost:8080/api/answer/getAllAnswersByQuestionId/${question.id}?page=${page}&size=${size}`,
+          `https://mindmate-production-81d8.up.railway.app/api/answer/getAllAnswersByQuestionId/${question.id}?page=${page}&size=${size}`,
           { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
         );
         setTotalPages(res.data.totalPages);

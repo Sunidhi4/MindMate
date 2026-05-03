@@ -18,7 +18,7 @@ const VerificationSubmitted = () => {
     const getMyProfile = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8080/expert/myProfile",
+          "https://mindmate-production-81d8.up.railway.app/expert/myProfile",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

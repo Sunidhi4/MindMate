@@ -20,9 +20,10 @@ const Share = () => {
     const getAllQuestionsByUserId = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8080/user/question/getMy?page=${page}&size=${size}`,
+          `https://mindmate-production-81d8.up.railway.app/user/question/getMy?page=${page}&size=${size}`,
           { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
         );
+        console.log(res.data)
         setQuestions(res.data.content);
         setTotalPages(res.data.totalPages);
         setTotalElements(res.data.totalElements);
@@ -45,7 +46,7 @@ const Share = () => {
       setIsSubmitting(true);
       setPosted(true);
       const res = await axios.post(
-        "http://localhost:8080/user/question/post",
+        "https://mindmate-production-81d8.up.railway.app/user/question/post",
         { question: inputValue },
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );

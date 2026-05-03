@@ -122,7 +122,7 @@ const UploadModal = ({ isDark, onClose, onSuccess }) => {
 
     try {
       setUploading(true);
-      const res = await fetch("http://localhost:8080/api/media/upload", {
+      const res = await fetch("https://mindmate-production-81d8.up.railway.app/api/media/upload", {
         method: "POST",
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         body: fd,
@@ -248,7 +248,7 @@ const MotivationalPosts = () => {
 
   const fetchPosts = () => {
     setLoading(true);
-    fetch(`http://localhost:8080/api/media/access/getAll?page=${page}&size=${size}`, {
+    fetch(`https://mindmate-production-81d8.up.railway.app/api/media/access/getAll?page=${page}&size=${size}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(r => r.json())

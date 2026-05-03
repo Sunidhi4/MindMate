@@ -14,7 +14,7 @@ const NotificationDropdown = () => {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const res = await axios.get("http://localhost:8080/user/notification/get", {
+        const res = await axios.get("https://mindmate-production-81d8.up.railway.app/user/notification/get", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setNotifications(res.data || []);
@@ -33,7 +33,7 @@ const NotificationDropdown = () => {
     try {
       setMarking(id);
       await axios.put(
-        `http://localhost:8080/user/notification/markAsRead/${id}`,
+        `https://mindmate-production-81d8.up.railway.app/user/notification/markAsRead/${id}`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -55,7 +55,7 @@ const NotificationDropdown = () => {
       await Promise.all(
         unread.map(n =>
           axios.put(
-            `http://localhost:8080/user/notification/markAsRead/${n.id}`,
+            `https://mindmate-production-81d8.up.railway.app/user/notification/markAsRead/${n.id}`,
             {},
             { headers: { Authorization: `Bearer ${token}` } }
           )

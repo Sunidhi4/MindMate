@@ -37,7 +37,7 @@ const ContactUs = () => {
     setLoading(true);
     try {
       const res = await axios.post(
-        "http://localhost:8080/public/contact/mail",
+        "https://mindmate-production-81d8.up.railway.app/public/contact/mail",
         formData          // sends { senderName, emailAddress, subject, message }
       );
 

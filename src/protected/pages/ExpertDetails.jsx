@@ -16,7 +16,7 @@ const ExpertDetails = () => {
     const getExpertObject = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`http://localhost:8080/public/getExpert/${expertId}`);
+        const res = await axios.get(`https://mindmate-production-81d8.up.railway.app/public/getExpert/${expertId}`);
         if (res.status === 200) setExpert(res.data);
         else { toast.error("Expert not found"); navigate(-1); }
       } catch (error) {

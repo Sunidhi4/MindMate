@@ -79,7 +79,7 @@ const AnswerBox = ({ ans, setDeleting: notifyParent }) => {
       setDeleting(true);
       if (notifyParent) notifyParent(true);
       const res = await axios.delete(
-        `http://localhost:8080/api/answer/deleteAnswer/${ans.id}`,
+        `https://mindmate-production-81d8.up.railway.app/api/answer/deleteAnswer/${ans.id}`,
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
       if (res.data === true) {

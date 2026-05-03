@@ -75,7 +75,7 @@ export default function Step5Upload({ back, formData, updateData }) {
       // 'file' field: the actual PDF File object
       form.append("file", formData.documents, formData.documents.name);
 
-      const res = await axios.post("http://localhost:8080/expert/getVerified", form,
+      const res = await axios.post("https://mindmate-production-81d8.up.railway.app/expert/getVerified", form,
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } },
        );
 

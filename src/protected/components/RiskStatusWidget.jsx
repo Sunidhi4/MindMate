@@ -49,10 +49,10 @@ const RiskStatusWidget = () => {
       try {
         // Fetch the data
         const [riskRes, eligibleRes] = await Promise.all([
-          axios.get("http://localhost:8080/api/escalation/getRiskStatus", {
+          axios.get("https://mindmate-production-81d8.up.railway.app/api/escalation/getRiskStatus", {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          axios.get("http://localhost:8080/api/assessment/isEligible", {
+          axios.get("https://mindmate-production-81d8.up.railway.app/api/assessment/isEligible", {
             headers: { Authorization: `Bearer ${token}` },
           }),
         ]);
